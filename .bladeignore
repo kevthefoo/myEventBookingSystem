@@ -1,0 +1,11 @@
+# Ignore vendor blade files
+vendor/**
+
+# Ignore compiled views
+storage/framework/views/**
+
+# Ignore email templates (if you have custom formatting requirements)
+# resources/views/emails/**
+
+# Ignore any third-party blade files
+# resources/views/third-party/**
