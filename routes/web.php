@@ -14,7 +14,7 @@ Route::get('/', function () {
 
 // login page
 Route::get('/login', function(){
-    return('login page') ;
+    return view('auth.login');
 });
 
 // register page
