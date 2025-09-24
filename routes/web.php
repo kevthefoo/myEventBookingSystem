@@ -2,11 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
+use App\Models\Event;
 
 Route::get('/', function () {
-    // Get all organizers from the database
-    $organizers = User::where('role', 'organizer')->get();
     
+    $organizers = User::where('role', 'organizer')->get();
+    $events = Event::with('organizer')->get();
+
     // Pass organizers to the welcome view
-    return view('welcome', compact('organizers'));
+    return view('welcome', compact('organizers', 'events'));
 });
