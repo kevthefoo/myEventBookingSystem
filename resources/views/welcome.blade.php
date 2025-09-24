@@ -1578,6 +1578,15 @@
                 </code>
             @endif
         </div>
+
+        <!-- Pagination Links -->
+        @if ($events->hasPages())
+            <div class="">
+                <div class="">
+                    {{ $events->links() }}
+                </div>
+            </div>
+        @endif
     </main>
 </body>
 
