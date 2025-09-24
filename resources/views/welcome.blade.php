@@ -1521,7 +1521,7 @@
 
 <body class="min-h-screen border-4 border-red-500">
 
-    <header class="fixed flex h-12 w-full items-center justify-around border-2 border-black">
+    <header class="fixed flex h-16 w-full items-center justify-around border-2 border-black">
 
         <div>logo</div>
         <nav>
@@ -1531,10 +1531,16 @@
                 <li><a href="">Home</a></li>
                 <li><a href="">Home</a></li>
                 <li><a href="">Home</a></li>
-
             </ul>
         </nav>
-        <div> Login</div>
+        <div class="flex items-center justify-center gap-2">
+            <div>
+                <a href="/login">Log In</a>
+            </div>
+            <div>
+                <a href="/register">Register</a>
+            </div>
+        </div>
 
     </header>
 
@@ -1544,7 +1550,11 @@
             @if ($events->count() > 0)
                 @foreach ($events as $event)
                     <div class="rounded-lg border-2 border-black bg-white p-4">
-                        <h3 class="mb-2 text-lg font-semibold">{{ $event->title }}</h3>
+                        <h3 class="mb-2 text-lg font-semibold">
+                            <a href="/events/{{ $event->uuid }}">
+                                {{ $event->title }}
+                            </a>
+                        </h3>
                         <p class="mb-2 text-sm text-gray-600">{{ $event->description }}</p>
                         <div class="text-sm">
                             <p><strong>Date:</strong> {{ $event->date }}</p>
@@ -1565,18 +1575,6 @@
             @endif
             <h2 class="mb-4 text-xl font-semibold">Organizer Emails:</h2>
 
-            @if ($organizers->count() > 0)
-                <ul class="space-y-2">
-                    @foreach ($organizers as $organizer)
-                        <li class="text-lg">{{ $organizer->email }}</li>
-                    @endforeach
-                </ul>
-            @else
-                <p class="text-gray-600">No organizers found. Run the seeder first!</p>
-                <code class="mt-2 block rounded bg-gray-100 p-2 text-sm">
-                    php artisan db:seed --class=OrganizerSeeder
-                </code>
-            @endif
         </div>
 
         <!-- Pagination Links -->
