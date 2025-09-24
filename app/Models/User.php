@@ -21,6 +21,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',                           // ← Add this
+        'privacy_policy_accepted',        // ← Add this
+        'privacy_policy_accepted_at',     // ← Add this
     ];
 
     /**
@@ -43,6 +46,8 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'privacy_policy_accepted' => 'boolean',        // ← Add this
+            'privacy_policy_accepted_at' => 'datetime',    // ← Add this
         ];
     }
 }

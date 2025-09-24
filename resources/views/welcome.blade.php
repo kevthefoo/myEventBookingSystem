@@ -1519,9 +1519,55 @@
     @endif
 </head>
 
-<body class="">
+<body class="min-h-screen border-4 border-red-500">
 
-    <div>hello</div>
+    <header class="fixed flex h-12 w-full items-center justify-around border-2 border-black">
+
+        <div>logo</div>
+        <nav>
+            <ul class="flex gap-4">
+                <li><a href="">Home</a></li>
+                <li><a href="">Events</a></li>
+                <li><a href="">Home</a></li>
+                <li><a href="">Home</a></li>
+                <li><a href="">Home</a></li>
+
+            </ul>
+        </nav>
+        <div> Login</div>
+
+    </header>
+
+    <main class="pt-18 flex min-h-screen w-full flex-col border-4 border-blue-400 px-12">
+        <div class="mb-12">Upcoming Events</div>
+        <div class="grid grid-cols-3 gap-4 text-center">
+            <div class="border-2 border-black">Event</div>
+            <div class="border-2 border-black">Event</div>
+            <div class="border-2 border-black">Event</div>
+            <div class="border-2 border-black">Event</div>
+            <div class="border-2 border-black">Event</div>
+            <div class="border-2 border-black">Event</div>
+            <div class="border-2 border-black">Event</div>
+            <div class="border-2 border-black">Event</div>
+            <div class="border-2 border-black">Event</div>
+            <div class="border-2 border-black">Event</div>
+            <div class="rounded-lg bg-white p-6 shadow">
+                <h2 class="mb-4 text-xl font-semibold">Organizer Emails:</h2>
+
+                @if ($organizers->count() > 0)
+                    <ul class="space-y-2">
+                        @foreach ($organizers as $organizer)
+                            <li class="text-lg">{{ $organizer->email }}</li>
+                        @endforeach
+                    </ul>
+                @else
+                    <p class="text-gray-600">No organizers found. Run the seeder first!</p>
+                    <code class="mt-2 block rounded bg-gray-100 p-2 text-sm">
+                        php artisan db:seed --class=OrganizerSeeder
+                    </code>
+                @endif
+            </div>
+    </main>
 </body>
 
 </html>
