@@ -1534,12 +1534,18 @@
             </ul>
         </nav>
         <div class="flex items-center justify-center gap-2">
-            <div>
-                <a href="/login">Log In</a>
-            </div>
-            <div>
-                <a href="/register">Register</a>
-            </div>
+            @auth
+                <span class="text-gray-600">Welcome, {{ auth()->user()->name }}!</span>
+                <form method="POST" action="/logout" class="inline">
+                    @csrf
+                    <button type="submit" class="text-red-600 hover:text-red-800">
+                        Logout
+                    </button>
+                </form>
+            @else
+                <a href="/login" class="text-blue-600 hover:text-blue-800">Login</a>
+                <a href="/register" class="text-blue-600 hover:text-blue-800">Register</a>
+            @endauth
         </div>
 
     </header>

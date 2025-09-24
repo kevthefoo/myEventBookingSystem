@@ -1,10 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+
 use App\Models\User;
 use App\Models\Event;
 
-// home page
+// home route
 Route::get('/', function () {
     $organizers = User::where('role', 'organizer')->get();
     $events = Event::with('organizer')->paginate(8);
@@ -12,17 +16,50 @@ Route::get('/', function () {
     return view('welcome', compact('organizers', 'events'));
 });
 
-// login page
+// login route
 Route::get('/login', function(){
     return view('auth.login');
 });
 
-// register page
+Route::post('/login', function(Request $request){
+    // Validate the form data
+    $credentials = $request->validate([
+        'email' => 'required|email',
+        'password' => 'required|min:6',
+    ]);
+
+    // Attempt to authenticate the user
+    if (Auth::attempt($credentials, $request->boolean('remember'))) {
+        // Regenerate session to prevent session fixation
+        $request->session()->regenerate();
+
+        // Redirect to intended page or home
+        return redirect()->intended('/');
+    }
+
+    // Authentication failed - redirect back with error
+    return back()->withErrors([
+        'email' => 'The provided credentials do not match our records.',
+    ])->onlyInput('email');
+});
+
+// logout route
+Route::post('/logout', function(Request $request){
+    Auth::logout();
+    
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+    
+    return redirect('/');
+});
+
+
+// register route
 Route::get('/register', function(){
     return('login page') ;
 });
 
-// event details page
+// event details route
 Route::get('/events/{event}', function(Event $event){
     // Laravel will automatically find the event by UUID
     return view('event-details', compact('event'));
