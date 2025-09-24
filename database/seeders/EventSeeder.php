@@ -96,7 +96,7 @@ class EventSeeder extends Seeder
                 'date' => '2025-10-29',
                 'time' => '11:00',
                 'location' => 'Griffith University - Main Lawn Area',
-                'capacity' => 300,
+                'capacity' => 200,
             ]
         ];
 
