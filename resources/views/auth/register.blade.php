@@ -71,26 +71,6 @@
                     placeholder="Confirm your password">
             </div>
 
-            <!-- Role Selection -->
-            <div>
-                <label for="role" class="mb-2 block text-sm font-medium text-gray-700">
-                    Account Type
-                </label>
-                <select id="role" name="role" required
-                    class="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option value="">Select account type</option>
-                    <option value="user" {{ old('role') === 'user' ? 'selected' : '' }}>
-                        User (Attend Events)
-                    </option>
-                    <option value="organizer" {{ old('role') === 'organizer' ? 'selected' : '' }}>
-                        Organizer (Create Events)
-                    </option>
-                </select>
-                @error('role')
-                    <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                @enderror
-            </div>
-
             <!-- Privacy Policy Checkbox -->
             <div class="flex items-start">
                 <input type="checkbox" id="privacy_policy_accepted" name="privacy_policy_accepted" value="1"

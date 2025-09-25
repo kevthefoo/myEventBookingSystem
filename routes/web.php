@@ -65,7 +65,7 @@ Route::post('/register', function(Request $request){
         'name' => 'required|string|max:255',
         'email' => 'required|string|email|max:255|unique:users',
         'password' => 'required|string|min:6|confirmed',
-        'role' => 'required|in:user,organizer',
+        // 'role' => 'required|in:user,organizer',
         'privacy_policy_accepted' => 'required|accepted',
     ]);
 
@@ -73,7 +73,7 @@ Route::post('/register', function(Request $request){
         'name' => $validated['name'],
         'email' => $validated['email'],
         'password' => Hash::make($validated['password']),
-        'role' => $validated['role'],
+        'role' => 'Attendee',
         'privacy_policy_accepted' => true,
         'privacy_policy_accepted_at' => now(),
     ]);
@@ -88,4 +88,17 @@ Route::post('/register', function(Request $request){
 Route::get('/events/{event}', function(Event $event){
     // Laravel will automatically find the event by UUID
     return view('event-details', compact('event'));
+});
+
+// event managemet route for only organizers
+Route::get('/eventmanager', function(){
+    if(!auth()->check()){
+        return redirect('/login');
+    }
+
+    if(auth()->user()->role !== 'organizer'){
+        return redirect('/');
+    }
+
+    return view('eventmanager.eventmanager') ;
 });
