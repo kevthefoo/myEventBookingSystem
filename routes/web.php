@@ -56,7 +56,32 @@ Route::post('/logout', function(Request $request){
 
 // register route
 Route::get('/register', function(){
-    return('login page') ;
+    return view('auth.register');
+});
+
+Route::post('/register', function(Request $request){
+    // Registration logic will go here
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users',
+        'password' => 'required|string|min:6|confirmed',
+        'role' => 'required|in:user,organizer',
+        'privacy_policy_accepted' => 'required|accepted',
+    ]);
+
+    $user = User::create([
+        'name' => $validated['name'],
+        'email' => $validated['email'],
+        'password' => Hash::make($validated['password']),
+        'role' => $validated['role'],
+        'privacy_policy_accepted' => true,
+        'privacy_policy_accepted_at' => now(),
+    ]);
+
+    // Log the user in automatically
+    Auth::login($user);
+
+    return redirect('/')->with('success', 'Account created successfully!');
 });
 
 // event details route
