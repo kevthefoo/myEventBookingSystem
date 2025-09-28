@@ -361,3 +361,13 @@ Route::get('/mybookings', function() {
     }
     return view('mybookings', compact('myBookings'));
 });
+
+
+
+Route::get('/privacy-policy', function () {
+    return view('privacy-policy');
+});
+
+Route::get('/terms', function () {
+    return view('terms');
+});
