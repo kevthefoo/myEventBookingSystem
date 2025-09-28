@@ -1,33 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.main')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Manager - {{ config('app.name') }}</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
+@section('title')
+    Griffith Event Booking System
+@endsection
 
-<body class="min-h-screen bg-gray-50">
-
-    <!-- Header -->
-    <div class="border-b bg-white p-4 shadow-sm">
-        <div class="mx-auto flex max-w-7xl items-center justify-between">
-            <h1 class="text-2xl font-bold text-gray-900">Event Manager</h1>
-
-            <div class="flex items-center gap-4">
-                <span class="text-gray-600">Welcome, {{ auth()->user()->name }}!</span>
-                <a href="/" class="text-blue-600 hover:text-blue-800">← Back to Events</a>
-                <form method="POST" action="/logout" class="inline">
-                    @csrf
-                    <button type="submit" class="text-red-600 hover:text-red-800">
-                        Logout
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-
+@section('content')
     <div class="mx-auto max-w-7xl p-6">
 
         <!-- Dashboard Summary Cards -->
@@ -146,8 +123,7 @@
                                 </td>
                                 <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-900">
                                     {{ date('M j, Y', strtotime($event->date)) }}<br>
-                                    <span
-                                        class="text-xs text-gray-500">{{ date('H:i', strtotime($event->time)) }}</span>
+                                    <span class="text-xs text-gray-500">{{ date('H:i', strtotime($event->time)) }}</span>
                                 </td>
                                 <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-900">
                                     {{ $event->capacity }}
@@ -172,8 +148,8 @@
                                     @endphp
                                     <div class="flex items-center">
                                         <div class="mr-2 h-2 flex-1 rounded-full bg-gray-200">
-                                            <div class="h-2 rounded-full bg-blue-600"
-                                                style="width: {{ $occupancyRate }}%"></div>
+                                            <div class="h-2 rounded-full bg-blue-600" style="width: {{ $occupancyRate }}%">
+                                            </div>
                                         </div>
                                         <span class="text-sm font-medium text-gray-900">{{ $occupancyRate }}%</span>
                                     </div>
@@ -230,7 +206,4 @@
         </div>
 
     </div>
-
-</body>
-
-</html>
+@endsection
