@@ -281,9 +281,9 @@ Route::post('/events/{event}/book', function(Request $request, Event $event) {
         return redirect('/login')->with('error', 'Please log in to book events.');
     }
 
-    // Check if user is not an organizer (only regular users can book)
-    if (auth()->user()->role === 'organizer') {
-        return redirect()->back()->with('error', 'Organizers cannot book events. Switch to a regular user account to book events.');
+    // Check if user is the event organizer (they can't book their own event)
+    if (auth()->id() === $event->organizer_id) {
+        return redirect("/events/{$event->uuid}")->with('error', 'You cannot book your own event.');
     }
 
     // Manual validation - Check if event is full (REQUIRED MANUAL VALIDATION)
