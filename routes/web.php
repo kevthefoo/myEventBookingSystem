@@ -12,7 +12,7 @@ use App\Models\Event;
 // home route
 Route::get('/', function () {
     $organizers = User::where('role', 'organizer')->get();
-    $events = Event::with('organizer')->orderBy('date', 'asc')->paginate(8);
+    $events = Event::with('organizer')->orderBy('date', 'asc')->paginate(6);
 
     return view('home', compact('organizers', 'events'));
 });
@@ -105,7 +105,7 @@ Route::get('/eventmanager', function(){
     if(auth()->user()->role !== 'organizer'){
         return redirect('/');
     }
-    $events = Event::with('organizer')->orderBy('date', 'asc')->paginate(8);
+    $events = Event::with('organizer')->orderBy('date', 'asc')->paginate(6);
     return view('eventmanager.eventmanager', compact('events')) ;
 });
 

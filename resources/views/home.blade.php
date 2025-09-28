@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="mb-8">
+    <div class="mb-4">
         <h1 class="text-3xl">Upcoming Events</h1>
     </div>
 
@@ -55,7 +55,7 @@
         }
 
         span[aria-current="page"] span {
-            background-color: grey;
+            background-color: #374151;
             color: white;
         }
 
