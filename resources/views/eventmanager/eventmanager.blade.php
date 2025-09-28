@@ -94,8 +94,8 @@
                                         </div>
                                     </td>
                                     <td class="px-4 py-3 text-sm text-gray-700">
-                                        {{ $event->date }}<br>
-                                        {{ $event->time }}
+                                        {{ $event->date->format('Y-m-d') }}<br>
+                                        {{ date('H:i', strtotime($event->time)) }}
                                     </td>
                                     <td class="px-4 py-3 text-sm text-gray-700">
                                         {{ Str::limit($event->location, 30) }}
