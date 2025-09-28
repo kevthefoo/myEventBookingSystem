@@ -91,22 +91,22 @@
                                     <td class="px-4 py-3">
                                         <div class="flex gap-2">
                                             <!-- Edit Button -->
-                                            <a href="/eventmanager/edit/{{$event->uuid}}"
+                                            <a href="/eventmanager/edit/{{ $event->uuid }}"
                                                 class="rounded bg-blue-500 px-3 py-1 text-sm text-white transition duration-200 hover:bg-blue-600">
                                                 Edit
                                             </a>
 
                                             <!-- Delete Button -->
-                                            {{-- <form method="POST" action="{{ route('events.destroy', $event->uuid) }}"
+                                            <form method="POST" action="/eventmanager/delete/{{ $event->uuid }}"
                                                 class="inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit"
                                                     onclick="return confirm('Are you sure you want to delete this event?')"
-                                                    class="rounded bg-red-500 px-3 py-1 text-sm text-white transition duration-200 hover:bg-red-600">
+                                                    class="cursor-pointer rounded bg-red-500 px-3 py-1 text-sm text-white transition duration-200 hover:bg-red-600">
                                                     Delete
                                                 </button>
-                                            </form> --}}
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>

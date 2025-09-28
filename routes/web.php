@@ -181,3 +181,29 @@ Route::put('/eventmanager/edit/{event}', function(Request $request, Event $event
 
     return redirect('/eventmanager')->with('success', 'Event updated successfully!');
 });
+
+// Delete event
+Route::delete('/eventmanager/delete/{event}', function(Event $event){
+    // Check if user is authenticated and is an organizer
+    if(!auth()->check()){
+        return redirect('/login');
+    }
+
+    if(auth()->user()->role !== 'organizer'){
+        return redirect('/');
+    }
+
+    // Check if the organizer owns this event
+    // if($event->organizer_id !== auth()->id()){
+    //     abort(403, 'You can only delete your own events.');
+    // }
+
+    // Check if event has bookings (when you implement booking system)
+    // if ($event->attendees()->count() > 0) {
+    //     return redirect('/eventmanager')->with('error', 'Cannot delete event with existing bookings. Please contact attendees first.');
+    // }
+
+    $event->delete();
+
+    return redirect('/eventmanager')->with('success', 'Event deleted successfully!');
+});
