@@ -261,3 +261,103 @@ Route::get('/admin/dashboard', function(){
 
     return view('admindashboard.dashboard', compact('eventsReport', 'summaryStats'));
 });
+
+// Book an event
+Route::post('/events/{event}/book', function(Request $request, Event $event) {
+    // Manual authentication check
+    if (!auth()->check()) {
+        return redirect('/login')->with('error', 'Please log in to book events.');
+    }
+
+    // Check if user is not an organizer (only regular users can book)
+    if (auth()->user()->role === 'organizer') {
+        return redirect()->back()->with('error', 'Organizers cannot book events. Switch to a regular user account to book events.');
+    }
+
+    // Manual validation - Check if event is full (REQUIRED MANUAL VALIDATION)
+    $currentBookings = DB::table('event_attendees')
+                        ->where('event_id', $event->id)
+                        ->count();
+
+    if ($currentBookings >= $event->capacity) {
+        return redirect()->back()->with('error', 'Sorry, this event is fully booked. No more spots available.');
+    }
+
+    // Check if user already booked this event
+    $existingBooking = DB::table('event_attendees')
+                        ->where('event_id', $event->id)
+                        ->where('user_id', auth()->id())
+                        ->first();
+
+    if ($existingBooking) {
+        return redirect()->back()->with('error', 'You have already booked this event.');
+    }
+
+    // Check if event is in the past
+    if ($event->date < now()->toDateString()) {
+        return redirect()->back()->with('error', 'Cannot book past events.');
+    }
+
+    // All validations passed - Create the booking
+    DB::table('event_attendees')->insert([
+        'event_id' => $event->id,
+        'user_id' => auth()->id(),
+        'created_at' => now(),
+        'updated_at' => now(),
+    ]);
+
+    return redirect()->back()->with('success', 'Event booked successfully! You will receive a confirmation email shortly.');
+})->name('events.book');
+
+// Cancel booking
+Route::delete('/events/{event}/cancel', function(Event $event) {
+
+    if (!auth()->check()) {
+        return redirect('/login')->with('error', 'Please log in to cancel bookings.');
+    }
+
+    $deleted = DB::table('event_attendees')
+                ->where('event_id', $event->id)
+                ->where('user_id', auth()->id())
+                ->delete();
+
+    if ($deleted) {
+        return redirect()->back()->with('success', 'Booking cancelled successfully.');
+    } else {
+        return redirect()->back()->with('error', 'No booking found to cancel.');
+    }
+});
+
+
+Route::get('/mybookings', function() {
+    if (!auth()->check()) {
+        return redirect('/login')->with('error', 'Please log in to view your bookings.');
+    }
+
+
+        try {
+        // Get user's bookings with event details using raw SQL
+        $myBookings = DB::select("
+            SELECT 
+                e.uuid,
+                e.title,
+                e.description,
+                e.date,
+                e.time,
+                e.location,
+                e.capacity,
+                ea.created_at as booked_at,
+                u.name as organizer_name
+            FROM event_attendees ea
+            INNER JOIN events e ON ea.event_id = e.id
+            INNER JOIN users u ON e.organizer_id = u.id
+            WHERE ea.user_id = ?
+            ORDER BY e.date ASC
+        ", [auth()->id()]);
+
+    } catch (\Exception $e) {
+        // Handle case where event_attendees table doesn't exist yet
+        $myBookings = [];
+    }
+    return view('mybookings', compact('myBookings'));
+});
