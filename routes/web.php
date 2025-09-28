@@ -14,7 +14,7 @@ Route::get('/', function () {
     $organizers = User::where('role', 'organizer')->get();
     $events = Event::with('organizer')->orderBy('date', 'asc')->paginate(8);
 
-    return view('welcome', compact('organizers', 'events'));
+    return view('home', compact('organizers', 'events'));
 });
 
 // login route
