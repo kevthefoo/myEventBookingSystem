@@ -280,7 +280,7 @@ Route::post('/events/{event}/book', function(Request $request, Event $event) {
                         ->count();
 
     if ($currentBookings >= $event->capacity) {
-        return redirect()->back()->with('error', 'Sorry, this event is fully booked. No more spots available.');
+        return redirect("/events/{$event->uuid}")->with('error', 'Sorry, this event is fully booked. No more spots available.');
     }
 
     // Check if user already booked this event
@@ -290,12 +290,12 @@ Route::post('/events/{event}/book', function(Request $request, Event $event) {
                         ->first();
 
     if ($existingBooking) {
-        return redirect()->back()->with('error', 'You have already booked this event.');
+        return redirect("/events/{$event->uuid}")->with('error', 'You have already booked this event.');
     }
 
     // Check if event is in the past
     if ($event->date < now()->toDateString()) {
-        return redirect()->back()->with('error', 'Cannot book past events.');
+        return redirect("/events/{$event->uuid}")->with('error', 'Cannot book past events.');
     }
 
     // All validations passed - Create the booking
@@ -306,12 +306,10 @@ Route::post('/events/{event}/book', function(Request $request, Event $event) {
         'updated_at' => now(),
     ]);
 
-    return redirect()->back()->with('success', 'Event booked successfully! You will receive a confirmation email shortly.');
-})->name('events.book');
+return redirect("/events/{$event->uuid}")->with('success', 'You have successfully booked this event!');});
 
 // Cancel booking
 Route::delete('/events/{event}/cancel', function(Event $event) {
-
     if (!auth()->check()) {
         return redirect('/login')->with('error', 'Please log in to cancel bookings.');
     }
@@ -322,9 +320,9 @@ Route::delete('/events/{event}/cancel', function(Event $event) {
                 ->delete();
 
     if ($deleted) {
-        return redirect()->back()->with('success', 'Booking cancelled successfully.');
+        return redirect("/events/{$event->uuid}")->with('success', 'Booking cancelled successfully.');
     } else {
-        return redirect()->back()->with('error', 'No booking found to cancel.');
+        return redirect("/events/{$event->uuid}")->with('error', 'No booking found to cancel.');
     }
 });
 

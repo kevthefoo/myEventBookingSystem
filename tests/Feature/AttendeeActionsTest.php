@@ -147,7 +147,7 @@ class AttendeeActionsTest extends TestCase
             'updated_at' => now(),
         ]);
 
-        $response = $this->actingAs($user)->get('/my-bookings');
+        $response = $this->actingAs($user)->get('/mybookings');
 
         $response->assertStatus(200);
         $response->assertSee($this->event->title);
@@ -194,7 +194,7 @@ class AttendeeActionsTest extends TestCase
             ->post("/events/{$this->fullEvent->uuid}/book");
 
         $response->assertRedirect("/events/{$this->fullEvent->uuid}");
-        $response->assertSessionHas('error', 'Sorry, this event is fully booked.');
+        $response->assertSessionHas('error', 'Sorry, this event is fully booked. No more spots available.');
         
         $this->assertDatabaseMissing('event_attendees', [
             'event_id' => $this->fullEvent->id,
