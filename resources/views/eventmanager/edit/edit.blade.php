@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.main')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Event - {{ config('app.name') }}</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
+@section('title')
+    Edit Events
+@endsection
 
-<body class="min-h-screen bg-gray-50">
-
+@section('content')
     <div class="mx-auto max-w-2xl p-6">
         <div class="rounded-lg bg-white p-6 shadow-md">
 
@@ -84,8 +79,8 @@
                     <label for="location" class="mb-1 block text-sm font-medium text-gray-700">
                         Location <span class="text-red-500">*</span>
                     </label>
-                    <input type="text" id="location" name="location"
-                        value="{{ old('location', $event->location) }}" maxlength="255" required
+                    <input type="text" id="location" name="location" value="{{ old('location', $event->location) }}"
+                        maxlength="255" required
                         class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                     @error('location')
                         <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
@@ -97,8 +92,8 @@
                     <label for="capacity" class="mb-1 block text-sm font-medium text-gray-700">
                         Capacity <span class="text-red-500">*</span>
                     </label>
-                    <input type="number" id="capacity" name="capacity"
-                        value="{{ old('capacity', $event->capacity) }}" min="1" max="1000" required
+                    <input type="number" id="capacity" name="capacity" value="{{ old('capacity', $event->capacity) }}"
+                        min="1" max="1000" required
                         class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                     @error('capacity')
                         <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
@@ -120,7 +115,4 @@
 
         </div>
     </div>
-
-</body>
-
-</html>
+@endsection

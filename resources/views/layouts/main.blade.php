@@ -145,7 +145,6 @@
     </main>
 
     <!-- Scripts Section -->
-
     <script>
         function toggleDropdown() {
             const menu = document.getElementById('dropdownMenu');

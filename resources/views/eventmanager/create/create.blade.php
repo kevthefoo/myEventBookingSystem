@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.main')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Manager - {{ config('app.name') }}</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
+@section('title')
+    Create New Events
+@endsection
 
-<body>
+@section('content')
     <div id="createEventForm" class="mb-8 rounded-lg bg-white p-6 shadow-md">
         <h2 class="mb-4 text-xl font-bold">Create New Event</h2>
 
@@ -73,8 +69,7 @@
                 <label for="location" class="mb-1 block text-sm font-medium text-gray-700">
                     Location <span class="text-red-500">*</span>
                 </label>
-                <input type="text" id="location" name="location" value="{{ old('location') }}" maxlength="255"
-                    required
+                <input type="text" id="location" name="location" value="{{ old('location') }}" maxlength="255" required
                     class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Event location (max 255 characters)">
                 @error('location')
@@ -109,6 +104,4 @@
             </div>
         </form>
     </div>
-</body>
-
-</html>
+@endsection

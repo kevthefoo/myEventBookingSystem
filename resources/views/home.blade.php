@@ -47,6 +47,10 @@
             {{ $events->links() }}
         </div>
     @endif
+
+@endsection
+
+@section('styles')
     <style>
         .pagination a,
         .pagination span {

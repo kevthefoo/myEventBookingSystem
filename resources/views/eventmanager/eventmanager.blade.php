@@ -1,32 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.main')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Manager - {{ config('app.name') }}</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
+@section('title')
+    Event Manager
+@endsection
 
-<body class="min-h-screen bg-gray-50">
-
-    <!-- Header -->
-    <div class="border-b bg-white p-4 shadow-sm">
-        <div class="mx-auto flex max-w-7xl items-center justify-between">
-            <h1 class="text-2xl font-bold text-gray-900">Event Manager</h1>
-
-            <div class="flex items-center gap-4">
-                <span class="text-gray-600">Welcome, {{ auth()->user()->name }}!</span>
-                <a href="/" class="text-blue-600 hover:text-blue-800">← Back to Events</a>
-                <form method="POST" action="/logout" class="inline">
-                    @csrf
-                    <button type="submit" class="text-red-600 hover:text-red-800">
-                        Logout
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
+@section('content')
 
     <div class="mx-auto max-w-7xl p-6">
 
@@ -47,8 +25,7 @@
         @endif
 
         @if (session('error'))
-            <div id="error-message"
-                class="relative mb-6 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700">
+            <div id="error-message" class="relative mb-6 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700">
                 <span>{{ session('error') }}</span>
                 <button onclick="dismissMessage('error-message')"
                     class="absolute right-0 top-0 mr-2 mt-2 text-red-500 hover:text-red-700">
@@ -133,9 +110,9 @@
                     </table>
                 </div>
 
-                <!-- Pagination -->
+                {{-- Pagination bar --}}
                 @if ($events->hasPages())
-                    <div class="mt-6">
+                    <div class="pagination my-4 flex justify-center bg-white text-red-400">
                         {{ $events->links() }}
                     </div>
                 @endif
@@ -147,7 +124,28 @@
         </div>
 
     </div>
+@endsection
 
+@section('styles')
+    <style>
+        .pagination a,
+        .pagination span {
+            background-color: #f8f9fa;
+            color: black;
+        }
+
+        span[aria-current="page"] span {
+            background-color: #374151;
+            color: white;
+        }
+
+        .pagination p {
+            display: none;
+        }
+    </style>
+@endsection
+
+@section('scripts')
     <script>
         // Auto-hide messages after 5 seconds
         document.addEventListener('DOMContentLoaded', function() {
@@ -184,6 +182,4 @@
             }, 500);
         }
     </script>
-</body>
-
-</html>
+@endsection
