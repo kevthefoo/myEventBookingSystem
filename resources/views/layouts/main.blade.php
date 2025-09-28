@@ -64,7 +64,7 @@
 <body class="min-h-screen border-4 border-red-500">
 
     <!-- Header Section -->
-    <header class="fixed flex h-16 w-full items-center justify-around border-2 border-black">
+    <header class="fixed flex h-16 w-full select-none items-center justify-around border-b-2 border-b-black bg-white">
         <div class="flex items-center">
             <a href="/" class="flex items-center space-x-2">
                 <img src="{{ asset('images/logo.png') }}" alt="Griffith University Logo" class="h-8 w-auto">
@@ -85,18 +85,58 @@
         </nav>
         <div class="flex items-center justify-center gap-2">
             @auth
-                <span class="text-gray-600">Welcome, {{ auth()->user()->name }}!</span>
-                <form method="POST" action="/logout" class="inline">
-                    @csrf
-                    <button type="submit" class="cursor-pointer text-red-600 hover:text-red-800">
-                        Logout
-                    </button>
-                </form>
-            @else
-                <a href="/login" class="text-blue-600 hover:text-blue-800">Login</a>
-                <a href="/register" class="text-blue-600 hover:text-blue-800">Register</a>
-            @endauth
-        </div>
+
+                <div class="relative flex flex-col">
+                    <div class="flex items-center justify-center gap-2">
+                        <div>{{ auth()->user()->name }}</div>
+                        <div class="transform cursor-pointer text-blue-300 transition-transform duration-200"
+                            id="dropdownArrow" onclick="toggleDropdown()">▼</div>
+                    </div>
+                    <div id="dropdownMenu"
+                        class="absolute right-0 top-4 z-50 mt-2 hidden w-40 border border-gray-200 bg-white shadow-lg">
+                        <div class="py-2">
+                            <!-- User Info -->
+                            <div class="border-b border-gray-100 px-4 py-2">
+                                <div class="text-sm text-gray-500">{{ ucfirst(auth()->user()->role) }} Account</div>
+                            </div>
+
+                            <!-- Navigation Links -->
+                            <div class="py-1">
+                                @if (auth()->user()->role === 'organizer')
+                                    <a href="/eventmanager" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        📊 Manage Events
+                                    </a>
+                                    <a href="/admin/dashboard"
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        📈 Dashboard
+                                    </a>
+                                @else
+                                    <a href="/mybookings" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        🎫 My Bookings
+                                    </a>
+                                @endif
+
+                                <a href="/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    👤 Profile Settings
+                                </a>
+                                <a href="/help" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    ❓ Help & Support
+                                </a>
+                            </div>
+
+                            <form method="POST" action="/logout" class="text-center">
+                                @csrf
+                                <button type="submit" class="cursor-pointer text-red-600 hover:text-red-800">
+                                    Logout
+                                </button>
+                            </form>
+                        @else
+                            <a href="/login" class="text-blue-600 hover:text-blue-800">Login</a>
+                            <a href="/register" class="text-blue-600 hover:text-blue-800">Register</a>
+                        @endauth
+                    </div>
+                </div>
+
     </header>
 
     <!-- Main Content -->
@@ -106,6 +146,22 @@
 
     <!-- Scripts Section -->
     @yield('scripts')
+
+    <script>
+        function toggleDropdown() {
+            console.log('hiii')
+            const menu = document.getElementById('dropdownMenu');
+            const arrow = document.getElementById('dropdownArrow');
+
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                arrow.style.transform = 'rotate(180deg)';
+            } else {
+                menu.classList.add('hidden');
+                arrow.style.transform = 'rotate(0deg)';
+            }
+        }
+    </script>
 </body>
 
 </html>
