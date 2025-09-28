@@ -30,16 +30,34 @@
 
     <div class="mx-auto max-w-7xl p-6">
 
-        <!-- Success/Error Messages -->
+        <!-- Success/Error Messages with Auto-hide -->
         @if (session('success'))
-            <div class="mb-6 rounded border border-green-400 bg-green-100 px-4 py-3 text-green-700">
-                {{ session('success') }}
+            <div id="success-message"
+                class="relative mb-6 rounded border border-green-400 bg-green-100 px-4 py-3 text-green-700">
+                <span>{{ session('success') }}</span>
+                <button onclick="dismissMessage('success-message')"
+                    class="absolute right-0 top-0 mr-2 mt-2 text-green-500 hover:text-green-700">
+                    <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </button>
             </div>
         @endif
 
         @if (session('error'))
-            <div class="mb-6 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700">
-                {{ session('error') }}
+            <div id="error-message"
+                class="relative mb-6 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700">
+                <span>{{ session('error') }}</span>
+                <button onclick="dismissMessage('error-message')"
+                    class="absolute right-0 top-0 mr-2 mt-2 text-red-500 hover:text-red-700">
+                    <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </button>
             </div>
         @endif
 
@@ -110,91 +128,6 @@
                                         </div>
                                     </td>
                                 </tr>
-
-                                <!-- Hidden Edit Form for each event -->
-                                {{-- <tr id="editForm-{{ $event->uuid }}" class="hidden">
-                                    <td colspan="6" class="bg-gray-50 px-4 py-6">
-                                        <h3 class="mb-4 text-lg font-medium">Edit Event: {{ $event->title }}</h3>
-
-                                        <form method="POST" action="{{ route('events.update', $event->uuid) }}"
-                                            class="space-y-4">
-                                            @csrf
-                                            @method('PUT')
-
-                                            <!-- Title -->
-                                            <div>
-                                                <label class="mb-1 block text-sm font-medium text-gray-700">
-                                                    Event Title <span class="text-red-500">*</span>
-                                                </label>
-                                                <input type="text" name="title" value="{{ $event->title }}"
-                                                    maxlength="100" required
-                                                    class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                            </div>
-
-                                            <!-- Description -->
-                                            <div>
-                                                <label class="mb-1 block text-sm font-medium text-gray-700">
-                                                    Description
-                                                </label>
-                                                <textarea name="description" rows="3"
-                                                    class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">{{ $event->description }}</textarea>
-                                            </div>
-
-                                            <!-- Date and Time -->
-                                            <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-                                                <div>
-                                                    <label class="mb-1 block text-sm font-medium text-gray-700">
-                                                        Date <span class="text-red-500">*</span>
-                                                    </label>
-                                                    <input type="date" name="date" value="{{ $event->date }}"
-                                                        min="{{ date('Y-m-d') }}" required
-                                                        class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                                </div>
-
-                                                <div>
-                                                    <label class="mb-1 block text-sm font-medium text-gray-700">
-                                                        Time <span class="text-red-500">*</span>
-                                                    </label>
-                                                    <input type="time" name="time"
-                                                        value="{{ date('H:i', strtotime($event->time)) }}" required
-                                                        class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                                </div>
-                                            </div>
-
-                                            <!-- Location -->
-                                            <div>
-                                                <label class="mb-1 block text-sm font-medium text-gray-700">
-                                                    Location <span class="text-red-500">*</span>
-                                                </label>
-                                                <input type="text" name="location" value="{{ $event->location }}"
-                                                    maxlength="255" required
-                                                    class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                            </div>
-
-                                            <!-- Capacity -->
-                                            <div>
-                                                <label class="mb-1 block text-sm font-medium text-gray-700">
-                                                    Capacity <span class="text-red-500">*</span>
-                                                </label>
-                                                <input type="number" name="capacity" value="{{ $event->capacity }}"
-                                                    min="1" max="1000" required
-                                                    class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                            </div>
-
-                                            <!-- Form Actions -->
-                                            <div class="flex gap-4 pt-4">
-                                                <button type="submit"
-                                                    class="rounded-lg bg-green-600 px-6 py-2 text-white transition duration-200 hover:bg-green-700">
-                                                    Update Event
-                                                </button>
-                                                <button type="button" onclick="hideEditForm('{{ $event->uuid }}')"
-                                                    class="rounded-lg bg-gray-500 px-6 py-2 text-white transition duration-200 hover:bg-gray-600">
-                                                    Cancel
-                                                </button>
-                                            </div>
-                                        </form>
-                                    </td>
-                                </tr> --}}
                             @endforeach
                         </tbody>
                     </table>
@@ -209,7 +142,6 @@
             @else
                 <div class="py-8 text-center">
                     <p class="text-lg text-gray-500">You haven't created any events yet.</p>
-                    <p class="mt-2 text-sm text-gray-400">Click "Create New Event" to get started!</p>
                 </div>
             @endif
         </div>
@@ -217,14 +149,39 @@
     </div>
 
     <script>
-        function showEditForm(eventId) {
-            const form = document.getElementById('editForm-' + eventId);
-            form.classList.remove('hidden');
+        // Auto-hide messages after 5 seconds
+        document.addEventListener('DOMContentLoaded', function() {
+            const successMessage = document.getElementById('success-message');
+            const errorMessage = document.getElementById('error-message');
+
+            if (successMessage) {
+                setTimeout(() => {
+                    fadeOut(successMessage);
+                }, 5000); // 5 seconds
+            }
+
+            if (errorMessage) {
+                setTimeout(() => {
+                    fadeOut(errorMessage);
+                }, 5000); // 5 seconds
+            }
+        });
+
+        // Function to dismiss message manually
+        function dismissMessage(elementId) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                fadeOut(element);
+            }
         }
 
-        function hideEditForm(eventId) {
-            const form = document.getElementById('editForm-' + eventId);
-            form.classList.add('hidden');
+        // Fade out animation
+        function fadeOut(element) {
+            element.style.transition = 'opacity 0.5s ease-out';
+            element.style.opacity = '0';
+            setTimeout(() => {
+                element.remove();
+            }, 500);
         }
     </script>
 </body>
