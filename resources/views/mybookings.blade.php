@@ -183,7 +183,7 @@
                                             @method('DELETE')
                                             <button type="submit"
                                                 onclick="return confirm('Are you sure you want to cancel your booking for {{ $booking->title }}?')"
-                                                class="text-sm font-medium text-red-600 hover:text-red-800">
+                                                class="cursor-pointer text-sm font-medium text-red-600 hover:text-red-800">
                                                 Cancel Booking
                                             </button>
                                         </form>
