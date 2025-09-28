@@ -61,7 +61,7 @@
     @yield('styles')
 </head>
 
-<body class="min-h-screen border-4 border-red-500">
+<body class="min-h-screen">
 
     <!-- Header Section -->
     <header class="fixed flex h-16 w-full select-none items-center justify-around border-b-2 border-b-black bg-white">
@@ -89,8 +89,8 @@
                 <div class="relative flex flex-col">
                     <div class="flex items-center justify-center gap-2">
                         <div>{{ auth()->user()->name }}</div>
-                        <div class="transform cursor-pointer text-blue-300 transition-transform duration-200"
-                            id="dropdownArrow" onclick="toggleDropdown()">▼</div>
+                        <div class="transform cursor-pointer transition-transform duration-200" id="dropdownArrow"
+                            onclick="toggleDropdown()">▼</div>
                     </div>
                     <div id="dropdownMenu"
                         class="absolute right-0 top-4 z-50 mt-2 hidden w-40 border border-gray-200 bg-white shadow-lg">
@@ -140,7 +140,7 @@
     </header>
 
     <!-- Main Content -->
-    <main class="pt-18 flex min-h-screen w-full flex-col border-4 border-blue-400 px-12">
+    <main class="pt-20 flex min-h-screen w-full flex-col px-12">
         @yield('content')
     </main>
 
