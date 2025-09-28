@@ -22,7 +22,7 @@
             </div>
 
             <!-- Edit Form -->
-            <form method="POST" action="/events/{{ $event->uuid }}" class="space-y-4">
+            <form method="POST" action="/eventmanager/edit/{{ $event->uuid }}" class="space-y-4">
                 @csrf
                 @method('PUT')
 
@@ -42,9 +42,9 @@
                 <!-- Description -->
                 <div>
                     <label for="description" class="mb-1 block text-sm font-medium text-gray-700">
-                        Description
+                        Description <span class="text-red-500">*</span>
                     </label>
-                    <textarea id="description" name="description" rows="3"
+                    <textarea id="description" name="description" rows="3" required
                         class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">{{ old('description', $event->description) }}</textarea>
                     @error('description')
                         <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
@@ -53,12 +53,13 @@
 
                 <!-- Date and Time -->
                 <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+
                     <div>
                         <label for="date" class="mb-1 block text-sm font-medium text-gray-700">
                             Date <span class="text-red-500">*</span>
                         </label>
-                        <input type="date" id="date" name="date" value="{{ old('date', $event->date) }}"
-                            min="{{ date('Y-m-d') }}" required
+                        <input type="date" id="date" name="date"
+                            value="{{ old('date', $event->date->format('Y-m-d')) }}" min="{{ date('Y-m-d') }}" required
                             class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                         @error('date')
                             <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
@@ -107,7 +108,7 @@
                 <!-- Form Actions -->
                 <div class="flex gap-4 pt-4">
                     <button type="submit"
-                        class="rounded-lg bg-green-600 px-6 py-2 text-white transition duration-200 hover:bg-green-700">
+                        class="cursor-pointer rounded-lg bg-green-600 px-6 py-2 text-white transition duration-200 hover:bg-green-700">
                         Update Event
                     </button>
                     <a href="/eventmanager"

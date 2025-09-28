@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Hash;
 
 use App\Models\User;
 use App\Models\Event;
@@ -93,7 +93,7 @@ Route::get('/events/{event}', function(Event $event){
 
 
 
-
+// Route for CRUD
 
 // event managemet route for only organizers
 Route::get('/eventmanager', function(){
@@ -109,7 +109,7 @@ Route::get('/eventmanager', function(){
 });
 
 // Store new event
-Route::post('/events', function(Request $request){
+Route::post('/eventmanager/create', function(Request $request){
     $validated = $request->validate([
         'title' => 'required|string|max:100',
         'description' => 'nullable|string',
@@ -124,7 +124,7 @@ Route::post('/events', function(Request $request){
             'organizer_id' => auth()->id(),
         ]);
 
-        return redirect()->route('eventmanager')->with('success', 'Event created successfully!');
+        return redirect('/eventmanager')->with('success', 'Event created successfully!');
     })->name('events.store');
 
 Route::get('/eventmanager/create', function(){
@@ -150,4 +150,34 @@ Route::get('/eventmanager/edit/{event}', function(Event $event){
     // }
 
     return view('eventmanager.edit.edit', compact('event'));
+});
+
+// Update event
+Route::put('/eventmanager/edit/{event}', function(Request $request, Event $event){
+    // Check if user is authenticated and is an organizer
+    if(!auth()->check()){
+        return redirect('/login');
+    }
+
+    if(auth()->user()->role !== 'organizer'){
+        return redirect('/');
+    }
+
+    // Check if the organizer owns this event
+    // if($event->organizer_id !== auth()->id()){
+    //     abort(403, 'You can only edit your own events.');
+    // }
+
+    $validated = $request->validate([
+        'title' => 'required|string|max:100',
+        'description' => 'nullable|string',
+        'date' => 'required|date|after:today',
+        'time' => 'required',
+        'location' => 'required|string|max:255',
+        'capacity' => 'required|integer|min:1|max:1000',
+    ]);
+
+    $event->update($validated);
+
+    return redirect('/eventmanager')->with('success', 'Event updated successfully!');
 });

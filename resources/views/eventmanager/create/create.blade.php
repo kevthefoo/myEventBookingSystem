@@ -12,7 +12,7 @@
     <div id="createEventForm" class="mb-8 rounded-lg bg-white p-6 shadow-md">
         <h2 class="mb-4 text-xl font-bold">Create New Event</h2>
 
-        <form method="POST" action="/events" class="space-y-4">
+        <form method="POST" action="/eventmanager/create" class="space-y-4">
             @csrf
 
             <!-- Title -->
@@ -31,11 +31,12 @@
             <!-- Description -->
             <div>
                 <label for="description" class="mb-1 block text-sm font-medium text-gray-700">
-                    Description
+                    Description <span class="text-red-500">*</span>
                 </label>
-                <textarea id="description" name="description" rows="3"
+                <textarea id="description" name="description" rows="3" required
                     class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Event description (optional)">{{ old('description') }}</textarea>
+
                 @error('description')
                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                 @enderror
@@ -98,7 +99,7 @@
             <!-- Form Actions -->
             <div class="flex gap-4 pt-4">
                 <button type="submit"
-                    class="rounded-lg bg-green-600 px-6 py-2 text-white transition duration-200 hover:bg-green-700">
+                    class="cursor-pointer rounded-lg bg-green-600 px-6 py-2 text-white transition duration-200 hover:bg-green-700">
                     Create Event
                 </button>
                 <a href="/eventmanager"
