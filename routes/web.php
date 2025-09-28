@@ -11,7 +11,7 @@ use App\Models\Event;
 // home route
 Route::get('/', function () {
     $organizers = User::where('role', 'organizer')->get();
-    $events = Event::with('organizer')->paginate(8);
+    $events = Event::with('organizer')->orderBy('date', 'asc')->paginate(8);
 
     return view('welcome', compact('organizers', 'events'));
 });
@@ -90,6 +90,11 @@ Route::get('/events/{event}', function(Event $event){
     return view('event-details', compact('event'));
 });
 
+
+
+
+
+
 // event managemet route for only organizers
 Route::get('/eventmanager', function(){
     if(!auth()->check()){
@@ -99,6 +104,50 @@ Route::get('/eventmanager', function(){
     if(auth()->user()->role !== 'organizer'){
         return redirect('/');
     }
+    $events = Event::with('organizer')->orderBy('date', 'asc')->paginate(8);
+    return view('eventmanager.eventmanager', compact('events')) ;
+});
 
-    return view('eventmanager.eventmanager') ;
+// Store new event
+Route::post('/events', function(Request $request){
+    $validated = $request->validate([
+        'title' => 'required|string|max:100',
+        'description' => 'nullable|string',
+        'date' => 'required|date|after:today',
+        'time' => 'required',
+        'location' => 'required|string|max:255',
+        'capacity' => 'required|integer|min:1|max:1000',
+    ]);
+
+        Event::create([
+            ...$validated,
+            'organizer_id' => auth()->id(),
+        ]);
+
+        return redirect()->route('eventmanager')->with('success', 'Event created successfully!');
+    })->name('events.store');
+
+Route::get('/eventmanager/create', function(){
+    return view('eventmanager.create.create');
+});
+
+
+
+
+Route::get('/eventmanager/edit/{event}', function(Event $event){
+    // Check if user is authenticated and is an organizer
+    if(!auth()->check()){
+        return redirect('/login');
+    }
+
+    if(auth()->user()->role !== 'organizer'){
+        return redirect('/');
+    }
+
+    // Check if the organizer owns this event
+    // if($event->organizer_id !== auth()->id()){
+    //     abort(403, 'You can only edit your own events.');
+    // }
+
+    return view('eventmanager.edit.edit', compact('event'));
 });
