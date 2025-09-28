@@ -109,28 +109,40 @@ Route::get('/eventmanager', function(){
     return view('eventmanager.eventmanager', compact('events')) ;
 });
 
-// Store new event
-Route::post('/eventmanager/create', function(Request $request){
-    $validated = $request->validate([
-        'title' => 'required|string|max:100',
-        'description' => 'nullable|string',
-        'date' => 'required|date|after:today',
-        'time' => 'required',
-        'location' => 'required|string|max:255',
-        'capacity' => 'required|integer|min:1|max:1000',
-    ]);
-
-        Event::create([
-            ...$validated,
-            'organizer_id' => auth()->id(),
-        ]);
-
-        return redirect('/eventmanager')->with('success', 'Event created successfully!');
-    })->name('events.store');
-
 Route::get('/eventmanager/create', function(){
     return view('eventmanager.create.create');
 });
+
+Route::post('/eventmanager/create', function(Request $request){
+    $validated = $request->validate([
+        'title' => 'required|string|max:255',
+        'description' => 'nullable|string',
+        'date' => 'required|date|after:today',
+        'time' => 'required|date_format:H:i', // Add this validation rule
+        'location' => 'required|string|max:255',
+        'capacity' => 'required|integer|min:1',
+    ], [
+        'title.required' => 'The title field is required.',
+        'date.required' => 'The date field is required.',
+        'date.date' => 'The date field must be a valid date.',
+        'date.after' => 'The date field must be a date after today.',
+        'time.required' => 'The time field is required.',
+        'time.date_format' => 'The time field must be in HH:MM format.',
+        'location.required' => 'The location field is required.',
+        'capacity.required' => 'The capacity field is required.',
+        'capacity.integer' => 'The capacity field must be a number.',
+        'capacity.min' => 'The capacity field must be at least 1.',
+    ]);
+
+    Event::create([
+        ...$validated,
+        'organizer_id' => auth()->id(),
+    ]);
+
+    return redirect('/eventmanager')->with('success', 'Event created successfully!');
+    })->name('events.store');
+
+
 
 
 
@@ -165,9 +177,9 @@ Route::put('/eventmanager/edit/{event}', function(Request $request, Event $event
     }
 
     // Check if the organizer owns this event
-    // if($event->organizer_id !== auth()->id()){
-    //     abort(403, 'You can only edit your own events.');
-    // }
+    if($event->organizer_id !== auth()->id()){
+        abort(403, 'You can only edit your own events.');
+    }
 
     $validated = $request->validate([
         'title' => 'required|string|max:100',
@@ -195,14 +207,14 @@ Route::delete('/eventmanager/delete/{event}', function(Event $event){
     }
 
     // Check if the organizer owns this event
-    // if($event->organizer_id !== auth()->id()){
-    //     abort(403, 'You can only delete your own events.');
-    // }
+    if($event->organizer_id !== auth()->id()){
+        abort(403, 'You can only delete your own events.');
+    }
 
     // Check if event has bookings (when you implement booking system)
-    // if ($event->attendees()->count() > 0) {
-    //     return redirect('/eventmanager')->with('error', 'Cannot delete event with existing bookings. Please contact attendees first.');
-    // }
+    if ($event->attendees()->count() > 0) {
+        return redirect('/eventmanager')->with('error', 'Cannot delete event with existing bookings. Please contact attendees first.');
+    }
 
     $event->delete();
 

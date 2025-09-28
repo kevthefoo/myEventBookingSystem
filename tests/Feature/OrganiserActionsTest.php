@@ -209,7 +209,7 @@ class OrganiserActionsTest extends TestCase
             ->delete("/eventmanager/delete/{$this->event->uuid}");
 
         $response->assertRedirect('/eventmanager');
-        $response->assertSessionHas('error', 'Cannot delete event with existing bookings.');
+        $response->assertSessionHas('error', 'Cannot delete event with existing bookings. Please contact attendees first.');
         
         // Event should still exist
         $this->assertDatabaseHas('events', [
