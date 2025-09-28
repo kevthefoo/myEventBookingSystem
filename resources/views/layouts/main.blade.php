@@ -140,16 +140,14 @@
     </header>
 
     <!-- Main Content -->
-    <main class="pt-20 flex min-h-screen w-full flex-col px-12">
+    <main class="flex min-h-screen w-full flex-col px-12 pt-20">
         @yield('content')
     </main>
 
     <!-- Scripts Section -->
-    @yield('scripts')
 
     <script>
         function toggleDropdown() {
-            console.log('hiii')
             const menu = document.getElementById('dropdownMenu');
             const arrow = document.getElementById('dropdownArrow');
 
@@ -161,6 +159,7 @@
                 arrow.style.transform = 'rotate(0deg)';
             }
         }
+        @yield('scripts')
     </script>
 </body>
 

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - {{ config('app.name') }}</title>
+    <title>Register</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -33,7 +33,7 @@
             <div>
                 <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
                 <input type="text" id="name" name="name" value="{{ old('name') }}" required
-                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    class="mt-1 block w-full rounded-md border-gray-300 py-1 pl-2 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                 @error('name')
                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                 @enderror
@@ -43,7 +43,7 @@
             <div>
                 <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
                 <input type="email" id="email" name="email" value="{{ old('email') }}" required
-                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    class="mt-1 block w-full rounded-md border-gray-300 py-1 pl-2 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                 @error('email')
                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                 @enderror
@@ -53,7 +53,7 @@
             <div>
                 <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
                 <input type="password" id="password" name="password" required
-                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    class="mt-1 block w-full rounded-md border-gray-300 py-1 pl-2 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                 @error('password')
                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                 @enderror
@@ -64,7 +64,7 @@
                 <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirm
                     Password</label>
                 <input type="password" id="password_confirmation" name="password_confirmation" required
-                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    class="mt-1 block w-full rounded-md border-gray-300 py-1 pl-2 shadow-sm focus:border-blue-500 focus:ring-blue-500">
             </div>
 
             <!-- Privacy Policy Checkbox -->
@@ -87,7 +87,7 @@
             <!-- Register Button -->
             <div>
                 <button type="submit"
-                    class="flex w-full justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                    class="flex w-full cursor-pointer justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                     Register
                 </button>
             </div>
@@ -182,7 +182,7 @@
     <div id="privacyModal" class="fixed inset-0 z-50 hidden overflow-y-auto">
         <div class="flex min-h-screen items-center justify-center p-4">
             <!-- Backdrop -->
-            <div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity" onclick="closePrivacyModal()"></div>
+            <div class="fixed inset-0 bg-red-200/10 transition-opacity" onclick="closePrivacyModal()"></div>
 
             <!-- Modal Content -->
             <div class="relative max-h-screen w-full max-w-3xl overflow-y-auto rounded-lg bg-white shadow-xl">

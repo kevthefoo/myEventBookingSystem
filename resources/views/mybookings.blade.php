@@ -1,32 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.main')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Bookings - {{ config('app.name') }}</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
+@section('title')
+    Griffith Event Booking System
+@endsection
 
-<body class="min-h-screen bg-gray-50">
-
-    <!-- Header -->
-    <div class="border-b bg-white p-4 shadow-sm">
-        <div class="mx-auto flex max-w-7xl items-center justify-between">
-            <h1 class="text-2xl font-bold text-gray-900">My Bookings</h1>
-
-            <div class="flex items-center gap-4">
-                <span class="text-gray-600">Welcome, {{ auth()->user()->name }}!</span>
-                <a href="/" class="text-blue-600 hover:text-blue-800">Browse Events</a>
-                <form method="POST" action="/logout" class="inline">
-                    @csrf
-                    <button type="submit" class="text-red-600 hover:text-red-800">
-                        Logout
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
+@section('content')
 
     <div class="mx-auto max-w-6xl p-6">
 
@@ -47,8 +25,7 @@
         @endif
 
         @if (session('error'))
-            <div id="error-message"
-                class="relative mb-6 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700">
+            <div id="error-message" class="relative mb-6 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700">
                 <span>{{ session('error') }}</span>
                 <button onclick="dismissMessage('error-message')"
                     class="absolute right-0 top-0 mr-2 mt-2 text-red-500 hover:text-red-700">
@@ -65,7 +42,6 @@
         <div class="rounded-lg bg-white p-6 shadow-md">
 
             @if (!empty($myBookings) && count($myBookings) > 0)
-
                 <!-- Bookings Summary -->
                 <div class="mb-6 rounded-lg bg-blue-50 p-4">
                     <h2 class="mb-2 text-lg font-semibold text-blue-800">Booking Summary</h2>
@@ -107,8 +83,7 @@
                                 <h3 class="text-lg font-semibold text-gray-900">{{ $booking->title }}</h3>
                                 <div class="flex items-center gap-2">
                                     @if ($isPast)
-                                        <span
-                                            class="rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-600">
+                                        <span class="rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-600">
                                             Completed
                                         </span>
                                     @else
@@ -203,8 +178,7 @@
 
                                     @if ($isUpcoming)
                                         <span class="text-gray-300">•</span>
-                                        <form method="POST" action="/events/{{ $booking->uuid }}/cancel"
-                                            class="inline">
+                                        <form method="POST" action="/events/{{ $booking->uuid }}/cancel" class="inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit"
@@ -235,8 +209,7 @@
                     <div class="mt-6">
                         <a href="/"
                             class="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                            <svg class="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
+                            <svg class="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                             </svg>
@@ -249,18 +222,18 @@
         </div>
 
     </div>
+@endsection
 
-    <!-- JavaScript for Auto-hide Messages -->
-    <script>
+<!-- JavaScript for Auto-hide Messages -->
+<script>
+    @section('script')
         // Auto-hide messages after 5 seconds
         document.addEventListener('DOMContentLoaded', function() {
             const successMessage = document.getElementById('success-message');
             const errorMessage = document.getElementById('error-message');
-
             if (successMessage) {
                 setTimeout(() => fadeOut(successMessage), 5000);
             }
-
             if (errorMessage) {
                 setTimeout(() => fadeOut(errorMessage), 5000);
             }
@@ -276,8 +249,4 @@
             element.style.opacity = '0';
             setTimeout(() => element.remove(), 500);
         }
-    </script>
-
-</body>
-
-</html>
+    @endsection
