@@ -43,11 +43,22 @@
 
     {{-- Pagination bar --}}
     @if ($events->hasPages())
-        <div class="pagination my-4 flex justify-center">
+        <div class="pagination my-4 flex justify-center bg-white text-red-400">
             {{ $events->links() }}
         </div>
     @endif
     <style>
+        .pagination a,
+        .pagination span {
+            background-color: #f8f9fa;
+            color: black;
+        }
+
+        span[aria-current="page"] span {
+            background-color: grey;
+            color: white;
+        }
+
         .pagination p {
             display: none;
         }
