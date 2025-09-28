@@ -331,7 +331,7 @@ Route::delete('/events/{event}/cancel', function(Event $event) {
 
 Route::get('/mybookings', function() {
     if (!auth()->check()) {
-        return redirect('/login')->with('error', 'Please log in to view your bookings.');
+        return redirect('/login');
     }
 
 
