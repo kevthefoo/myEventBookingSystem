@@ -140,14 +140,13 @@
                                     Booked on {{ date('M j, Y \a\t g:i A', strtotime($booking->booked_at)) }}
                                 </div>
 
-                                <div class="flex gap-2">
+                                <div class="flex items-center justify-center gap-2">
                                     <a href="/events/{{ $booking->uuid }}"
                                         class="text-sm font-medium text-blue-600 hover:text-blue-800">
                                         View Details
                                     </a>
 
                                     @if ($isUpcoming)
-                                        <span class="text-gray-300">•</span>
                                         <form method="POST" action="/events/{{ $booking->uuid }}/cancel" class="inline">
                                             @csrf
                                             @method('DELETE')
