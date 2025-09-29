@@ -1,3 +1,5 @@
+<!-- filepath: c:\Users\kevth\Desktop\myEventBookingSystem\resources\views\home.blade.php -->
+
 @extends('layouts.main')
 
 @section('title')
@@ -60,10 +62,18 @@
             </div>
         </div>
     </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="hidden text-center">
+        <div
+            class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <p class="mt-2 text-gray-600 dark:text-gray-400">Loading events...</p>
     </div>
 
     <div class="flex-grow">
-        <div class="grid auto-rows-max grid-cols-3 gap-4 text-center">
+        <div id="eventsGrid" class="grid auto-rows-max grid-cols-3 gap-4 text-center">
             @if ($events->count() > 0)
                 @foreach ($events as $event)
                     <div
@@ -76,25 +86,26 @@
 
                         <p class="mb-4 line-clamp-2 text-start text-sm text-gray-600 dark:text-gray-300">
                             {{ $event->description }}</p>
-                        <div class="flex flex-col items-start justify-center text-sm">
+                        <div class="mb-4 flex flex-col items-start justify-center text-sm">
                             <p><strong>Date:</strong> {{ $event->date->format('F j, Y') }}</p>
                             <p><strong>Time:</strong> {{ date('g:i A', strtotime($event->time)) }}</p>
                             <p><strong>Location:</strong> {{ $event->location }}</p>
                             <p><strong>Capacity:</strong> {{ $event->capacity }}</p>
-                            <p><strong>Organizer:</strong>{{ $event->organizer->first_name }}{{ $event->organizer->last_name }}
-                            </p>
-                            @if ($event->categories->count() > 0)
-                                <div class="mb-3 mt-4 flex flex-wrap justify-center gap-1">
-                                    @foreach ($event->categories as $category)
-                                        <div class="inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium"
-                                            style="background-color: {{ $category->color }}20; color: {{ $category->color }}; border: 1px solid {{ $category->color }}30;">
-                                            <span>{{ $category->icon }}</span>
-                                            <span>{{ $category->name }}</span>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            @endif
+                            <p><strong>Organizer:</strong>
+                                {{ $event->organizer->first_name }}{{ $event->organizer->last_name }}</p>
                         </div>
+                        <!-- Categories Display -->
+                        @if ($event->categories->count() > 0)
+                            <div class="flex flex-wrap justify-start gap-1">
+                                @foreach ($event->categories as $category)
+                                    <div class="inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium"
+                                        style="background-color: {{ $category->color }}20; color: {{ $category->color }}; border: 1px solid {{ $category->color }}30;">
+                                        <span>{{ $category->icon }}</span>
+                                        <span>{{ $category->name }}</span>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
                     </div>
                 @endforeach
             @else
@@ -105,17 +116,29 @@
                     </code>
                 </div>
             @endif
+        </div>
 
+        <!-- No Results Message -->
+        <div id="noResults" class="col-span-3 hidden text-center">
+            <div class="rounded-lg border-2 border-gray-200 bg-white p-8 dark:border-gray-600 dark:bg-gray-800">
+                <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+                <h3 class="mt-2 text-lg font-medium text-gray-900 dark:text-white">No events found</h3>
+                <p class="mt-1 text-gray-500 dark:text-gray-400">No events match the selected categories.</p>
+            </div>
         </div>
     </div>
 
-    {{-- Pagination bar --}}
-    @if ($events->hasPages())
-        <div class="pagination my-4 flex justify-center bg-white text-red-400 dark:bg-gray-800">
-            {{ $events->links() }}
-        </div>
-    @endif
-
+    <!-- Pagination Container -->
+    <div id="paginationContainer" class="mt-6">
+        @if ($events->hasPages())
+            <div class="pagination my-4 flex justify-center bg-white text-red-400 dark:bg-gray-800">
+                {{ $events->links() }}
+            </div>
+        @endif
+    </div>
 @endsection
 
 @section('styles')
@@ -144,6 +167,13 @@
 
         .pagination p {
             display: none;
+        }
+
+        /* Loading animation */
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
         }
     </style>
 @endsection
@@ -272,39 +302,37 @@
                 categoriesHtml = '<div class="mb-3 flex flex-wrap justify-center gap-1">';
                 event.categories.forEach(category => {
                     categoriesHtml += `
-    <span class="inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium"
-        style="background-color: ${category.color}20; color: ${category.color}; border: 1px solid ${category.color}30;">
-        <span>${category.icon}</span>
-        <span>${category.name}</span>
-    </span>
-    `;
+                <span class="inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium"
+                      style="background-color: ${category.color}20; color: ${category.color}; border: 1px solid ${category.color}30;">
+                    <span>${category.icon}</span>
+                    <span>${category.name}</span>
+                </span>
+            `;
                 });
                 categoriesHtml += '</div>';
             }
 
             return `
-    <div class="flex flex-col justify-around rounded-lg border-2 border-black bg-white p-4 dark:bg-gray-900">
-        <h3 class="mb-2 text-lg font-semibold">
-            <a href="/events/${event.uuid}">
-                ${event.title}
-            </a>
-        </h3>
+        <div class="flex flex-col justify-around rounded-lg border-2 border-black bg-white p-4 dark:bg-gray-900">
+            <h3 class="mb-2 text-lg font-semibold">
+                <a href="/events/${event.uuid}">
+                    ${event.title}
+                </a>
+            </h3>
+            
+            ${categoriesHtml}
 
-        ${categoriesHtml}
-
-        <p class="mb-4 line-clamp-2 text-start text-sm text-gray-600 dark:text-gray-300">
-            ${event.description}
-        </p>
-        <div class="flex flex-col items-start justify-center text-sm">
-            <p><strong>Date:</strong> ${eventDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day:
-                'numeric' })}</p>
-            <p><strong>Time:</strong> ${eventTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12:
-                true })}</p>
-            <p><strong>Location:</strong> ${event.location}</p>
-            <p><strong>Capacity:</strong> ${event.capacity}</p>
-            <p><strong>Organizer:</strong> ${event.organizer.first_name} ${event.organizer.last_name}</p>
+            <p class="mb-4 line-clamp-2 text-start text-sm text-gray-600 dark:text-gray-300">
+                ${event.description}
+            </p>
+            <div class="flex flex-col items-start justify-center text-sm">
+                <p><strong>Date:</strong> ${eventDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                <p><strong>Time:</strong> ${eventTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}</p>
+                <p><strong>Location:</strong> ${event.location}</p>
+                <p><strong>Capacity:</strong> ${event.capacity}</p>
+                <p><strong>Organizer:</strong> ${event.organizer.first_name} ${event.organizer.last_name}</p>
+            </div>
         </div>
-    </div>
     `;
         }
 
@@ -316,41 +344,48 @@
                 container.innerHTML = '';
                 return;
             }
-            let
-                html =
+
+            let html =
                 '<div class="pagination flex justify-center bg-white text-red-400 dark:bg-gray-800"><nav class="flex space-x-1">';
-            // Previous button if (pagination.current_page> 1) {
-            html += `<button onclick="applyFilters(${pagination.current_page - 1})"
-            class="rounded border px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">Previous</button>`;
-        }
 
-        // Page numbers
-        for (let i = 1; i <= pagination.last_page; i++) {
-            const active = i === pagination.current_page;
-            html += `<button
-            onclick="applyFilters(${i})"
-            class="${active ? 'bg-gray-600 text-white' : 'hover:bg-gray-100 dark:hover:bg-gray-700'} rounded border px-3 py-2">
-            ${i}</button>`;
-        }
+            // Previous button
+            if (pagination.current_page > 1) {
+                html +=
+                    `<button onclick="applyFilters(${pagination.current_page - 1})" class="rounded border px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">Previous</button>`;
+            }
 
-        // Next button
-        if (pagination.current_page < pagination.last_page) {
-            html +=
-                `<button onclick="applyFilters(${pagination.current_page + 1})" class="rounded border px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">Next</button>`;
-        }
+            // Page numbers
+            for (let i = 1; i <= pagination.last_page; i++) {
+                const active = i === pagination.current_page;
+                html +=
+                    `<button onclick="applyFilters(${i})" class="${active ? 'bg-gray-600 text-white' : 'hover:bg-gray-100 dark:hover:bg-gray-700'} rounded border px-3 py-2">${i}</button>`;
+            }
 
-        html += '</nav></div>';
-        container.innerHTML = html;
+            // Next button
+            if (pagination.current_page < pagination.last_page) {
+                html +=
+                    `<button onclick="applyFilters(${pagination.current_page + 1})" class="rounded border px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">Next</button>`;
+            }
+
+            html += '</nav></div>';
+            container.innerHTML = html;
+        }
 
         // Show/hide loading
         function showLoading() {
-            document.getElementById('loadingSpinner').classList.remove('hidden');
-            document.getElementById('eventsGrid').classList.add('opacity-50');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const eventsGrid = document.getElementById('eventsGrid');
+
+            if (loadingSpinner) loadingSpinner.classList.remove('hidden');
+            if (eventsGrid) eventsGrid.classList.add('opacity-50');
         }
 
         function hideLoading() {
-            document.getElementById('loadingSpinner').classList.add('hidden');
-            document.getElementById('eventsGrid').classList.remove('opacity-50');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const eventsGrid = document.getElementById('eventsGrid');
+
+            if (loadingSpinner) loadingSpinner.classList.add('hidden');
+            if (eventsGrid) eventsGrid.classList.remove('opacity-50');
         }
 
         // Close category dropdown when clicking outside
@@ -358,11 +393,11 @@
             const dropdown = document.getElementById('categoryDropdown');
             const button = document.getElementById('categoryFilterBtn');
 
-            if (!dropdown.contains(event.target) && !button.contains(event.target)) {
+            if (dropdown && button && !dropdown.contains(event.target) && !button.contains(event.target)) {
                 dropdown.classList.add('hidden');
-                document.getElementById('categoryArrow').style.transform = 'rotate(0deg)';
+                const arrow = document.getElementById('categoryArrow');
+                if (arrow) arrow.style.transform = 'rotate(0deg)';
             }
-
         });
     </script>
 @endsection
