@@ -1,15 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.main')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
+@section('title')
+    Login
+@endsection
 
-<body class="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-800 dark:text-white">
+@section('scripts')
+    <script>
+        const header = document.querySelector('header');
+        if (header) {
+            header.remove();
+        }
+    </script>
+@endsection
 
+@section('content')
     <div class="w-full max-w-md rounded-lg bg-white p-8 shadow-md dark:bg-gray-800 dark:shadow-sm dark:shadow-white">
 
         <!-- Header -->
@@ -66,7 +70,6 @@
             </p>
         </div>
 
-     
         <div class="mt-4 text-center">
             <a href="/" class="text-sm text-gray-500 hover:text-gray-700 dark:text-white">
                 ← Back to Home
@@ -74,7 +77,4 @@
         </div>
 
     </div>
-
-</body>
-
-</html>
+@endsection

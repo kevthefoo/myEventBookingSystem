@@ -70,6 +70,7 @@
                 <span class="hidden text-lg font-bold text-gray-900 sm:block dark:text-white">GUEBS</span>
             </a>
         </div>
+
         <nav>
             <ul class="flex gap-4">
                 <li><a href="/">Events</a></li>
@@ -82,6 +83,7 @@
                 @endauth
             </ul>
         </nav>
+
         <div class="flex items-center justify-center gap-2">
             @auth
                 <div class="relative flex flex-col">
@@ -93,40 +95,45 @@
                     </div>
 
                     <div id="dropdownMenu"
-                        class="absolute right-0 top-4 z-50 mt-2 hidden w-40 border border-gray-200 bg-white shadow-lg">
+                        class="absolute right-0 top-4 z-50 mt-2 hidden w-40 border border-gray-200 bg-white shadow-lg dark:bg-gray-700">
                         <div class="py-2">
                             <!-- User Info -->
                             <div class="border-b border-gray-100 px-4 py-2">
-                                <div class="text-sm text-gray-500">{{ ucfirst(auth()->user()->role) }} Account</div>
+                                <div class="text-sm text-gray-500 dark:text-white">{{ ucfirst(auth()->user()->role) }}
+                                    Account</div>
                             </div>
 
                             <!-- Navigation Links -->
                             <div class="py-1">
                                 @if (auth()->user()->role === 'organizer')
-                                    <a href="/eventmanager" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <a href="/eventmanager"
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800">
                                         📊 Manage Events
                                     </a>
                                     <a href="/admin/dashboard"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800">
                                         📈 Dashboard
                                     </a>
                                 @else
-                                    <a href="/mybookings" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <a href="/mybookings"
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800">
                                         🎫 My Bookings
                                     </a>
                                 @endif
 
-                                <a href="/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <a href="/profile"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800">
                                     👤 Profile Settings
                                 </a>
-                                <a href="/help" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <a href="/help"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800">
                                     ❓ Help & Support
                                 </a>
                             </div>
 
                             <form method="POST" action="/logout" class="text-center">
                                 @csrf
-                                <button type="submit" class="w-full cursor-pointer text-red-600 hover:text-red-800">
+                                <button type="submit" class="w-full cursor-pointer text-red-600 hover:text-red-800 dark:hover:text-red-400">
                                     Logout
                                 </button>
                             </form>
@@ -150,10 +157,10 @@
                 </div>
             </label>
         </div>
-    </header>
 
+    </header>
     <!-- Main Content -->
-    <main class="flex min-h-screen w-full flex-col px-12 pt-20 dark:bg-gray-800">
+    <main class="flex min-h-screen w-full flex-col items-center px-12 pt-20 dark:bg-gray-800">
         @yield('content')
     </main>
 

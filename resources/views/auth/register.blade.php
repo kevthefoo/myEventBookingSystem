@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.main')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
+@section('title')
+    Register
+@endsection
 
-<body class="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-800 dark:text-white">
-
+@section('content')
     <div
         class="w-full max-w-md rounded-lg bg-white p-8 shadow-md dark:bg-gray-800 dark:text-white dark:shadow-sm dark:shadow-white">
         <h2 class="mb-6 text-center text-2xl font-bold text-gray-900 dark:text-white">Create Account</h2>
@@ -72,8 +67,7 @@
 
             <!-- Confirm Password Field -->
             <div>
-                <label for="password_confirmation"
-                    class="block text-sm font-medium text-gray-700 dark:text-white">Confirm
+                <label for="password_confirmation" class="block text-sm font-medium text-gray-700 dark:text-white">Confirm
                     Password</label>
                 <input type="password" id="password_confirmation" name="password_confirmation" required
                     class="mt-1 block w-full rounded-md border border-gray-300 py-1 pl-2 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white">
@@ -81,8 +75,8 @@
 
             <!-- Privacy Policy Checkbox -->
             <div class="flex items-start">
-                <input type="checkbox" id="privacy_policy_accepted" name="privacy_policy_accepted" value="1"
-                    required class="mt-1 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                <input type="checkbox" id="privacy_policy_accepted" name="privacy_policy_accepted" value="1" required
+                    class="mt-1 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
                 <label for="privacy_policy_accepted" class="ml-2 block text-sm text-gray-700 dark:text-white">
                     I agree to the
                     <button type="button" onclick="openTermsModal()"
@@ -302,9 +296,15 @@
             </div>
         </div>
     </div>
+@endsection
 
+@section('scripts')
     <!-- JavaScript for Modals -->
     <script>
+        const header = document.querySelector('header');
+        if (header) {
+            header.remove();
+        }
         // Terms Modal Functions
         function openTermsModal() {
             document.getElementById('termsModal').classList.remove('hidden');
@@ -345,7 +345,4 @@
             }
         });
     </script>
-
-</body>
-
-</html>
+@endsection
