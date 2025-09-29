@@ -132,8 +132,10 @@
                                 </button>
                             </form>
                         @else
-                            <a href="/login" class="text-blue-600 hover:text-blue-800">Login</a>
-                            <a href="/register" class="text-blue-600 hover:text-blue-800">Register</a>
+                            <a href="/login"
+                                class="text-blue-600 hover:text-blue-800 dark:text-white dark:hover:text-gray-300">Login</a>
+                            <a href="/register"
+                                class="text-blue-600 hover:text-blue-800 dark:text-white dark:hover:text-gray-300">Register</a>
                         @endauth
                     </div>
                 </div>

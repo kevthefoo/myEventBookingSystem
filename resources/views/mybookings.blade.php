@@ -1,12 +1,12 @@
 @extends('layouts.main')
 
 @section('title')
-    Griffith Event Booking System
+    My Bookings
 @endsection
 
 @section('content')
 
-    <div class="mx-auto max-w-6xl p-6">
+    <div class="mx-auto max-w-6xl p-6 dark:bg-gray-800">
 
         <!-- Success/Error Messages -->
         @if (session('success'))

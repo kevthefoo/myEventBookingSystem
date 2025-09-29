@@ -5,9 +5,9 @@
 @endsection
 
 @section('content')
-    <div class="mx-auto max-w-2xl rounded-lg bg-white p-6 shadow">
+    <div class="mx-auto max-w-2xl rounded-lg bg-white p-6 shadow dark:bg-gray-800 dark:shadow-sm dark:shadow-white">
         <!-- Back Button -->
-        <a href="/" class="mb-4 inline-block text-blue-600 hover:text-blue-800">
+        <a href="/" class="mb-4 inline-block text-blue-600 hover:text-blue-800 dark:text-white">
             ← Back to Home
         </a>
 
@@ -16,11 +16,11 @@
 
         <!-- Event Description -->
         @if ($event->description)
-            <p class="mb-6 text-gray-700">{{ $event->description }}</p>
+            <p class="mb-6 text-gray-700 dark:text-white">{{ $event->description }}</p>
         @endif
 
         <!-- Event Details -->
-        <div class="mb-6 rounded-lg bg-gray-50 p-4">
+        <div class="mb-6 rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
             <div class="grid grid-cols-2 gap-4 md:grid-cols-2">
                 <div class="flex items-start justify-start">
                     <x-mdi-calendar class="mr-2 mt-0.5 flex h-5 w-5" />
@@ -73,7 +73,7 @@
                 $occupancyRate = $event->capacity > 0 ? ($currentBookings / $event->capacity) * 100 : 0;
             @endphp
             <div class="mb-6">
-                <div class="mb-1 flex justify-between text-sm text-gray-600">
+                <div class="mb-1 flex justify-between text-sm text-gray-600 dark:text-white">
                     <span>Bookings: {{ $currentBookings }}/{{ $event->capacity }}</span>
                     <span>{{ number_format($occupancyRate, 1) }}% Full</span>
                 </div>

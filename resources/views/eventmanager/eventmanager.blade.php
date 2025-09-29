@@ -30,41 +30,53 @@
         </div>
 
         <!-- My Events List -->
-        <div class="rounded-lg bg-white p-6 shadow-md">
+        <div class="rounded-lg bg-white p-6 shadow-md dark:bg-gray-900 dark:text-white">
             <h2 class="mb-4 text-xl font-bold">My Events</h2>
 
             @if ($events->count() > 0)
                 <div class="overflow-x-auto">
                     <table class="min-w-full table-auto">
-                        <thead class="bg-gray-50">
+                        <thead class="bg-gray-50 dark:bg-gray-800">
                             <tr>
-                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Title</th>
-                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Date & Time</th>
-                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Location</th>
-                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Capacity</th>
-                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Bookings</th>
-                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Actions</th>
+                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700 dark:text-white">Title</th>
+                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700 dark:text-white">Date &
+                                    Time</th>
+                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700 dark:text-white">Location
+                                </th>
+                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700 dark:text-white">Capacity
+                                </th>
+                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700 dark:text-white">Bookings
+                                </th>
+                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700 dark:text-white">Actions
+                                </th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200">
                             @foreach ($events as $event)
-                                <tr class="hover:bg-gray-50">
+                                <tr class="hover:bg-gray-50 dark:hover:bg-gray-800">
+
                                     <td class="px-4 py-3">
-                                        <div class="font-medium text-gray-900">{{ $event->title }}</div>
-                                        <div class="text-sm text-gray-500">{{ Str::limit($event->description, 50) }}
+                                        <a href="/events/{{ $event->uuid }}"
+                                            class="pointer-cursor border-white no-underline">
+                                            <div class="font-medium text-gray-900 dark:text-white">
+                                                {{ $event->title }}
+                                            </div>
+                                        </a>
+                                        <div class="text-sm text-gray-500 dark:text-white">
+                                            {{ Str::limit($event->description, 50) }}
                                         </div>
                                     </td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">
+                                    <td class="px-4 py-3 text-sm text-gray-700 dark:text-white">
                                         {{ $event->date->format('Y-m-d') }}<br>
                                         {{ date('H:i', strtotime($event->time)) }}
                                     </td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">
+                                    <td class="px-4 py-3 text-sm text-gray-700 dark:text-white">
                                         {{ Str::limit($event->location, 30) }}
                                     </td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">
+                                    <td class="px-4 py-3 text-sm text-gray-700 dark:text-white">
                                         {{ $event->capacity }}
                                     </td>
-                                    <td class="px-4 py-3 text-sm text-gray-700">
+                                    <td class="px-4 py-3 text-sm text-gray-700 dark:text-white">
                                         0 {{-- {{ $event->attendees()->count() ?? 0 }} --}}
                                     </td>
                                     <td class="px-4 py-3">
@@ -88,6 +100,7 @@
                                             </form>
                                         </div>
                                     </td>
+
                                 </tr>
                             @endforeach
                         </tbody>
@@ -96,12 +109,12 @@
 
                 {{-- Pagination bar --}}
                 @if ($events->hasPages())
-                    <div class="pagination my-4 flex justify-center bg-white text-red-400">
+                    <div class="pagination my-4 flex justify-center bg-white text-red-400 dark:bg-gray-900">
                         {{ $events->links() }}
                     </div>
                 @endif
             @else
-                <div class="py-8 text-center">
+                <div class="py-8 text-center dark:bg-gray-900">
                     <p class="text-lg text-gray-500">You haven't created any events yet.</p>
                 </div>
             @endif
@@ -118,9 +131,20 @@
             color: black;
         }
 
+        .dark .pagination a,
+        .dark .pagination span {
+            color: white;
+            background-color: #1e2939;
+        }
+
         span[aria-current="page"] span {
             background-color: #374151;
             color: white;
+        }
+
+        .dark span[aria-current="page"] span {
+            background-color: white;
+            color: black;
         }
 
         .pagination p {

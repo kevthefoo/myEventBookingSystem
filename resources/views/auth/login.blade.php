@@ -66,7 +66,7 @@
             </p>
         </div>
 
-        <!-- Back to Home -->
+     
         <div class="mt-4 text-center">
             <a href="/" class="text-sm text-gray-500 hover:text-gray-700 dark:text-white">
                 ← Back to Home

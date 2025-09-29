@@ -111,6 +111,7 @@
                     <a href="/login" class="font-medium text-blue-600 hover:text-blue-500">Log in here</a>
                 </p>
             </div>
+
         </form>
     </div>
 
