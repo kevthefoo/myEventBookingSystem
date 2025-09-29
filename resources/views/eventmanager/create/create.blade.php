@@ -55,7 +55,6 @@
                 <div>
                     <label for="categories" class="mb-1 block text-sm font-medium text-gray-700 dark:text-white">
                         Event Categories <span class="text-red-500">*</span>
-                        <span class="text-xs text-gray-500">(Hold Ctrl/Cmd to select multiple)</span>
                     </label>
 
                     <!-- Custom Dropdown -->
@@ -163,7 +162,7 @@
                         Cancel
                     </a>
                     <button type="submit"
-                        class="rounded-md bg-blue-600 px-6 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                        class="cursor-pointer rounded-md bg-blue-600 px-6 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                         Create Event
                     </button>
                 </div>
@@ -174,13 +173,6 @@
 
 @section('styles')
     <style>
-        /* Dark mode calendar icon styling */
-        input[type="date"]::-webkit-calendar-picker-indicator,
-        input[type="time"]::-webkit-calendar-picker-indicator {
-            filter: invert(1);
-            cursor: pointer;
-        }
-
         /* Category tag styling */
         .category-tag {
             display: inline-flex;

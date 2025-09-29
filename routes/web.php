@@ -127,9 +127,11 @@ Route::post('/eventmanager/create', function(Request $request){
         'title' => 'required|string|max:255',
         'description' => 'nullable|string',
         'date' => 'required|date|after:today',
-        'time' => 'required|date_format:H:i', // Add this validation rule
+        'time' => 'required|date_format:H:i', 
         'location' => 'required|string|max:255',
         'capacity' => 'required|integer|min:1',
+        'categories' => 'required|array|min:1',
+        'categories.*' => 'exists:categories,id'
     ], [
         'title.required' => 'The title field is required.',
         'date.required' => 'The date field is required.',
@@ -141,15 +143,31 @@ Route::post('/eventmanager/create', function(Request $request){
         'capacity.required' => 'The capacity field is required.',
         'capacity.integer' => 'The capacity field must be a number.',
         'capacity.min' => 'The capacity field must be at least 1.',
+        'categories.required' => 'Please select at least one category.',
+        'categories.min' => 'Please select at least one category.',
     ]);
 
-    Event::create([
-        ...$validated,
-        'organizer_id' => auth()->id(),
-    ]);
+    try {
+        // Extract categories from validated data
+        $categories = $validated['categories'];
+        unset($validated['categories']); // Remove categories from event data
 
-    return redirect('/eventmanager')->with('success', 'Event created successfully!');
-    });
+        // Create the event
+        $event = Event::create([
+            'uuid' => \Illuminate\Support\Str::uuid(),
+            ...$validated,
+            'organizer_id' => auth()->id(),
+        ]);
+
+        // Attach categories to the event
+        $event->categories()->attach($categories);
+
+        return redirect('/eventmanager')->with('success', 'Event created successfully!');
+        
+    } catch (\Exception $e) {
+        return back()->withInput()->with('error', 'Failed to create event. Please try again.');
+    }
+});
 
 
 
@@ -196,11 +214,41 @@ Route::put('/eventmanager/edit/{event}', function(Request $request, Event $event
         'time' => 'required',
         'location' => 'required|string|max:255',
         'capacity' => 'required|integer|min:1|max:1000',
+        'categories' => 'required|array|min:1',
+        'categories.*' => 'exists:categories,id'
+    ], [
+        'title.required' => 'The title field is required.',
+        'date.required' => 'The date field is required.',
+        'date.after' => 'The date field must be a date after today.',
+        'time.required' => 'The time field is required.',
+        'time.date_format' => 'The time field must be in HH:MM format.',
+        'location.required' => 'The location field is required.',
+        'capacity.required' => 'The capacity field is required.',
+        'capacity.integer' => 'The capacity field must be a number.',
+        'capacity.min' => 'The capacity field must be at least 1.',
+        'capacity.max' => 'The capacity field may not be greater than 1000.',
+        'categories.required' => 'Please select at least one category.',
+        'categories.min' => 'Please select at least one category.',
+        'categories.*.exists' => 'One or more selected categories are invalid.',
     ]);
 
-    $event->update($validated);
+    try {
+        // Extract categories from validated data
+        $categories = $validated['categories'];
+        unset($validated['categories']); // Remove categories from event data
 
-    return redirect('/eventmanager')->with('success', 'Event updated successfully!');
+        // Update the event
+        $event->update($validated);
+
+        // Sync categories (removes old ones and adds new ones)
+        $event->categories()->sync($categories);
+
+        return redirect('/eventmanager')->with('success', 'Event updated successfully with categories!');
+        
+    } catch (\Exception $e) {
+        return back()->withInput()->with('error', 'Failed to update event. Please try again.');
+    }
+
 });
 
 // Delete event
