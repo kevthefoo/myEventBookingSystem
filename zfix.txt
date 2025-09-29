@@ -1,5 +1,5 @@
 first name and last name
 dark mode
+CSRF protection
 
-have more events, 32+
-have more organizers
+styling login and register button

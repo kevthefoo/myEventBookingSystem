@@ -105,11 +105,19 @@ Route::get('/eventmanager', function(){
     if(auth()->user()->role !== 'organizer'){
         return redirect('/');
     }
-    $events = Event::with('organizer')->orderBy('date', 'asc')->paginate(6);
+    $events = Event::with('organizer')->where('organizer_id', auth()->id())->orderBy('date', 'asc')->paginate(6);
     return view('eventmanager.eventmanager', compact('events')) ;
 });
 
 Route::get('/eventmanager/create', function(){
+    if(!auth()->check()){
+        return redirect('/login');
+    }
+
+    if(auth()->user()->role !== 'organizer'){
+        return redirect('/');
+    }
+
     return view('eventmanager.create.create');
 });
 
@@ -140,7 +148,7 @@ Route::post('/eventmanager/create', function(Request $request){
     ]);
 
     return redirect('/eventmanager')->with('success', 'Event created successfully!');
-    })->name('events.store');
+    });
 
 
 
@@ -148,7 +156,6 @@ Route::post('/eventmanager/create', function(Request $request){
 
 
 Route::get('/eventmanager/edit/{event}', function(Event $event){
-    // Check if user is authenticated and is an organizer
     if(!auth()->check()){
         return redirect('/login');
     }
@@ -370,14 +377,4 @@ Route::get('/mybookings', function() {
         $myBookings = [];
     }
     return view('mybookings', compact('myBookings'));
-});
-
-
-
-Route::get('/privacy-policy', function () {
-    return view('privacy-policy');
-});
-
-Route::get('/terms', function () {
-    return view('terms');
 });

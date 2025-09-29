@@ -125,8 +125,6 @@
                     <div class="rounded border border-blue-400 bg-blue-100 px-4 py-3 text-blue-700">
                         <p class="text-sm">
                             <strong>Please log in to book this event.</strong>
-                            <a href="/login" class="underline hover:text-blue-800">Login here</a> or
-                            <a href="/register" class="underline hover:text-blue-800">create an account</a>.
                         </p>
                     </div>
                 @endauth

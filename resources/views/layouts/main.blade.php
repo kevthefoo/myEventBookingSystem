@@ -73,7 +73,7 @@
         </div>
         <nav>
             <ul class="flex gap-4">
-                <li><a href="/">Home</a></li>
+                <li><a href="/">Events</a></li>
                 <li><a href="/mybookings">Bookings</a></li>
                 @auth
                     @if (auth()->user()->role === 'organizer')
@@ -126,7 +126,7 @@
 
                             <form method="POST" action="/logout" class="text-center">
                                 @csrf
-                                <button type="submit" class="cursor-pointer text-red-600 hover:text-red-800">
+                                <button type="submit" class="w-full cursor-pointer text-red-600 hover:text-red-800">
                                     Logout
                                 </button>
                             </form>
