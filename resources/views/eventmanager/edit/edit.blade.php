@@ -6,11 +6,10 @@
 
 @section('content')
     <div class="mx-auto max-w-2xl p-6">
-        <div class="rounded-lg bg-white p-6 shadow-md">
-
+        <div class="rounded-lg bg-white p-6 shadow-md dark:bg-gray-900">
             <!-- Header -->
             <div class="mb-6">
-                <h1 class="text-2xl font-bold text-gray-900">Edit Event</h1>
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Edit Event</h1>
                 <a href="/eventmanager" class="text-sm text-blue-600 hover:text-blue-800">
                     ← Back to Event Manager
                 </a>
@@ -23,7 +22,7 @@
 
                 <!-- Title -->
                 <div>
-                    <label for="title" class="mb-1 block text-sm font-medium text-gray-700">
+                    <label for="title" class="mb-1 block text-sm font-medium text-gray-700 dark:text-white">
                         Event Title <span class="text-red-500">*</span>
                     </label>
                     <input type="text" id="title" name="title" value="{{ old('title', $event->title) }}"
@@ -36,7 +35,7 @@
 
                 <!-- Description -->
                 <div>
-                    <label for="description" class="mb-1 block text-sm font-medium text-gray-700">
+                    <label for="description" class="mb-1 block text-sm font-medium text-gray-700 dark:text-white">
                         Description <span class="text-red-500">*</span>
                     </label>
                     <textarea id="description" name="description" rows="3" required
@@ -50,24 +49,24 @@
                 <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
 
                     <div>
-                        <label for="date" class="mb-1 block text-sm font-medium text-gray-700">
+                        <label for="date" class="mb-1 block text-sm font-medium text-gray-700 dark:text-white">
                             Date <span class="text-red-500">*</span>
                         </label>
                         <input type="date" id="date" name="date"
                             value="{{ old('date', $event->date->format('Y-m-d')) }}" min="{{ date('Y-m-d') }}" required
-                            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:[color-scheme:dark]">
                         @error('date')
                             <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <div>
-                        <label for="time" class="mb-1 block text-sm font-medium text-gray-700">
+                        <label for="time" class="mb-1 block text-sm font-medium text-gray-700 dark:text-white">
                             Time <span class="text-red-500">*</span>
                         </label>
                         <input type="time" id="time" name="time"
                             value="{{ old('time', date('H:i', strtotime($event->time))) }}" required
-                            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:[color-scheme:dark]">
                         @error('time')
                             <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                         @enderror
@@ -76,7 +75,7 @@
 
                 <!-- Location -->
                 <div>
-                    <label for="location" class="mb-1 block text-sm font-medium text-gray-700">
+                    <label for="location" class="mb-1 block text-sm font-medium text-gray-700 dark:text-white">
                         Location <span class="text-red-500">*</span>
                     </label>
                     <input type="text" id="location" name="location" value="{{ old('location', $event->location) }}"
@@ -89,7 +88,7 @@
 
                 <!-- Capacity -->
                 <div>
-                    <label for="capacity" class="mb-1 block text-sm font-medium text-gray-700">
+                    <label for="capacity" class="mb-1 block text-sm font-medium text-gray-700 dark:text-white">
                         Capacity <span class="text-red-500">*</span>
                     </label>
                     <input type="number" id="capacity" name="capacity" value="{{ old('capacity', $event->capacity) }}"
