@@ -74,4 +74,24 @@ class Event extends Model
         return $this->belongsToMany(User::class, 'event_attendees')
                     ->withTimestamps();
     }
+
+    // Add this relationship method
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class)->withTimestamps();
+    }
+
+    // Helper method to get category names as string
+    public function getCategoryNamesAttribute()
+    {
+        return $this->categories->pluck('name')->join(', ');
+    }
+
+    // Scope to filter by category
+    public function scopeWithCategory($query, $categoryId)
+    {
+        return $query->whereHas('categories', function ($q) use ($categoryId) {
+            $q->where('categories.id', $categoryId);
+        });
+    }
 }

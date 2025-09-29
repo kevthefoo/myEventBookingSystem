@@ -3,16 +3,19 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-
+use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\Event;
+use App\Models\Category;
 
 class EventSeeder extends Seeder
 {
+    /**
+     * Run the database seeds.
+     */
     public function run(): void
-    {
-                $events = [
-            // Original 10 events
+    {   
+        $events = [
             [
                 'title' => 'Griffith Programming Club: Python Workshop',
                 'description' => 'Learn Python fundamentals with hands-on coding exercises. Perfect for beginners and intermediate programmers. Laptops provided.',
@@ -20,6 +23,7 @@ class EventSeeder extends Seeder
                 'time' => '14:00',
                 'location' => 'Griffith University - IT Building, Room 2.15',
                 'capacity' => 40,
+                'categories' => ['Technology'] // Changed from 'category' to 'categories' array
             ],
             [
                 'title' => 'Drama Society: Shakespeare Night Performance',
@@ -28,6 +32,7 @@ class EventSeeder extends Seeder
                 'time' => '19:00',
                 'location' => 'Griffith University - Performing Arts Theatre',
                 'capacity' => 200,
+                'categories' => ['Arts & Culture']
             ],
             [
                 'title' => 'Environmental Club: Campus Cleanup Day',
@@ -36,6 +41,7 @@ class EventSeeder extends Seeder
                 'time' => '09:00',
                 'location' => 'Griffith University - Main Campus Courtyard',
                 'capacity' => 80,
+                'categories' => ['Social & Networking', 'Health & Wellness'] // Multiple categories
             ],
             [
                 'title' => 'Chess Club Championship Tournament',
@@ -44,6 +50,7 @@ class EventSeeder extends Seeder
                 'time' => '13:00',
                 'location' => 'Griffith University - Student Centre, Level 1',
                 'capacity' => 60,
+                'categories' => ['Entertainment']
             ],
             [
                 'title' => 'Photography Society: Wildlife Photography Walk',
@@ -52,6 +59,7 @@ class EventSeeder extends Seeder
                 'time' => '08:00',
                 'location' => 'Griffith University - Nathan Campus, Nature Reserve',
                 'capacity' => 25,
+                'categories' => ['Arts & Culture']
             ],
             [
                 'title' => 'Debate Society: Inter-University Debate Competition',
@@ -60,6 +68,7 @@ class EventSeeder extends Seeder
                 'time' => '18:30',
                 'location' => 'Griffith University - Law Building, Moot Court',
                 'capacity' => 120,
+                'categories' => ['Academic']
             ],
             [
                 'title' => 'Music Society: Open Mic Night',
@@ -68,6 +77,7 @@ class EventSeeder extends Seeder
                 'time' => '18:00',
                 'location' => 'Griffith University - Student Bar & Cafe',
                 'capacity' => 100,
+                'categories' => ['Arts & Culture', 'Entertainment']
             ],
             [
                 'title' => 'Gaming Club: Esports Tournament - League of Legends',
@@ -76,6 +86,7 @@ class EventSeeder extends Seeder
                 'time' => '15:00',
                 'location' => 'Griffith University - Computer Labs, Building N44',
                 'capacity' => 80,
+                'categories' => ['Entertainment', 'Technology']
             ],
             [
                 'title' => 'Entrepreneurship Society: Startup Pitch Competition',
@@ -84,6 +95,7 @@ class EventSeeder extends Seeder
                 'time' => '17:00',
                 'location' => 'Griffith University - Business Building, Auditorium',
                 'capacity' => 150,
+                'categories' => ['Career Development']
             ],
             [
                 'title' => 'International Students Club: Cultural Food Festival',
@@ -92,6 +104,7 @@ class EventSeeder extends Seeder
                 'time' => '11:00',
                 'location' => 'Griffith University - Main Lawn Area',
                 'capacity' => 200,
+                'categories' => ['Arts & Culture', 'Social & Networking']
             ],
             [
                 'title' => 'Science Society: Chemistry Lab Workshop',
@@ -100,6 +113,7 @@ class EventSeeder extends Seeder
                 'time' => '10:00',
                 'location' => 'Griffith University - Science Building, Lab 3.12',
                 'capacity' => 30,
+                'categories' => ['Academic']
             ],
             [
                 'title' => 'Film Club: Documentary Screening Night',
@@ -108,6 +122,7 @@ class EventSeeder extends Seeder
                 'time' => '19:30',
                 'location' => 'Griffith University - Media Arts Centre, Theatre A',
                 'capacity' => 75,
+                'categories' => ['Arts & Culture']
             ],
             [
                 'title' => 'Business Society: Networking Mixer',
@@ -116,6 +131,7 @@ class EventSeeder extends Seeder
                 'time' => '18:00',
                 'location' => 'Griffith University - Business Building, Conference Room',
                 'capacity' => 90,
+                'categories' => ['Social & Networking', 'Career Development']
             ],
             [
                 'title' => 'Yoga Club: Outdoor Meditation Session',
@@ -124,6 +140,7 @@ class EventSeeder extends Seeder
                 'time' => '07:00',
                 'location' => 'Griffith University - Botanical Gardens',
                 'capacity' => 50,
+                'categories' => ['Health & Wellness']
             ],
             [
                 'title' => 'Engineering Society: Robotics Competition',
@@ -132,6 +149,7 @@ class EventSeeder extends Seeder
                 'time' => '09:00',
                 'location' => 'Griffith University - Engineering Workshop, Building G25',
                 'capacity' => 64,
+                'categories' => ['Technology']
             ],
             [
                 'title' => 'Literature Club: Poetry Reading Evening',
@@ -140,6 +158,7 @@ class EventSeeder extends Seeder
                 'time' => '17:30',
                 'location' => 'Griffith University - Library, Quiet Study Area',
                 'capacity' => 35,
+                'categories' => ['Arts & Culture']
             ],
             [
                 'title' => 'Dance Society: Ballroom Dancing Workshop',
@@ -148,6 +167,7 @@ class EventSeeder extends Seeder
                 'time' => '16:00',
                 'location' => 'Griffith University - Sports Centre, Dance Studio',
                 'capacity' => 40,
+                'categories' => ['Sports & Fitness', 'Arts & Culture']
             ],
             [
                 'title' => 'Cooking Club: International Cuisine Night',
@@ -156,6 +176,7 @@ class EventSeeder extends Seeder
                 'time' => '18:30',
                 'location' => 'Griffith University - Hospitality Training Kitchen',
                 'capacity' => 20,
+                'categories' => ['Arts & Culture', 'Social & Networking']
             ],
             [
                 'title' => 'Art Society: Painting Workshop - Landscapes',
@@ -164,6 +185,7 @@ class EventSeeder extends Seeder
                 'time' => '14:00',
                 'location' => 'Griffith University - Art Studios, Room 2.08',
                 'capacity' => 25,
+                'categories' => ['Arts & Culture']
             ],
             [
                 'title' => 'Marketing Club: Social Media Strategy Seminar',
@@ -172,6 +194,7 @@ class EventSeeder extends Seeder
                 'time' => '13:30',
                 'location' => 'Griffith University - Business Lecture Theatre',
                 'capacity' => 120,
+                'categories' => ['Career Development', 'Technology']
             ],
             [
                 'title' => 'Tennis Club: Doubles Tournament',
@@ -180,6 +203,7 @@ class EventSeeder extends Seeder
                 'time' => '08:30',
                 'location' => 'Griffith University - Tennis Courts',
                 'capacity' => 32,
+                'categories' => ['Sports & Fitness']
             ],
             [
                 'title' => 'Psychology Society: Mental Health Awareness Workshop',
@@ -188,6 +212,7 @@ class EventSeeder extends Seeder
                 'time' => '11:00',
                 'location' => 'Griffith University - Health Sciences Building, Lecture Hall',
                 'capacity' => 100,
+                'categories' => ['Health & Wellness', 'Academic']
             ],
             [
                 'title' => 'Astronomy Club: Stargazing Night',
@@ -196,6 +221,7 @@ class EventSeeder extends Seeder
                 'time' => '20:00',
                 'location' => 'Griffith University - Observatory Roof',
                 'capacity' => 15,
+                'categories' => ['Academic']
             ],
             [
                 'title' => 'Fashion Society: Sustainable Fashion Show',
@@ -204,6 +230,7 @@ class EventSeeder extends Seeder
                 'time' => '19:00',
                 'location' => 'Griffith University - Student Centre Atrium',
                 'capacity' => 180,
+                'categories' => ['Arts & Culture', 'Health & Wellness']
             ],
             [
                 'title' => 'Computer Science Society: AI and Machine Learning Workshop',
@@ -212,6 +239,7 @@ class EventSeeder extends Seeder
                 'time' => '10:00',
                 'location' => 'Griffith University - Computer Labs, Building N16',
                 'capacity' => 45,
+                'categories' => ['Technology', 'Academic']
             ],
             [
                 'title' => 'Volleyball Club: Beach Tournament',
@@ -220,6 +248,7 @@ class EventSeeder extends Seeder
                 'time' => '09:00',
                 'location' => 'Currumbin Beach - South Patrol Area',
                 'capacity' => 24,
+                'categories' => ['Sports & Fitness']
             ],
             [
                 'title' => 'History Society: Archaeological Site Visit',
@@ -228,6 +257,7 @@ class EventSeeder extends Seeder
                 'time' => '08:00',
                 'location' => 'Brisbane Historical Sites (Bus departure from campus)',
                 'capacity' => 30,
+                'categories' => ['Academic']
             ],
             [
                 'title' => 'Debate Club: Public Speaking Workshop',
@@ -236,6 +266,7 @@ class EventSeeder extends Seeder
                 'time' => '15:00',
                 'location' => 'Griffith University - Student Centre, Meeting Room 3',
                 'capacity' => 40,
+                'categories' => ['Career Development', 'Academic']
             ],
             [
                 'title' => 'Environmental Club: Sustainability Fair',
@@ -244,6 +275,7 @@ class EventSeeder extends Seeder
                 'time' => '10:00',
                 'location' => 'Griffith University - Outdoor Plaza',
                 'capacity' => 150,
+                'categories' => ['Social & Networking', 'Health & Wellness']
             ],
             [
                 'title' => 'Mathematics Society: Problem Solving Competition',
@@ -252,6 +284,7 @@ class EventSeeder extends Seeder
                 'time' => '14:00',
                 'location' => 'Griffith University - Mathematics Building, Room 2.15',
                 'capacity' => 60,
+                'categories' => ['Academic']
             ],
             [
                 'title' => 'Cultural Society: Multicultural Night',
@@ -260,6 +293,7 @@ class EventSeeder extends Seeder
                 'time' => '18:00',
                 'location' => 'Griffith University - Great Hall',
                 'capacity' => 300,
+                'categories' => ['Arts & Culture', 'Social & Networking']
             ],
             [
                 'title' => 'Study Group: Final Exam Preparation',
@@ -268,16 +302,33 @@ class EventSeeder extends Seeder
                 'time' => '13:00',
                 'location' => 'Griffith University - Library, Group Study Rooms',
                 'capacity' => 80,
+                'categories' => ['Academic']
             ]
         ];
 
         $organizers = User::where('role', 'organizer')->pluck('id');
 
         foreach ($events as $eventData) {
+            // Extract categories from event data
+            $categories = $eventData['categories'];
+            unset($eventData['categories']); // Remove categories from event data
+
+            // Create the event
             $event = Event::create([
+                'uuid' => Str::uuid(),
                 ...$eventData,
-                'organizer_id' => $organizers->random()
+                'organizer_id' => $organizers->random(),
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
+
+            // Attach categories to the event
+            foreach ($categories as $categoryName) {
+                $category = Category::where('name', $categoryName)->first();
+                if ($category) {
+                    $event->categories()->attach($category->id);
+                }
+            }
         }
     }
 }
