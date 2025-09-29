@@ -94,7 +94,7 @@
                             </p>
                             <p><strong>Capacity:</strong> {{ $event->capacity }}</p>
                             <p><strong>Organizer:</strong>
-                                {{ $event->organizer->first_name }}{{ $event->organizer->last_name }}</p>
+                                {{ $event->organizer->first_name }} {{ $event->organizer->last_name }}</p>
                         </div>
 
                         <!-- Categories Display -->
