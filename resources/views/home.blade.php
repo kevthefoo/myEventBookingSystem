@@ -12,13 +12,13 @@
     </div>
 
     <!-- Category Filter Section -->
-    <div class="mb-6 w-full rounded-lg bg-white py-4 shadow dark:bg-gray-800">
+    <div class="mb-6 w-full rounded-lg bg-white py-4   dark:bg-gray-800">
         <div class="flex items-center justify-between">
             <div class="flex-1">
                 <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-white">Filter by Categories</label>
 
                 <!-- Category Filter Dropdown -->
-                <div class="relative max-w-xs z-0 border-2 border-white">
+                <div class="relative max-w-xs z-0  ">
                     <button type="button" id="categoryFilterBtn"
                         class="w-full cursor-pointer rounded-md border border-gray-300 bg-white px-3 py-2 text-left focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                         onclick="toggleCategoryFilter()">
