@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-    Griffith Event Booking System
+    Griffith University Event Booking System
 @endsection
 
 @section('content')

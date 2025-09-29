@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-    Griffith Event Booking System
+    Dashboard
 @endsection
 
 @section('content')
@@ -80,9 +80,7 @@
 
             <div class="mb-6 flex items-center justify-between">
                 <h2 class="text-xl font-bold text-gray-900">Events Report</h2>
-                <div class="text-sm text-gray-500">
-                    Generated using Raw SQL Query
-                </div>
+
             </div>
 
             {{-- @if (count($eventsReport) > 0) --}}
