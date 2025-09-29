@@ -1,3 +1,4 @@
+Dark mode toggle button
  
 dark mode
 CSRF protection
