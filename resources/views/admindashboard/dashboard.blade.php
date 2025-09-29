@@ -26,7 +26,7 @@
             <div class="rounded-lg bg-white p-6 shadow-md dark:bg-gray-900">
                 <div class="flex items-center">
                     <div class="rounded-full bg-green-100 p-3 text-green-600">
-                        <<x-heroicon-s-ticket /> class="h-5 w-5" />
+                        <x-heroicon-s-ticket class="h-5 w-5" />
                     </div>
                     <div class="ml-4">
                         <p class="text-sm font-medium text-gray-600 dark:text-white">Total Bookings</p>
