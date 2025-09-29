@@ -62,10 +62,6 @@
 </head>
 
 <body class="min-h-screen dark:bg-gray-800 dark:text-white">
-
-    <!-- Header Section -->
-    <!-- filepath: c:\Users\kevth\Desktop\myEventBookingSystem\resources\views\layouts\main.blade.php -->
-
     <header
         class="fixed flex h-16 w-full select-none items-center justify-around border-b-2 border-b-black bg-white dark:border-b-white dark:bg-gray-800">
         <div class="flex items-center">
@@ -150,7 +146,7 @@
             <label class="ml-2 inline-flex cursor-pointer items-center">
                 <input type="checkbox" value="" class="peer sr-only" onclick="toggleDarkMode()">
                 <div
-                    class="peer relative h-6 w-11 rounded-full bg-gray-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rtl:peer-checked:after:-translate-x-full dark:border-gray-600 dark:bg-gray-700 dark:peer-checked:bg-blue-600 dark:peer-focus:ring-blue-800">
+                    class="peer relative h-6 w-11 rounded-full bg-gray-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white rtl:peer-checked:after:-translate-x-full dark:border-gray-600 dark:bg-gray-700 dark:peer-checked:bg-blue-600">
                 </div>
             </label>
         </div>
