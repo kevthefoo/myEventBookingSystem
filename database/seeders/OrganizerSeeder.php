@@ -17,7 +17,8 @@ class OrganizerSeeder extends Seeder
         // Create 5 organizers
         $organizers = [
             [
-                'name' => 'Sarah Johnson',
+                'first_name' => 'Sarah',
+                'last_name'=> 'Johnson',
                 'email' => 'sarah@guebs.com',
                 'password' => Hash::make('aa000000'),
                 'role' => 'organizer',
@@ -25,7 +26,8 @@ class OrganizerSeeder extends Seeder
                 'privacy_policy_accepted_at' => now(),
             ],
             [
-                'name' => 'Michael Chen',
+                'first_name' => 'Michael',
+                'last_name'=> 'Chen',
                 'email' => 'michael@guebs.com',
                 'password' => Hash::make('aa000000'),
                 'role' => 'organizer',
@@ -33,7 +35,8 @@ class OrganizerSeeder extends Seeder
                 'privacy_policy_accepted_at' => now(),
             ],
             [
-                'name' => 'Emma Williams',
+                'first_name' => 'Emma',
+                'last_name'=> 'Williams',
                 'email' => 'emma@guebs.com',
                 'password' => Hash::make('aa000000'),
                 'role' => 'organizer',
@@ -41,7 +44,8 @@ class OrganizerSeeder extends Seeder
                 'privacy_policy_accepted_at' => now(),
             ],
             [
-                'name' => 'David Rodriguez',
+                'first_name' => 'David',
+                'last_name'=> 'Rodriguez',
                 'email' => 'david@guebs.com',
                 'password' => Hash::make('aa000000'),
                 'role' => 'organizer',
@@ -49,7 +53,8 @@ class OrganizerSeeder extends Seeder
                 'privacy_policy_accepted_at' => now(),
             ],
             [
-                'name' => 'Kevin Foo',
+                'first_name' => 'Kevin',
+                'last_name'=> 'Foo',
                 'email' => 'kevin@guebs.com',
                 'password' => Hash::make('aa000000'),
                 'role' => 'organizer',

@@ -3,3 +3,4 @@ dark mode
 CSRF protection
 
 styling login and register button
+delete fucking icons

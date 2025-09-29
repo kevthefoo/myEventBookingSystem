@@ -63,10 +63,10 @@ Route::get('/register', function(){
 Route::post('/register', function(Request $request){
     // Registration logic will go here
     $validated = $request->validate([
-        'name' => 'required|string|max:255',
+        'first_name' => 'required|string|max:255',
+        'last_name' => 'required|string|max:255',
         'email' => 'required|string|email|max:255|unique:users',
         'password' => 'required|string|min:6|confirmed',
-        // 'role' => 'required|in:user,organizer',
         'privacy_policy_accepted' => 'required|accepted',
     ]);
 
