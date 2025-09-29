@@ -1,2 +1,5 @@
 first name and last name
 dark mode
+
+have more events, 32+
+have more organizers

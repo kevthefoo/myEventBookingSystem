@@ -113,11 +113,9 @@
                 <!-- Modal Header -->
                 <div class="flex items-center justify-between border-b p-6">
                     <h3 class="text-xl font-semibold text-gray-900">Terms of Service</h3>
-                    <button type="button" onclick="closeTermsModal()" class="text-gray-400 hover:text-gray-600">
-                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
+                    <button type="button" onclick="closeTermsModal()"
+                        class="cursor-pointer text-gray-400 hover:text-gray-600">
+                        <x-mdi-close class="h-5 w-5" />
                     </button>
                 </div>
 
@@ -170,7 +168,7 @@
                 <!-- Modal Footer -->
                 <div class="flex justify-end gap-3 border-t p-6">
                     <button type="button" onclick="closeTermsModal()"
-                        class="rounded-md bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200">
+                        class="cursor-pointer rounded-md bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200">
                         Close
                     </button>
                 </div>
@@ -189,11 +187,9 @@
                 <!-- Modal Header -->
                 <div class="flex items-center justify-between border-b p-6">
                     <h3 class="text-xl font-semibold text-gray-900">Privacy Policy</h3>
-                    <button type="button" onclick="closePrivacyModal()" class="text-gray-400 hover:text-gray-600">
-                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
+                    <button type="button" onclick="closePrivacyModal()"
+                        class="cursor-pointer text-gray-400 hover:text-gray-600">
+                        <x-mdi-close class="h-5 w-5" />
                     </button>
                 </div>
 
@@ -286,7 +282,7 @@
                 <!-- Modal Footer -->
                 <div class="flex justify-end gap-3 border-t p-6">
                     <button type="button" onclick="closePrivacyModal()"
-                        class="rounded-md bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200">
+                        class="cursor-pointer rounded-md bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200">
                         Close
                     </button>
                 </div>

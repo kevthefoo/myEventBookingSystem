@@ -13,28 +13,12 @@
             <div id="success-message"
                 class="relative mb-6 rounded border border-green-400 bg-green-100 px-4 py-3 text-green-700">
                 <span>{{ session('success') }}</span>
-                <button onclick="dismissMessage('success-message')"
-                    class="absolute right-0 top-0 mr-2 mt-2 text-green-500 hover:text-green-700">
-                    <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd"
-                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                </button>
             </div>
         @endif
 
         @if (session('error'))
             <div id="error-message" class="relative mb-6 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700">
                 <span>{{ session('error') }}</span>
-                <button onclick="dismissMessage('error-message')"
-                    class="absolute right-0 top-0 mr-2 mt-2 text-red-500 hover:text-red-700">
-                    <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd"
-                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                </button>
             </div>
         @endif
 
@@ -146,40 +130,38 @@
 @endsection
 
 @section('scripts')
-    <script>
-        // Auto-hide messages after 5 seconds
-        document.addEventListener('DOMContentLoaded', function() {
-            const successMessage = document.getElementById('success-message');
-            const errorMessage = document.getElementById('error-message');
+    // Auto-hide messages after 5 seconds
+    document.addEventListener('DOMContentLoaded', function() {
+    const successMessage = document.getElementById('success-message');
+    const errorMessage = document.getElementById('error-message');
 
-            if (successMessage) {
-                setTimeout(() => {
-                    fadeOut(successMessage);
-                }, 5000); // 5 seconds
-            }
+    if (successMessage) {
+    setTimeout(() => {
+    fadeOut(successMessage);
+    }, 5000); // 5 seconds
+    }
 
-            if (errorMessage) {
-                setTimeout(() => {
-                    fadeOut(errorMessage);
-                }, 5000); // 5 seconds
-            }
-        });
+    if (errorMessage) {
+    setTimeout(() => {
+    fadeOut(errorMessage);
+    }, 5000); // 5 seconds
+    }
+    });
 
-        // Function to dismiss message manually
-        function dismissMessage(elementId) {
-            const element = document.getElementById(elementId);
-            if (element) {
-                fadeOut(element);
-            }
-        }
+    // Function to dismiss message manually
+    function dismissMessage(elementId) {
+    const element = document.getElementById(elementId);
+    if (element) {
+    fadeOut(element);
+    }
+    }
 
-        // Fade out animation
-        function fadeOut(element) {
-            element.style.transition = 'opacity 0.5s ease-out';
-            element.style.opacity = '0';
-            setTimeout(() => {
-                element.remove();
-            }, 500);
-        }
-    </script>
+    // Fade out animation
+    function fadeOut(element) {
+    element.style.transition = 'opacity 0.5s ease-out';
+    element.style.opacity = '0';
+    setTimeout(() => {
+    element.remove();
+    }, 500);
+    }
 @endsection
