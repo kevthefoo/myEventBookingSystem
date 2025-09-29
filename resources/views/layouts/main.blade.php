@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="utf-8">
@@ -91,8 +91,16 @@
                     <div class="flex items-center justify-center gap-2">
                         <div>{{ auth()->user()->first_name }}</div>
                         <div class="transform cursor-pointer transition-transform duration-200" id="dropdownArrow"
-                            onclick="toggleDropdown()">▼</div>
+                            onclick="toggleDropdown()">▼
+                        </div>
+                        <label class="ml-2 inline-flex cursor-pointer items-center">
+                            <input type="checkbox" value="" class="peer sr-only" onclick="toggleDarkMode()">
+                            <div
+                                class="peer relative h-6 w-11 rounded-full bg-gray-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rtl:peer-checked:after:-translate-x-full dark:border-gray-600 dark:bg-gray-700 dark:peer-checked:bg-blue-600 dark:peer-focus:ring-blue-800">
+                            </div>
+                        </label>
                     </div>
+
                     <div id="dropdownMenu"
                         class="absolute right-0 top-4 z-50 mt-2 hidden w-40 border border-gray-200 bg-white shadow-lg">
                         <div class="py-2">
@@ -139,7 +147,6 @@
                         @endauth
                     </div>
                 </div>
-
     </header>
 
     <!-- Main Content -->
@@ -161,6 +168,20 @@
                 arrow.style.transform = 'rotate(0deg)';
             }
         }
+
+
+        function toggleDarkMode() {
+            const htmlTag = document.documentElement; // Gets the <html> tag
+
+            // Save the preference to localStorage
+            if (htmlTag.classList.contains('dark')) {
+                htmlTag.classList.remove('dark')
+            } else {
+                htmlTag.classList.add('dark')
+            }
+        }
+
+
         @yield('scripts')
     </script>
 </body>
