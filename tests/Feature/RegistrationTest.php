@@ -24,7 +24,8 @@ class RegistrationTest extends TestCase
     public function test_new_users_can_register_with_valid_data_and_agreements()
     {
         $response = $this->post('/register', [
-            'name' => 'Test User',
+            'first_name' => 'New User First Name',
+            'last_name' => 'New User Last Name',
             'email' => 'test@example.com',
             'password' => 'password',
             'password_confirmation' => 'password',
@@ -34,7 +35,8 @@ class RegistrationTest extends TestCase
         $response->assertRedirect('/');
         $this->assertDatabaseHas('users', [
             'email' => 'test@example.com',
-            'name' => 'Test User',
+            'first_name' => 'New User First Name',
+            'last_name' => 'New User Last Name',
             'role' => 'Attendee',
         ]);
         $this->assertAuthenticated();
@@ -61,7 +63,8 @@ class RegistrationTest extends TestCase
     public function test_registration_fails_without_all_required_fields()
     {
         $response = $this->post('/register', [
-            'name' => '',
+            'first_name' => '',
+            'last_name' => '',
             'email' => 'test@example.com',
             'password' => 'password',
             'password_confirmation' => 'password',
@@ -69,7 +72,7 @@ class RegistrationTest extends TestCase
         ]);
 
         $response->assertStatus(302); // Redirect back with errors
-        $response->assertSessionHasErrors(['name']);
+        $response->assertSessionHasErrors(['first_name']);
         $this->assertDatabaseMissing('users', [
             'email' => 'test@example.com',
         ]);
@@ -98,7 +101,8 @@ class RegistrationTest extends TestCase
     {
         // Create existing user
         User::create([
-            'name' => 'Existing User',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
             'email' => 'test@example.com',
             'password' => bcrypt('password'),
             'role' => 'Attendee',

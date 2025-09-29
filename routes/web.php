@@ -71,7 +71,8 @@ Route::post('/register', function(Request $request){
     ]);
 
     $user = User::create([
-        'name' => $validated['name'],
+        'first_name' => $validated['first_name'],
+        'last_name' => $validated['last_name'],
         'email' => $validated['email'],
         'password' => Hash::make($validated['password']),
         'role' => 'Attendee',

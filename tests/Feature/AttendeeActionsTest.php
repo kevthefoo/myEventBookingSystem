@@ -23,7 +23,8 @@ class AttendeeActionsTest extends TestCase
         
         // Create test organizer
         $this->organizer = User::create([
-            'name' => 'Test Organizer',
+            'first_name' => 'Test Organizer',
+            'last_name' => 'last_name',
             'email' => 'organizer@test.com',
             'password' => bcrypt('password'),
             'role' => 'organizer',
@@ -54,7 +55,8 @@ class AttendeeActionsTest extends TestCase
 
         // Fill the full event
         $attendee = User::create([
-            'name' => 'Other Attendee',
+            'first_name' => 'Other Attendee',
+            'last_name' => 'last_name',
             'email' => 'other@test.com',
             'password' => bcrypt('password'),
             'role' => 'Attendee',
@@ -71,7 +73,8 @@ class AttendeeActionsTest extends TestCase
     public function test_a_user_can_register_with_valid_data()
     {
         $response = $this->post('/register', [
-            'name' => 'New User',
+            'first_name' => 'New User First Name',
+            'last_name' => 'New User Last Name',
             'email' => 'newuser@test.com',
             'password' => 'password',
             'password_confirmation' => 'password',
@@ -88,7 +91,8 @@ class AttendeeActionsTest extends TestCase
     public function test_a_user_can_log_in_and_log_out()
     {
         $user = User::create([
-            'name' => 'Test User',
+            'first_name' => 'New User First Name',
+            'last_name' => 'New User Last Name',
             'email' => 'testuser@test.com',
             'password' => bcrypt('password'),
             'role' => 'Attendee',
@@ -112,7 +116,8 @@ class AttendeeActionsTest extends TestCase
     public function test_a_logged_in_user_can_book_an_event()
     {
         $user = User::create([
-            'name' => 'Test User',
+            'first_name' => 'New User First Name',
+            'last_name' => 'New User Last Name',
             'email' => 'testuser@test.com',
             'password' => bcrypt('password'),
             'role' => 'Attendee',
@@ -133,7 +138,8 @@ class AttendeeActionsTest extends TestCase
     public function test_a_logged_in_user_can_view_their_bookings()
     {
         $user = User::create([
-            'name' => 'Test User',
+            'first_name' => 'New User First Name',
+            'last_name' => 'New User Last Name',
             'email' => 'testuser@test.com',
             'password' => bcrypt('password'),
             'role' => 'Attendee',
@@ -157,7 +163,8 @@ class AttendeeActionsTest extends TestCase
     public function test_a_user_cannot_book_the_same_event_twice()
     {
         $user = User::create([
-            'name' => 'Test User',
+            'first_name' => 'New User First Name',
+            'last_name' => 'New User Last Name',
             'email' => 'testuser@test.com',
             'password' => bcrypt('password'),
             'role' => 'Attendee',
@@ -184,7 +191,8 @@ class AttendeeActionsTest extends TestCase
     public function test_a_user_cannot_book_an_event_at_full_capacity()
     {
         $user = User::create([  
-            'name' => 'Test User',
+            'first_name' => 'New User First Name',
+            'last_name' => 'New User Last Name',
             'email' => 'testuser@test.com',
             'password' => bcrypt('password'),
             'role' => 'Attendee',

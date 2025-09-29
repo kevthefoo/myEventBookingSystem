@@ -18,7 +18,8 @@ class GuestAccessTest extends TestCase
         
         // Create test organizer
         $organizer = User::create([
-            'name' => 'Test Organizer',
+            'first_name' => 'Test Organizer First Name',
+            'last_name' => 'Test Organizer Last Name',
             'email' => 'organizer@test.com',
             'password' => bcrypt('password'),
             'role' => 'organizer',

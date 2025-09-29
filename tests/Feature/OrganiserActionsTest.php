@@ -23,7 +23,8 @@ class OrganiserActionsTest extends TestCase
         
         // Create test organizer
         $this->organizer = User::create([
-            'name' => 'Test Organizer',
+            'first_name' => 'Test Organizer First Name',
+            'last_name' => 'Test Organizer Last Name',
             'email' => 'organizer@test.com',
             'password' => bcrypt('password'),
             'role' => 'organizer',
@@ -31,7 +32,8 @@ class OrganiserActionsTest extends TestCase
 
         // Create regular user
         $this->user = User::create([
-            'name' => 'Test User',
+            'first_name' => 'New User First Name',
+            'last_name' => 'New User Last Name',
             'email' => 'user@test.com',
             'password' => bcrypt('password'),
             'role' => 'Attendee',
@@ -141,7 +143,8 @@ class OrganiserActionsTest extends TestCase
     {
         // Create another organizer and their event
         $otherOrganizer = User::create([
-            'name' => 'Other Organizer',
+            'first_name' => 'Other Organizer First Name',
+            'last_name' => 'Other Organizer Last Name',
             'email' => 'other@test.com',
             'password' => bcrypt('password'),
             'role' => 'organizer',
