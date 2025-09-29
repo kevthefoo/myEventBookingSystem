@@ -8,13 +8,41 @@ use Illuminate\Support\Facades\Hash;
 
 use App\Models\User;
 use App\Models\Event;
+use App\Models\Category;
 
 // home route
 Route::get('/', function () {
     $organizers = User::where('role', 'organizer')->get();
     $events = Event::with(['organizer', 'categories'])->orderBy('date', 'asc')->paginate(6);
+     $categories = Category::active()->get();
+    return view('home', compact('organizers', 'events', 'categories')); 
+});
 
-    return view('home', compact('organizers', 'events'));
+Route::get('/api/events/filter', function (Request $request) {
+    $query = Event::with(['organizer', 'categories']);
+    
+    // Filter by categories only
+    if ($request->filled('categories')) {
+        $categoryIds = $request->categories;
+        $query->whereHas('categories', function ($q) use ($categoryIds) {
+            $q->whereIn('categories.id', $categoryIds);
+        });
+    }
+    
+    // Always show upcoming events
+    $query->where('date', '>=', now());
+    
+    $events = $query->orderBy('date', 'asc')->paginate(6);
+    
+    return response()->json([
+        'events' => $events->items(),
+        'pagination' => [
+            'current_page' => $events->currentPage(),
+            'last_page' => $events->lastPage(),
+            'total' => $events->total(),
+            'per_page' => $events->perPage(),
+        ]
+    ]);
 });
 
 // login route
