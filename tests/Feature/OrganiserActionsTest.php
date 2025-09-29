@@ -55,9 +55,12 @@ class OrganiserActionsTest extends TestCase
         $response = $this->actingAs($this->organizer)->get('/admin/dashboard');
 
         $response->assertStatus(200);
-        $response->assertSee('Event Manager');
+ 
         $response->assertSee('Total Events');
         $response->assertSee('Total Bookings');
+        $response->assertSee('Upcoming Events');
+        $response->assertSee('Total Capacity');
+
     }
 
     public function test_an_organiser_can_create_a_new_event()
