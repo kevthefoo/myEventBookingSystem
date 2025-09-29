@@ -24,7 +24,7 @@
         @endif
 
         <!-- My Bookings Content -->
-        <div class="rounded-lg bg-white p-6 shadow-md">
+        <div class="rounded-lg p-6 shadow-md dark:bg-gray-800">
 
             @if (!empty($myBookings) && count($myBookings) > 0)
                 <!-- Bookings Summary -->
@@ -160,7 +160,7 @@
                 </div>
             @else
                 <!-- No Bookings State -->
-                <div class="flex flex-col items-center justify-center py-12 text-center">
+                <div class="flex flex-col items-center justify-center py-12 text-center dark:bg-gray-800">
                     <x-mdi-calendar-blank-outline class="h-12 w-12" />
                     <h3 class="mt-2 text-sm font-medium text-gray-900">No bookings yet</h3>
                     <p class="mt-1 text-sm text-gray-500">You haven't booked any events yet. Start exploring events to

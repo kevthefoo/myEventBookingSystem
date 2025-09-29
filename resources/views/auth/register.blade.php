@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 
 <head>
     <meta charset="UTF-8">
@@ -8,10 +8,11 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="flex min-h-screen items-center justify-center bg-gray-50">
+<body class="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-800 dark:text-white">
 
-    <div class="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
-        <h2 class="mb-6 text-center text-2xl font-bold text-gray-900">Create Account</h2>
+    <div
+        class="w-full max-w-md rounded-lg bg-white p-8 shadow-md dark:bg-gray-800 dark:text-white dark:shadow-sm dark:shadow-white">
+        <h2 class="mb-6 text-center text-2xl font-bold text-gray-900 dark:text-white">Create Account</h2>
 
         <!-- Success/Error Messages -->
         @if (session('success'))
@@ -28,21 +29,21 @@
 
         <form method="POST" action="/register" class="space-y-6">
             @csrf
-
             <!-- Name Field -->
             <div>
-                <label for="first_name" class="block text-sm font-medium text-gray-700">First Name</label>
+                <label for="first_name" class="block text-sm font-medium text-gray-700 dark:text-white">First
+                    Name</label>
                 <input type="text" id="first_name" name="first_name" value="{{ old('first_name') }}" required
-                    class="mt-1 block w-full rounded-md border-gray-300 py-1 pl-2 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    class="mt-1 block w-full rounded-md border border-gray-300 py-1 pl-2 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white">
                 @error('first_name')
                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                 @enderror
             </div>
 
             <div>
-                <label for="last_name" class="block text-sm font-medium text-gray-700">Last Name</label>
+                <label for="last_name" class="block text-sm font-medium text-gray-700 dark:text-white">Last Name</label>
                 <input type="text" id="last_name" name="last_name" value="{{ old('last_name') }}" required
-                    class="mt-1 block w-full rounded-md border-gray-300 py-1 pl-2 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    class="mt-1 block w-full rounded-md border border-gray-300 py-1 pl-2 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white">
                 @error('last_name')
                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                 @enderror
@@ -50,9 +51,10 @@
 
             <!-- Email Field -->
             <div>
-                <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                <label for="email" class="block text-sm font-medium text-gray-700 dark:text-white">Email
+                    Address</label>
                 <input type="email" id="email" name="email" value="{{ old('email') }}" required
-                    class="mt-1 block w-full rounded-md border-gray-300 py-1 pl-2 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    class="mt-1 block w-full rounded-md border border-gray-300 py-1 pl-2 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white">
                 @error('email')
                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                 @enderror
@@ -60,9 +62,9 @@
 
             <!-- Password Field -->
             <div>
-                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                <label for="password" class="block text-sm font-medium text-gray-700 dark:text-white">Password</label>
                 <input type="password" id="password" name="password" required
-                    class="mt-1 block w-full rounded-md border-gray-300 py-1 pl-2 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    class="mt-1 block w-full rounded-md border border-gray-300 py-1 pl-2 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white">
                 @error('password')
                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                 @enderror
@@ -70,17 +72,18 @@
 
             <!-- Confirm Password Field -->
             <div>
-                <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirm
+                <label for="password_confirmation"
+                    class="block text-sm font-medium text-gray-700 dark:text-white">Confirm
                     Password</label>
                 <input type="password" id="password_confirmation" name="password_confirmation" required
-                    class="mt-1 block w-full rounded-md border-gray-300 py-1 pl-2 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    class="mt-1 block w-full rounded-md border border-gray-300 py-1 pl-2 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white">
             </div>
 
             <!-- Privacy Policy Checkbox -->
             <div class="flex items-start">
                 <input type="checkbox" id="privacy_policy_accepted" name="privacy_policy_accepted" value="1"
                     required class="mt-1 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                <label for="privacy_policy_accepted" class="ml-2 block text-sm text-gray-700">
+                <label for="privacy_policy_accepted" class="ml-2 block text-sm text-gray-700 dark:text-white">
                     I agree to the
                     <button type="button" onclick="openTermsModal()"
                         class="cursor-pointer text-blue-600 underline hover:text-blue-500">Terms of Service</button>
@@ -103,9 +106,9 @@
 
             <!-- Login Link -->
             <div class="text-center">
-                <p class="text-sm text-gray-600">
+                <p class="text-sm text-gray-600 dark:text-white">
                     Already have an account?
-                    <a href="/login" class="font-medium text-blue-600 hover:text-blue-500">Sign in here</a>
+                    <a href="/login" class="font-medium text-blue-600 hover:text-blue-500">Log in here</a>
                 </p>
             </div>
         </form>

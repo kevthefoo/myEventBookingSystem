@@ -13,13 +13,14 @@
         <div class="grid auto-rows-max grid-cols-3 gap-4 text-center">
             @if ($events->count() > 0)
                 @foreach ($events as $event)
-                    <div class="flex flex-col justify-around rounded-lg border-2 border-black bg-white p-4">
+                    <div class="flex flex-col justify-around rounded-lg border-2 border-black bg-white p-4 dark:bg-gray-900">
                         <h3 class="mb-2 text-lg font-semibold">
                             <a href="/events/{{ $event->uuid }}">
                                 {{ $event->title }}
                             </a>
                         </h3>
-                        <p class="mb-4 line-clamp-2 text-start text-sm text-gray-600">{{ $event->description }}</p>
+                        <p class="mb-4 line-clamp-2 text-start text-sm text-gray-600 dark:text-gray-300">
+                            {{ $event->description }}</p>
                         <div class="flex flex-col items-start justify-center text-sm">
                             <p><strong>Date:</strong> {{ $event->date }}</p>
                             <p><strong>Time:</strong> {{ $event->time }}</p>
@@ -44,7 +45,7 @@
 
     {{-- Pagination bar --}}
     @if ($events->hasPages())
-        <div class="pagination my-4 flex justify-center bg-white text-red-400">
+        <div class="pagination my-4 flex justify-center bg-white text-red-400 dark:bg-gray-800">
             {{ $events->links() }}
         </div>
     @endif
@@ -59,9 +60,20 @@
             color: black;
         }
 
+        .dark .pagination a,
+        .dark .pagination span {
+            color: white;
+            background-color: #1e2939;
+        }
+
         span[aria-current="page"] span {
             background-color: #374151;
             color: white;
+        }
+
+        .dark span[aria-current="page"] span {
+            background-color: white;
+            color: black;
         }
 
         .pagination p {

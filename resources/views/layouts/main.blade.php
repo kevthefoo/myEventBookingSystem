@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
 
 <head>
     <meta charset="utf-8">
@@ -61,14 +61,15 @@
     @yield('styles')
 </head>
 
-<body class="min-h-screen">
+<body class="min-h-screen dark:bg-gray-800 dark:text-white">
 
     <!-- Header Section -->
-    <header class="fixed flex h-16 w-full select-none items-center justify-around border-b-2 border-b-black bg-white">
+    <header
+        class="fixed flex h-16 w-full select-none items-center justify-around border-b-2 border-b-black bg-white dark:border-b-white dark:bg-gray-800">
         <div class="flex items-center">
             <a href="/" class="flex items-center space-x-2">
                 <img src="{{ asset('images/logo.png') }}" alt="Griffith University Logo" class="h-8 w-auto">
-                <span class="hidden text-lg font-bold text-gray-900 sm:block">GUEBS</span>
+                <span class="hidden text-lg font-bold text-gray-900 sm:block dark:text-white">GUEBS</span>
             </a>
         </div>
         <nav>
@@ -140,7 +141,7 @@
     </header>
 
     <!-- Main Content -->
-    <main class="flex min-h-screen w-full flex-col px-12 pt-20">
+    <main class="flex min-h-screen w-full flex-col px-12 pt-20 dark:bg-gray-800">
         @yield('content')
     </main>
 
