@@ -63,7 +63,7 @@
 
 <body class="min-h-screen dark:bg-gray-800 dark:text-white">
     <header
-        class="fixed flex h-16 w-full select-none items-center justify-around border-b-2 border-b-black bg-white dark:border-b-white dark:bg-gray-800">
+        class="z-10 fixed flex h-16 w-full select-none items-center justify-around border-b-2 border-b-black bg-white dark:border-b-white dark:bg-gray-800">
         <div class="flex items-center">
             <a href="/" class="flex items-center space-x-2">
                 <img src="{{ asset('images/logo.png') }}" alt="Griffith University Logo" class="h-8 w-auto">

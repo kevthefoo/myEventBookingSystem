@@ -18,7 +18,7 @@
                 <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-white">Filter by Categories</label>
 
                 <!-- Category Filter Dropdown -->
-                <div class="relative max-w-xs">
+                <div class="relative max-w-xs z-0 border-2 border-white">
                     <button type="button" id="categoryFilterBtn"
                         class="w-full cursor-pointer rounded-md border border-gray-300 bg-white px-3 py-2 text-left focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                         onclick="toggleCategoryFilter()">
@@ -89,11 +89,14 @@
                         <div class="mb-4 flex flex-col items-start justify-center text-sm">
                             <p><strong>Date:</strong> {{ $event->date->format('F j, Y') }}</p>
                             <p><strong>Time:</strong> {{ date('g:i A', strtotime($event->time)) }}</p>
-                            <p><strong>Location:</strong> {{ $event->location }}</p>
+                            <p class=""><strong>Location:</strong>
+                                {{ $event->location }}
+                            </p>
                             <p><strong>Capacity:</strong> {{ $event->capacity }}</p>
                             <p><strong>Organizer:</strong>
                                 {{ $event->organizer->first_name }}{{ $event->organizer->last_name }}</p>
                         </div>
+
                         <!-- Categories Display -->
                         @if ($event->categories->count() > 0)
                             <div class="flex flex-wrap justify-start gap-1">
@@ -299,14 +302,14 @@
 
             let categoriesHtml = '';
             if (event.categories && event.categories.length > 0) {
-                categoriesHtml = '<div class="mb-3 flex flex-wrap justify-center gap-1">';
+                categoriesHtml = '<div class="flex flex-wrap justify-start gap-1">';
                 event.categories.forEach(category => {
                     categoriesHtml += `
-                <span class="inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium"
-                      style="background-color: ${category.color}20; color: ${category.color}; border: 1px solid ${category.color}30;">
+                <div class="inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium"
+                     style="background-color: ${category.color}20; color: ${category.color}; border: 1px solid ${category.color}30;">
                     <span>${category.icon}</span>
                     <span>${category.name}</span>
-                </span>
+                </div>
             `;
                 });
                 categoriesHtml += '</div>';
@@ -319,19 +322,19 @@
                     ${event.title}
                 </a>
             </h3>
-            
-            ${categoriesHtml}
 
             <p class="mb-4 line-clamp-2 text-start text-sm text-gray-600 dark:text-gray-300">
                 ${event.description}
             </p>
-            <div class="flex flex-col items-start justify-center text-sm">
+            <div class="mb-4 flex flex-col items-start justify-center text-sm">
                 <p><strong>Date:</strong> ${eventDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
                 <p><strong>Time:</strong> ${eventTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}</p>
                 <p><strong>Location:</strong> ${event.location}</p>
                 <p><strong>Capacity:</strong> ${event.capacity}</p>
                 <p><strong>Organizer:</strong> ${event.organizer.first_name} ${event.organizer.last_name}</p>
             </div>
+            
+            ${categoriesHtml}
         </div>
     `;
         }
