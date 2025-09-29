@@ -64,6 +64,8 @@
 <body class="min-h-screen dark:bg-gray-800 dark:text-white">
 
     <!-- Header Section -->
+    <!-- filepath: c:\Users\kevth\Desktop\myEventBookingSystem\resources\views\layouts\main.blade.php -->
+
     <header
         class="fixed flex h-16 w-full select-none items-center justify-around border-b-2 border-b-black bg-white dark:border-b-white dark:bg-gray-800">
         <div class="flex items-center">
@@ -86,19 +88,12 @@
         </nav>
         <div class="flex items-center justify-center gap-2">
             @auth
-
                 <div class="relative flex flex-col">
                     <div class="flex items-center justify-center gap-2">
                         <div>{{ auth()->user()->first_name }}</div>
                         <div class="transform cursor-pointer transition-transform duration-200" id="dropdownArrow"
                             onclick="toggleDropdown()">▼
                         </div>
-                        {{-- <label class="ml-2 inline-flex cursor-pointer items-center">
-                            <input type="checkbox" value="" class="peer sr-only" onclick="toggleDarkMode()">
-                            <div
-                                class="peer relative h-6 w-11 rounded-full bg-gray-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rtl:peer-checked:after:-translate-x-full dark:border-gray-600 dark:bg-gray-700 dark:peer-checked:bg-blue-600 dark:peer-focus:ring-blue-800">
-                            </div>
-                        </label> --}}
                     </div>
 
                     <div id="dropdownMenu"
@@ -139,18 +134,19 @@
                                     Logout
                                 </button>
                             </form>
-                        @else
-                            <a href="/login"
-                                class="rounded-2xl border-2 border-blue-500 px-4 py-2 font-semibold text-blue-600 transition-colors duration-200 hover:bg-blue-500 hover:text-white dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-400 dark:hover:text-gray-900">Login
-                            </a>
-                            <a href="/register"
-                                class="rounded-2xl border-2 border-green-500 bg-green-500 px-4 py-2 font-semibold text-white transition-colors duration-200 hover:border-green-600 hover:bg-green-600 dark:border-green-600 dark:bg-green-600 dark:hover:border-green-700 dark:hover:bg-green-700">
-                                Register
-                            </a>
-                        @endauth
+                        </div>
                     </div>
                 </div>
-            </div>
+            @else
+                <a href="/login"
+                    class="rounded-2xl border-2 border-blue-500 px-4 py-2 font-semibold text-blue-600 transition-colors duration-200 hover:bg-blue-500 hover:text-white dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-400 dark:hover:text-gray-900">Login
+                </a>
+                <a href="/register"
+                    class="rounded-2xl border-2 border-green-500 bg-green-500 px-4 py-2 font-semibold text-white transition-colors duration-200 hover:border-green-600 hover:bg-green-600 dark:border-green-600 dark:bg-green-600 dark:hover:border-green-700 dark:hover:bg-green-700">
+                    Register
+                </a>
+            @endauth
+
             <label class="ml-2 inline-flex cursor-pointer items-center">
                 <input type="checkbox" value="" class="peer sr-only" onclick="toggleDarkMode()">
                 <div
