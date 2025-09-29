@@ -21,9 +21,9 @@
 
         <!-- Event Details -->
         <div class="mb-6 rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
-            <div class="grid grid-cols-2 gap-4 md:grid-cols-2">
+            <div class="mb-4 grid grid-cols-2 gap-4 md:grid-cols-2">
                 <div class="flex items-start justify-start">
-                    <x-heroicon-s-calendar class="mr-2 mt-0.5 flex h-5 w-5" />
+                    <x-heroicon-s-calendar class="mr-2 mt-0.5 h-5 w-5 flex-shrink-0" />
                     <div>
                         <strong>Date:</strong>
                         {{ $event->date->format('F j, Y') }}
@@ -43,7 +43,7 @@
                                 ->exists()
                             : false;
                     @endphp
-                    <x-heroicon-o-archive-box class="mr-2 mt-0.5 flex h-5 w-5" />
+                    <x-heroicon-o-archive-box class="mr-2 mt-0.5 h-5 w-5 flex-shrink-0" />
                     <div>
                         <strong>Capacity:</strong> {{ $event->capacity }} people<br>
                         <strong>Available:</strong>
@@ -55,18 +55,27 @@
 
                 <div class="flex items-start justify-start">
 
-                    <x-heroicon-o-map-pin class="mr-2 mt-0.5 flex h-5 w-8" />
-                    <div> <strong>Location:</strong> {{ $event->location }}
+                    <x-heroicon-o-map-pin class="mr-2 mt-0.5 h-5 w-5 flex-shrink-0" />
+                    <div>
+                        <strong>Location:</strong> {{ $event->location }}
                     </div>
 
                 </div>
 
                 <div class="flex items-start justify-start">
-                    <x-heroicon-o-hand-raised class="mr-2 mt-0.5 flex h-5 w-5" />
+                    <x-heroicon-o-hand-raised class="mr-2 mt-0.5 h-5 w-5 flex-shrink-0" />
                     <div><strong>Organizer:</strong> {{ $event->organizer->first_name }} {{ $event->organizer->last_name }}
                     </div>
                 </div>
             </div>
+
+            @foreach ($event->categories as $category)
+                <div class="mb-4 inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium"
+                    style="background-color: {{ $category->color }}20; color: {{ $category->color }}; border: 1px solid {{ $category->color }}30;">
+                    <span>{{ $category->icon }}</span>
+                    <span>{{ $category->name }}</span>
+                </div>
+            @endforeach
 
             <!-- Booking Progress Bar -->
             @php

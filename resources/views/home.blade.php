@@ -19,6 +19,7 @@
                                 {{ $event->title }}
                             </a>
                         </h3>
+
                         <p class="mb-4 line-clamp-2 text-start text-sm text-gray-600 dark:text-gray-300">
                             {{ $event->description }}</p>
                         <div class="flex flex-col items-start justify-center text-sm">
@@ -26,8 +27,20 @@
                             <p><strong>Time:</strong> {{ date('g:i A', strtotime($event->time)) }}</p>
                             <p><strong>Location:</strong> {{ $event->location }}</p>
                             <p><strong>Capacity:</strong> {{ $event->capacity }}</p>
-                            <p><strong>Organizer:</strong> {{ $event->organizer->first_name }}
-                                {{ $event->organizer->last_name }}</p>
+                            <p><strong>Organizer:</strong>
+                                {{ $event->organizer->first_name }}{{ $event->organizer->last_name }}</p>
+                            @if ($event->categories->count() > 0)
+                                <div class="mb-3 flex flex-wrap justify-center gap-1 mt-2">
+                                    @foreach ($event->categories as $category)
+                                        <div
+                                            class="inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium"
+                                            style="background-color: {{ $category->color }}20; color: {{ $category->color }}; border: 1px solid {{ $category->color }}30;">
+                                            <span>{{ $category->icon }}</span>
+                                            <span>{{ $category->name }}</span>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endif
                         </div>
                     </div>
                 @endforeach
