@@ -128,7 +128,7 @@
                     <h3 class="text-xl font-semibold text-gray-900">Terms of Service</h3>
                     <button type="button" onclick="closeTermsModal()"
                         class="cursor-pointer text-gray-400 hover:text-gray-600">
-                        <x-mdi-close class="h-5 w-5" />
+                        <x-heroicon-o-x-mark class="h-5 w-5" />
                     </button>
                 </div>
 
@@ -202,7 +202,7 @@
                     <h3 class="text-xl font-semibold text-gray-900">Privacy Policy</h3>
                     <button type="button" onclick="closePrivacyModal()"
                         class="cursor-pointer text-gray-400 hover:text-gray-600">
-                        <x-mdi-close class="h-5 w-5" />
+                        <x-heroicon-o-x-mark class="h-5 w-5" />
                     </button>
                 </div>
 

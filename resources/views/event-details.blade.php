@@ -23,7 +23,7 @@
         <div class="mb-6 rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
             <div class="grid grid-cols-2 gap-4 md:grid-cols-2">
                 <div class="flex items-start justify-start">
-                    <x-mdi-calendar class="mr-2 mt-0.5 flex h-5 w-5" />
+                    <x-heroicon-s-calendar class="mr-2 mt-0.5 flex h-5 w-5" />
                     <div>
                         <strong>Date:</strong>
                         {{ $event->date->format('F j, Y') }}
@@ -43,7 +43,7 @@
                                 ->exists()
                             : false;
                     @endphp
-                    <x-mdi-bucket class="mr-2 mt-0.5 flex h-5 w-5" />
+                    <x-heroicon-o-archive-box class="mr-2 mt-0.5 flex h-5 w-5" />
                     <div>
                         <strong>Capacity:</strong> {{ $event->capacity }} people<br>
                         <strong>Available:</strong>
@@ -55,14 +55,14 @@
 
                 <div class="flex items-start justify-start">
 
-                    <x-mdi-map-marker-outline class="mr-2 mt-0.5 flex h-5 w-8" />
+                    <x-heroicon-o-map-pin class="mr-2 mt-0.5 flex h-5 w-8" />
                     <div> <strong>Location:</strong> {{ $event->location }}
                     </div>
 
                 </div>
 
                 <div class="flex items-start justify-start">
-                    <x-mdi-human-greeting-variant class="mr-2 mt-0.5 flex h-5 w-5" />
+                    <x-heroicon-o-hand-raised class="mr-2 mt-0.5 flex h-5 w-5" />
                     <div><strong>Organizer:</strong> {{ $event->organizer->first_name }} {{ $event->organizer->last_name }}
                     </div>
                 </div>

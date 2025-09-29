@@ -13,7 +13,7 @@
             <div class="rounded-lg bg-white p-6 shadow-md dark:bg-gray-900">
                 <div class="flex items-center">
                     <div class="rounded-full bg-blue-100 p-3 text-blue-600">
-                        <x-mdi-calendar-blank-outline class="h-5 w-5" />
+                        <x-heroicon-s-calendar class="h-5 w-5" />
                     </div>
                     <div class="ml-4">
                         <p class="text-sm font-medium text-gray-600 dark:text-white">Total Events</p>
@@ -26,7 +26,7 @@
             <div class="rounded-lg bg-white p-6 shadow-md dark:bg-gray-900">
                 <div class="flex items-center">
                     <div class="rounded-full bg-green-100 p-3 text-green-600">
-                        <x-mdi-ticket-confirmation-outline class="h-5 w-5" />
+                        <<x-heroicon-s-ticket /> class="h-5 w-5" />
                     </div>
                     <div class="ml-4">
                         <p class="text-sm font-medium text-gray-600 dark:text-white">Total Bookings</p>
@@ -39,7 +39,7 @@
             <div class="rounded-lg bg-white p-6 shadow-md dark:bg-gray-900">
                 <div class="flex items-center">
                     <div class="rounded-full bg-yellow-100 p-3 text-yellow-600">
-                        <x-mdi-clock-time-eleven-outline class="h-5 w-5" />
+                        <x-heroicon-o-clock class="h-5 w-5" />
                     </div>
                     <div class="ml-4">
                         <p class="text-sm font-medium text-gray-600 dark:text-white">Upcoming Events</p>
@@ -52,7 +52,7 @@
             <div class="rounded-lg bg-white p-6 shadow-md dark:bg-gray-900">
                 <div class="flex items-center">
                     <div class="rounded-full bg-purple-100 p-3 text-purple-600">
-                        <x-mdi-bucket class="h-5 w-5" />
+                        <x-heroicon-o-archive-box class="h-5 w-5" />
                     </div>
                     <div class="ml-4">
                         <p class="text-sm font-medium text-gray-600 dark:text-white">Total Capacity</p>

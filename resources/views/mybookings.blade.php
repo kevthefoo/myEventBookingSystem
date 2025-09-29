@@ -93,7 +93,7 @@
                                 <!-- Left Column -->
                                 <div class="space-y-2">
                                     <div class="flex items-center">
-                                        <x-mdi-calendar class="mr-1 h-5 w-5" />
+                                        <x-heroicon-s-calendar class="mr-1 h-5 w-5" />
                                         <span class="font-medium text-gray-700 dark:text-white">Date:</span>
                                         <span
                                             class="{{ $isPast ? 'text-gray-500' : 'text-gray-900' }} ml-1 dark:text-white">
@@ -102,7 +102,7 @@
                                     </div>
 
                                     <div class="flex items-center">
-                                        <x-mdi-clock-time-five-outline class="mr-1 h-5 w-5" />
+                                        <x-heroicon-o-clock class="mr-1 h-5 w-5" />
                                         <span class="font-medium text-gray-700 dark:text-white">Time:</span>
                                         <span
                                             class="{{ $isPast ? 'text-gray-500' : 'text-gray-900' }} ml-1 dark:text-white">
@@ -114,7 +114,7 @@
                                 <!-- Right Column -->
                                 <div class="space-y-2">
                                     <div class="flex items-center">
-                                        <x-mdi-map-marker-outline class="mr-1 h-5 w-5" />
+                                        <x-heroicon-o-map-pin class="mr-1 h-5 w-5" />
                                         <span class="font-medium text-gray-700 dark:text-white">Location:</span>
                                         <span
                                             class="{{ $isPast ? 'text-gray-500' : 'text-gray-900' }} ml-1 dark:text-white">
@@ -123,7 +123,7 @@
                                     </div>
 
                                     <div class="flex items-center">
-                                        <x-mdi-human-greeting-variant class="mr-1 h-5 w-5" />
+                                        <x-heroicon-o-hand-raised class="mr-1 h-5 w-5" />
                                         <span class="font-medium text-gray-700 dark:text-white">Organizer:</span>
                                         <span
                                             class="{{ $isPast ? 'text-gray-500' : 'text-gray-900' }} ml-1 dark:text-white">
@@ -167,7 +167,7 @@
             @else
                 <!-- No Bookings State -->
                 <div class="flex flex-col items-center justify-center py-12 text-center">
-                    <x-mdi-calendar-blank-outline class="h-12 w-12" />
+                    <x-heroicon-s-calendar class="h-12 w-12" />
                     <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-white">No bookings yet</h3>
                     <p class="mt-1 text-sm text-gray-500 dark:text-white">You haven't booked any events yet. Start exploring
                         events to
@@ -175,7 +175,7 @@
                     <div class="mt-6">
                         <a href="/"
                             class="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:text-white">
-                            <x-mdi-magnify class="mr-3 h-7 w-7" />
+                            <x-heroicon-o-magnifying-glass class="mr-3 h-7 w-7" />
                             Browse Events
                         </a>
                     </div>
