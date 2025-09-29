@@ -21,7 +21,7 @@ class EventSeeder extends Seeder
                 'description' => 'Learn Python fundamentals with hands-on coding exercises. Perfect for beginners and intermediate programmers. Laptops provided.',
                 'date' => '2025-09-27',
                 'time' => '14:00',
-                'location' => 'Griffith University - IT Building, Room 2.15',
+                'location' => 'IT Building, Room 2.15',
                 'capacity' => 40,
                 'categories' => ['Technology'] // Changed from 'category' to 'categories' array
             ],
@@ -30,7 +30,7 @@ class EventSeeder extends Seeder
                 'description' => 'Annual Shakespeare performance featuring scenes from Hamlet and Romeo & Juliet. Open to all students and staff.',
                 'date' => '2025-10-01',
                 'time' => '19:00',
-                'location' => 'Griffith University - Performing Arts Theatre',
+                'location' => 'Performing Arts Theatre',
                 'capacity' => 200,
                 'categories' => ['Arts & Culture']
             ],
@@ -39,7 +39,7 @@ class EventSeeder extends Seeder
                 'description' => 'Join us for our monthly campus cleanup initiative. Help make Griffith University more sustainable. Free lunch provided!',
                 'date' => '2025-10-04',
                 'time' => '09:00',
-                'location' => 'Griffith University - Main Campus Courtyard',
+                'location' => 'Main Campus Courtyard',
                 'capacity' => 80,
                 'categories' => ['Social & Networking', 'Health & Wellness'] // Multiple categories
             ],
@@ -48,7 +48,7 @@ class EventSeeder extends Seeder
                 'description' => 'Annual Griffith University Chess Championship. Open to all skill levels. Prizes for top 3 winners.',
                 'date' => '2025-10-08',
                 'time' => '13:00',
-                'location' => 'Griffith University - Student Centre, Level 1',
+                'location' => 'Student Centre, Level 1',
                 'capacity' => 60,
                 'categories' => ['Entertainment']
             ],
@@ -57,7 +57,7 @@ class EventSeeder extends Seeder
                 'description' => 'Explore the beautiful Griffith University campus and surrounding areas. Learn wildlife photography techniques from our expert members.',
                 'date' => '2025-10-12',
                 'time' => '08:00',
-                'location' => 'Griffith University - Nathan Campus, Nature Reserve',
+                'location' => 'Nathan Campus, Nature Reserve',
                 'capacity' => 25,
                 'categories' => ['Arts & Culture']
             ],
@@ -66,7 +66,7 @@ class EventSeeder extends Seeder
                 'description' => 'Watch Griffith University debate team compete against top universities. Topic: "Social Media has a Net Positive Impact on Society"',
                 'date' => '2025-10-15',
                 'time' => '18:30',
-                'location' => 'Griffith University - Law Building, Moot Court',
+                'location' => 'Law Building, Moot Court',
                 'capacity' => 120,
                 'categories' => ['Academic']
             ],
@@ -75,7 +75,7 @@ class EventSeeder extends Seeder
                 'description' => 'Showcase your musical talents! Open to singers, musicians, poets, and comedians. Sign-ups start at 6 PM.',
                 'date' => '2025-10-19',
                 'time' => '18:00',
-                'location' => 'Griffith University - Student Bar & Cafe',
+                'location' => 'Student Bar & Cafe',
                 'capacity' => 100,
                 'categories' => ['Arts & Culture', 'Entertainment']
             ],
@@ -84,7 +84,7 @@ class EventSeeder extends Seeder
                 'description' => 'Griffith University Gaming Club presents our biggest esports tournament of the semester. Team registration required.',
                 'date' => '2025-10-22',
                 'time' => '15:00',
-                'location' => 'Griffith University - Computer Labs, Building N44',
+                'location' => 'Computer Labs, Building N44',
                 'capacity' => 80,
                 'categories' => ['Entertainment', 'Technology']
             ],
@@ -93,7 +93,7 @@ class EventSeeder extends Seeder
                 'description' => 'Present your startup ideas to real investors and industry experts. $5000 prize for the winning pitch!',
                 'date' => '2025-10-26',
                 'time' => '17:00',
-                'location' => 'Griffith University - Business Building, Auditorium',
+                'location' => 'Business Building, Auditorium',
                 'capacity' => 150,
                 'categories' => ['Career Development']
             ],
@@ -102,7 +102,7 @@ class EventSeeder extends Seeder
                 'description' => 'Experience flavors from around the world! Students from different countries will showcase their traditional cuisines.',
                 'date' => '2025-10-29',
                 'time' => '11:00',
-                'location' => 'Griffith University - Main Lawn Area',
+                'location' => 'Main Lawn Area',
                 'capacity' => 200,
                 'categories' => ['Arts & Culture', 'Social & Networking']
             ],
@@ -111,7 +111,7 @@ class EventSeeder extends Seeder
                 'description' => 'Hands-on chemistry experiments and demonstrations. Learn about organic compounds and chemical reactions in a safe lab environment.',
                 'date' => '2025-11-02',
                 'time' => '10:00',
-                'location' => 'Griffith University - Science Building, Lab 3.12',
+                'location' => 'Science Building, Lab 3.12',
                 'capacity' => 30,
                 'categories' => ['Academic']
             ],
@@ -120,7 +120,7 @@ class EventSeeder extends Seeder
                 'description' => 'Screening of award-winning documentaries followed by discussion. This month: "The Social Dilemma" and "Blackfish".',
                 'date' => '2025-11-05',
                 'time' => '19:30',
-                'location' => 'Griffith University - Media Arts Centre, Theatre A',
+                'location' => 'Media Arts Centre, Theatre A',
                 'capacity' => 75,
                 'categories' => ['Arts & Culture']
             ],
@@ -129,7 +129,7 @@ class EventSeeder extends Seeder
                 'description' => 'Connect with industry professionals, alumni, and fellow students. Formal attire required. Light refreshments provided.',
                 'date' => '2025-11-08',
                 'time' => '18:00',
-                'location' => 'Griffith University - Business Building, Conference Room',
+                'location' => 'Business Building, Conference Room',
                 'capacity' => 90,
                 'categories' => ['Social & Networking', 'Career Development']
             ],
@@ -138,7 +138,7 @@ class EventSeeder extends Seeder
                 'description' => 'Relaxing outdoor yoga and meditation session. Perfect for stress relief during exam season. Bring your own mat.',
                 'date' => '2025-11-12',
                 'time' => '07:00',
-                'location' => 'Griffith University - Botanical Gardens',
+                'location' => 'Botanical Gardens',
                 'capacity' => 50,
                 'categories' => ['Health & Wellness']
             ],
@@ -147,7 +147,7 @@ class EventSeeder extends Seeder
                 'description' => 'Build and program robots to complete various challenges. Teams of 3-4 students. Components and tools provided.',
                 'date' => '2025-11-15',
                 'time' => '09:00',
-                'location' => 'Griffith University - Engineering Workshop, Building G25',
+                'location' => 'Engineering Workshop, Building G25',
                 'capacity' => 64,
                 'categories' => ['Technology']
             ],
@@ -156,7 +156,7 @@ class EventSeeder extends Seeder
                 'description' => 'Share your original poetry or read works from famous poets. Open to all writing enthusiasts. Snacks and tea provided.',
                 'date' => '2025-11-18',
                 'time' => '17:30',
-                'location' => 'Griffith University - Library, Quiet Study Area',
+                'location' => 'Library, Quiet Study Area',
                 'capacity' => 35,
                 'categories' => ['Arts & Culture']
             ],
@@ -165,7 +165,7 @@ class EventSeeder extends Seeder
                 'description' => 'Learn basic ballroom dancing steps including waltz, tango, and foxtrot. No partner required - we rotate!',
                 'date' => '2025-11-22',
                 'time' => '16:00',
-                'location' => 'Griffith University - Sports Centre, Dance Studio',
+                'location' => 'Sports Centre, Dance Studio',
                 'capacity' => 40,
                 'categories' => ['Sports & Fitness', 'Arts & Culture']
             ],
@@ -174,7 +174,7 @@ class EventSeeder extends Seeder
                 'description' => 'Learn to cook dishes from around the world. This session: Italian pasta and Japanese sushi making.',
                 'date' => '2025-11-25',
                 'time' => '18:30',
-                'location' => 'Griffith University - Hospitality Training Kitchen',
+                'location' => 'Hospitality Training Kitchen',
                 'capacity' => 20,
                 'categories' => ['Arts & Culture', 'Social & Networking']
             ],
@@ -183,7 +183,7 @@ class EventSeeder extends Seeder
                 'description' => 'Acrylic painting workshop focusing on landscape techniques. All materials provided. Suitable for beginners.',
                 'date' => '2025-11-29',
                 'time' => '14:00',
-                'location' => 'Griffith University - Art Studios, Room 2.08',
+                'location' => 'Art Studios, Room 2.08',
                 'capacity' => 25,
                 'categories' => ['Arts & Culture']
             ],
@@ -192,7 +192,7 @@ class EventSeeder extends Seeder
                 'description' => 'Learn effective social media marketing strategies from industry experts. Certificate of participation provided.',
                 'date' => '2025-12-02',
                 'time' => '13:30',
-                'location' => 'Griffith University - Business Lecture Theatre',
+                'location' => 'Business Lecture Theatre',
                 'capacity' => 120,
                 'categories' => ['Career Development', 'Technology']
             ],
@@ -201,7 +201,7 @@ class EventSeeder extends Seeder
                 'description' => 'Annual doubles tennis tournament. Register with your partner or we will match you with someone of similar skill level.',
                 'date' => '2025-12-05',
                 'time' => '08:30',
-                'location' => 'Griffith University - Tennis Courts',
+                'location' => 'Tennis Courts',
                 'capacity' => 32,
                 'categories' => ['Sports & Fitness']
             ],
@@ -210,7 +210,7 @@ class EventSeeder extends Seeder
                 'description' => 'Important workshop on mental health awareness and stress management techniques for university students.',
                 'date' => '2025-12-08',
                 'time' => '11:00',
-                'location' => 'Griffith University - Health Sciences Building, Lecture Hall',
+                'location' => 'Health Sciences Building, Lecture Hall',
                 'capacity' => 100,
                 'categories' => ['Health & Wellness', 'Academic']
             ],
@@ -219,7 +219,7 @@ class EventSeeder extends Seeder
                 'description' => 'Night of stargazing with professional telescopes. Learn about constellations and planets. Weather permitting.',
                 'date' => '2025-12-12',
                 'time' => '20:00',
-                'location' => 'Griffith University - Observatory Roof',
+                'location' => 'Observatory Roof',
                 'capacity' => 15,
                 'categories' => ['Academic']
             ],
@@ -228,7 +228,7 @@ class EventSeeder extends Seeder
                 'description' => 'Showcase of sustainable and eco-friendly fashion designs by students. Followed by discussion on fast fashion impact.',
                 'date' => '2025-12-15',
                 'time' => '19:00',
-                'location' => 'Griffith University - Student Centre Atrium',
+                'location' => 'Student Centre Atrium',
                 'capacity' => 180,
                 'categories' => ['Arts & Culture', 'Health & Wellness']
             ],
@@ -237,7 +237,7 @@ class EventSeeder extends Seeder
                 'description' => 'Introduction to artificial intelligence and machine learning concepts. Hands-on coding session with Python.',
                 'date' => '2025-12-18',
                 'time' => '10:00',
-                'location' => 'Griffith University - Computer Labs, Building N16',
+                'location' => 'Computer Labs, Building N16',
                 'capacity' => 45,
                 'categories' => ['Technology', 'Academic']
             ],
@@ -264,7 +264,7 @@ class EventSeeder extends Seeder
                 'description' => 'Improve your public speaking and presentation skills. Great for overcoming stage fright and building confidence.',
                 'date' => '2026-01-08',
                 'time' => '15:00',
-                'location' => 'Griffith University - Student Centre, Meeting Room 3',
+                'location' => 'Student Centre, Meeting Room 3',
                 'capacity' => 40,
                 'categories' => ['Career Development', 'Academic']
             ],
@@ -273,7 +273,7 @@ class EventSeeder extends Seeder
                 'description' => 'Learn about sustainable living practices, renewable energy, and environmental conservation. Interactive exhibits.',
                 'date' => '2026-01-12',
                 'time' => '10:00',
-                'location' => 'Griffith University - Outdoor Plaza',
+                'location' => 'Outdoor Plaza',
                 'capacity' => 150,
                 'categories' => ['Social & Networking', 'Health & Wellness']
             ],
@@ -282,7 +282,7 @@ class EventSeeder extends Seeder
                 'description' => 'Test your mathematical problem-solving skills in this friendly competition. Prizes for top performers.',
                 'date' => '2026-01-15',
                 'time' => '14:00',
-                'location' => 'Griffith University - Mathematics Building, Room 2.15',
+                'location' => 'Mathematics Building, Room 2.15',
                 'capacity' => 60,
                 'categories' => ['Academic']
             ],
@@ -291,7 +291,7 @@ class EventSeeder extends Seeder
                 'description' => 'Celebration of diverse cultures with traditional music, dance performances, and cultural displays from around the world.',
                 'date' => '2026-01-18',
                 'time' => '18:00',
-                'location' => 'Griffith University - Great Hall',
+                'location' => 'Great Hall',
                 'capacity' => 300,
                 'categories' => ['Arts & Culture', 'Social & Networking']
             ],
@@ -300,7 +300,7 @@ class EventSeeder extends Seeder
                 'description' => 'Collaborative study session for final exams. Share notes, practice problems, and study techniques with fellow students.',
                 'date' => '2026-01-22',
                 'time' => '13:00',
-                'location' => 'Griffith University - Library, Group Study Rooms',
+                'location' => 'Library, Group Study Rooms',
                 'capacity' => 80,
                 'categories' => ['Academic']
             ]
