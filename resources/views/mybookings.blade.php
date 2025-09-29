@@ -13,28 +13,13 @@
             <div id="success-message"
                 class="relative mb-6 rounded border border-green-400 bg-green-100 px-4 py-3 text-green-700">
                 <span>{{ session('success') }}</span>
-                <button onclick="dismissMessage('success-message')"
-                    class="absolute right-0 top-0 mr-2 mt-2 text-green-500 hover:text-green-700">
-                    <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd"
-                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                </button>
+
             </div>
         @endif
 
         @if (session('error'))
             <div id="error-message" class="relative mb-6 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700">
                 <span>{{ session('error') }}</span>
-                <button onclick="dismissMessage('error-message')"
-                    class="absolute right-0 top-0 mr-2 mt-2 text-red-500 hover:text-red-700">
-                    <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd"
-                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                </button>
             </div>
         @endif
 
@@ -106,12 +91,7 @@
                                 <!-- Left Column -->
                                 <div class="space-y-2">
                                     <div class="flex items-center">
-                                        <svg class="mr-2 h-4 w-4 text-gray-500" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
-                                            </path>
-                                        </svg>
+                                        <x-mdi-calendar class="mr-1 h-5 w-5" />
                                         <span class="font-medium text-gray-700">Date:</span>
                                         <span class="{{ $isPast ? 'text-gray-500' : 'text-gray-900' }} ml-1">
                                             {{ date('F j, Y', strtotime($booking->date)) }}
@@ -119,11 +99,7 @@
                                     </div>
 
                                     <div class="flex items-center">
-                                        <svg class="mr-2 h-4 w-4 text-gray-500" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                        </svg>
+                                        <x-mdi-clock-time-five-outline class="mr-1 h-5 w-5" />
                                         <span class="font-medium text-gray-700">Time:</span>
                                         <span class="{{ $isPast ? 'text-gray-500' : 'text-gray-900' }} ml-1">
                                             {{ date('g:i A', strtotime($booking->time)) }}
@@ -134,14 +110,7 @@
                                 <!-- Right Column -->
                                 <div class="space-y-2">
                                     <div class="flex items-center">
-                                        <svg class="mr-2 h-4 w-4 text-gray-500" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
-                                            </path>
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                        </svg>
+                                        <x-mdi-map-marker-outline class="mr-1 h-5 w-5" />
                                         <span class="font-medium text-gray-700">Location:</span>
                                         <span class="{{ $isPast ? 'text-gray-500' : 'text-gray-900' }} ml-1">
                                             {{ $booking->location }}
@@ -149,12 +118,7 @@
                                     </div>
 
                                     <div class="flex items-center">
-                                        <svg class="mr-2 h-4 w-4 text-gray-500" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
-                                            </path>
-                                        </svg>
+                                        <x-mdi-human-greeting-variant class="mr-1 h-5 w-5" />
                                         <span class="font-medium text-gray-700">Organizer:</span>
                                         <span class="{{ $isPast ? 'text-gray-500' : 'text-gray-900' }} ml-1">
                                             {{ $booking->organizer_name }}
@@ -196,23 +160,15 @@
                 </div>
             @else
                 <!-- No Bookings State -->
-                <div class="py-12 text-center">
-                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
-                        </path>
-                    </svg>
+                <div class="flex flex-col items-center justify-center py-12 text-center">
+                    <x-mdi-calendar-blank-outline class="h-12 w-12" />
                     <h3 class="mt-2 text-sm font-medium text-gray-900">No bookings yet</h3>
                     <p class="mt-1 text-sm text-gray-500">You haven't booked any events yet. Start exploring events to
                         make your first booking!</p>
                     <div class="mt-6">
                         <a href="/"
                             class="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                            <svg class="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                            </svg>
+                            <x-mdi-magnify class="mr-3 h-7 w-7" />
                             Browse Events
                         </a>
                     </div>
