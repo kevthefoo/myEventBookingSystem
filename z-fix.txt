@@ -1,8 +1,0 @@
-CSRF protection
-
-styling login and register button
-delete fucking icons
-profile page
-contact page
-
-responsive design
