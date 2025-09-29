@@ -25,7 +25,8 @@
                             <p><strong>Time:</strong> {{ $event->time }}</p>
                             <p><strong>Location:</strong> {{ $event->location }}</p>
                             <p><strong>Capacity:</strong> {{ $event->capacity }}</p>
-                            <p><strong>Organizer:</strong> {{ $event->organizer->name }}</p>
+                            <p><strong>Organizer:</strong> {{ $event->organizer->first_name }}
+                                {{ $event->organizer->last_name }}</p>
                         </div>
                     </div>
                 @endforeach

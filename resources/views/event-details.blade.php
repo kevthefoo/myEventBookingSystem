@@ -63,7 +63,8 @@
 
                 <div class="flex items-start justify-start">
                     <x-mdi-human-greeting-variant class="mr-2 mt-0.5 flex h-5 w-5" />
-                    <div><strong>Organizer:</strong> {{ $event->organizer->name }}</div>
+                    <div><strong>Organizer:</strong> {{ $event->organizer->first_name }} {{ $event->organizer->last_name }}
+                    </div>
                 </div>
             </div>
 

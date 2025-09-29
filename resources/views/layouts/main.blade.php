@@ -88,7 +88,7 @@
 
                 <div class="relative flex flex-col">
                     <div class="flex items-center justify-center gap-2">
-                        <div>{{ auth()->user()->name }}</div>
+                        <div>{{ auth()->user()->first_name }}</div>
                         <div class="transform cursor-pointer transition-transform duration-200" id="dropdownArrow"
                             onclick="toggleDropdown()">▼</div>
                     </div>
