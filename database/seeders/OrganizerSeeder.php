@@ -14,20 +14,44 @@ class OrganizerSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create 2 organizers
+        // Create 5 organizers
         $organizers = [
             [
                 'name' => 'Sarah Johnson',
-                'email' => 'sarah@eventorganizer.com',
-                'password' => Hash::make('password123'),
+                'email' => 'sarah@guebs.com',
+                'password' => Hash::make('aa000000'),
                 'role' => 'organizer',
                 'privacy_policy_accepted' => true,
                 'privacy_policy_accepted_at' => now(),
             ],
             [
                 'name' => 'Michael Chen',
-                'email' => 'michael@eventorganizer.com',
-                'password' => Hash::make('password123'),
+                'email' => 'michael@guebs.com',
+                'password' => Hash::make('aa000000'),
+                'role' => 'organizer',
+                'privacy_policy_accepted' => true,
+                'privacy_policy_accepted_at' => now(),
+            ],
+            [
+                'name' => 'Emma Williams',
+                'email' => 'emma@guebs.com',
+                'password' => Hash::make('aa000000'),
+                'role' => 'organizer',
+                'privacy_policy_accepted' => true,
+                'privacy_policy_accepted_at' => now(),
+            ],
+            [
+                'name' => 'David Rodriguez',
+                'email' => 'david@guebs.com',
+                'password' => Hash::make('aa000000'),
+                'role' => 'organizer',
+                'privacy_policy_accepted' => true,
+                'privacy_policy_accepted_at' => now(),
+            ],
+            [
+                'name' => 'Kevin Foo',
+                'email' => 'kevin@guebs.com',
+                'password' => Hash::make('aa000000'),
                 'role' => 'organizer',
                 'privacy_policy_accepted' => true,
                 'privacy_policy_accepted_at' => now(),
