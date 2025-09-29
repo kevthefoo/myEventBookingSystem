@@ -18,7 +18,7 @@
                 <!-- Category Filter Dropdown -->
                 <div class="relative max-w-xs">
                     <button type="button" id="categoryFilterBtn"
-                        class="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-left focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                        class="w-full cursor-pointer rounded-md border border-gray-300 bg-white px-3 py-2 text-left focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                         onclick="toggleCategoryFilter()">
                         <span id="categoryFilterText">All Categories</span>
                         <svg class="absolute right-2 top-3 h-4 w-4 transition-transform" id="categoryArrow" fill="none"
