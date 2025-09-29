@@ -22,8 +22,8 @@
                         <p class="mb-4 line-clamp-2 text-start text-sm text-gray-600 dark:text-gray-300">
                             {{ $event->description }}</p>
                         <div class="flex flex-col items-start justify-center text-sm">
-                            <p><strong>Date:</strong> {{ $event->date }}</p>
-                            <p><strong>Time:</strong> {{ $event->time }}</p>
+                            <p><strong>Date:</strong> {{ $event->date->format('F j, Y') }}</p>
+                            <p><strong>Time:</strong> {{ date('g:i A', strtotime($event->time)) }}</p>
                             <p><strong>Location:</strong> {{ $event->location }}</p>
                             <p><strong>Capacity:</strong> {{ $event->capacity }}</p>
                             <p><strong>Organizer:</strong> {{ $event->organizer->first_name }}

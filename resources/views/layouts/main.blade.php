@@ -173,13 +173,29 @@
         function toggleDarkMode() {
             const htmlTag = document.documentElement; // Gets the <html> tag
 
-            // Save the preference to localStorage
+            // Toggle the dark class
             if (htmlTag.classList.contains('dark')) {
-                htmlTag.classList.remove('dark')
+                htmlTag.classList.remove('dark');
+                localStorage.setItem('darkMode', 'false');
             } else {
-                htmlTag.classList.add('dark')
+                htmlTag.classList.add('dark');
+                localStorage.setItem('darkMode', 'true');
             }
         }
+
+        // Initialize dark mode on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const htmlTag = document.documentElement;
+            const savedDarkMode = localStorage.getItem('darkMode');
+
+            // Check if user has a saved preference, otherwise check system preference
+            if (savedDarkMode === 'true' ||
+                (savedDarkMode === null && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                htmlTag.classList.add('dark');
+            } else {
+                htmlTag.classList.remove('dark');
+            }
+        });
 
 
         @yield('scripts')
