@@ -215,70 +215,72 @@
 @endsection
 
 @section('scripts')
-    function toggleDropdownMenu() {
-    const menu = document.getElementById('categoryMenu');
-    const arrow = document.getElementById('dropdownArrow');
+    <script>
+        function toggleDropdownMenu() {
+            const menu = document.getElementById('categoryMenu');
+            const arrow = document.getElementById('dropdownArrow');
 
-    menu.classList.toggle('hidden');
+            menu.classList.toggle('hidden');
 
-    if (menu.classList.contains('hidden')) {
-    arrow.style.transform = 'rotate(0deg)';
-    } else {
-    arrow.style.transform = 'rotate(180deg)';
-    }
-    }
+            if (menu.classList.contains('hidden')) {
+                arrow.style.transform = 'rotate(0deg)';
+            } else {
+                arrow.style.transform = 'rotate(180deg)';
+            }
+        }
 
-    function updateSelectedCategories() {
-    const checkboxes = document.querySelectorAll('.category-checkbox:checked');
-    const selectedText = document.getElementById('selectedText');
+        function updateSelectedCategories() {
+            const checkboxes = document.querySelectorAll('.category-checkbox:checked');
+            const selectedText = document.getElementById('selectedText');
 
-    if (checkboxes.length === 0) {
-    selectedText.textContent = 'Select categories...';
-    selectedText.className = 'text-gray-500 dark:text-gray-400';
-    } else {
-    selectedText.textContent = `${checkboxes.length} categor${checkboxes.length === 1 ? 'y' : 'ies'} selected`;
-    selectedText.className = 'text-gray-700 dark:text-white';
+            if (checkboxes.length === 0) {
+                selectedText.textContent = 'Select categories...';
+                selectedText.className = 'text-gray-500 dark:text-gray-400';
+            } else {
+                selectedText.textContent = `${checkboxes.length} categor${checkboxes.length === 1 ? 'y' : 'ies'} selected`;
+                selectedText.className = 'text-gray-700 dark:text-white';
 
-    // Create tags for selected categories
-    checkboxes.forEach(checkbox => {
-    const label = checkbox.closest('label');
-    const icon = label.querySelector('span[style]').textContent;
-    const name = label.querySelector('span.text-sm').textContent;
-    const color = label.querySelector('span[style]').style.color;
+                // Create tags for selected categories
+                checkboxes.forEach(checkbox => {
+                    const label = checkbox.closest('label');
+                    const icon = label.querySelector('span[style]').textContent;
+                    const name = label.querySelector('span.text-sm').textContent;
+                    const color = label.querySelector('span[style]').style.color;
 
-    const tag = document.createElement('span');
-    tag.className = 'category-tag';
-    tag.innerHTML = `
+                    const tag = document.createElement('span');
+                    tag.className = 'category-tag';
+                    tag.innerHTML = `
     <span style="color: ${color}">${icon}</span>
     <span>${name}</span>
     <span class="category-remove" onclick="removeCategory('${checkbox.value}')">×</span>
     `;
-    });
-    }
-    }
+                });
+            }
+        }
 
-    function removeCategory(categoryId) {
-    const checkbox = document.querySelector(`input[value="${categoryId}"]`);
-    if (checkbox) {
-    checkbox.checked = false;
-    updateSelectedCategories();
-    }
-    }
+        function removeCategory(categoryId) {
+            const checkbox = document.querySelector(`input[value="${categoryId}"]`);
+            if (checkbox) {
+                checkbox.checked = false;
+                updateSelectedCategories();
+            }
+        }
 
-    // Close dropdown when clicking outside
-    document.addEventListener('click', function(event) {
-    const dropdown = document.getElementById('categoryDropdown');
-    const menu = document.getElementById('categoryMenu');
-    const arrow = document.getElementById('dropdownArrow');
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('categoryDropdown');
+            const menu = document.getElementById('categoryMenu');
+            const arrow = document.getElementById('dropdownArrow');
 
-    if (!dropdown.contains(event.target) && !menu.contains(event.target)) {
-    menu.classList.add('hidden');
-    arrow.style.transform = 'rotate(0deg)';
-    }
-    });
+            if (!dropdown.contains(event.target) && !menu.contains(event.target)) {
+                menu.classList.add('hidden');
+                arrow.style.transform = 'rotate(0deg)';
+            }
+        });
 
-    // Initialize on page load
-    document.addEventListener('DOMContentLoaded', function() {
-    updateSelectedCategories();
-    });
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateSelectedCategories();
+        });
+    </script>
 @endsection

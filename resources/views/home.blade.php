@@ -149,139 +149,140 @@
 @endsection
 
 @section('scripts')
-    let currentPage = 1;
-    let isLoading = false;
+    <script>
+        let currentPage = 1;
+        let isLoading = false;
 
-    // Toggle category filter dropdown
-    function toggleCategoryFilter() {
-    const dropdown = document.getElementById('categoryDropdown');
-    const arrow = document.getElementById('categoryArrow');
+        // Toggle category filter dropdown
+        function toggleCategoryFilter() {
+            const dropdown = document.getElementById('categoryDropdown');
+            const arrow = document.getElementById('categoryArrow');
 
-    dropdown.classList.toggle('hidden');
-    arrow.style.transform = dropdown.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
-    }
+            dropdown.classList.toggle('hidden');
+            arrow.style.transform = dropdown.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+        }
 
-    // Update category filter and apply filtering
-    function updateCategoryFilter() {
-    const checkboxes = document.querySelectorAll('.category-filter:checked');
-    const text = document.getElementById('categoryFilterText');
-    const allCategories = document.querySelector('.category-filter[value=""]');
+        // Update category filter and apply filtering
+        function updateCategoryFilter() {
+            const checkboxes = document.querySelectorAll('.category-filter:checked');
+            const text = document.getElementById('categoryFilterText');
+            const allCategories = document.querySelector('.category-filter[value=""]');
 
-    // Handle "All Categories" selection
-    if (event.target.value === '' && event.target.checked) {
-    // If "All Categories" is selected, uncheck all others
-    document.querySelectorAll('.category-filter:not([value=""])').forEach(cb => {
-    cb.checked = false;
-    });
-    text.textContent = 'All Categories';
-    } else if (event.target.value !== '') {
-    // If a specific category is selected, uncheck "All Categories"
-    allCategories.checked = false;
-    const selectedCount = document.querySelectorAll('.category-filter:checked:not([value=""])').length;
-    if (selectedCount === 0) {
-    allCategories.checked = true;
-    text.textContent = 'All Categories';
-    } else {
-    text.textContent = `${selectedCount} categor${selectedCount === 1 ? 'y' : 'ies'} selected`;
-    }
-    }
+            // Handle "All Categories" selection
+            if (event.target.value === '' && event.target.checked) {
+                // If "All Categories" is selected, uncheck all others
+                document.querySelectorAll('.category-filter:not([value=""])').forEach(cb => {
+                    cb.checked = false;
+                });
+                text.textContent = 'All Categories';
+            } else if (event.target.value !== '') {
+                // If a specific category is selected, uncheck "All Categories"
+                allCategories.checked = false;
+                const selectedCount = document.querySelectorAll('.category-filter:checked:not([value=""])').length;
+                if (selectedCount === 0) {
+                    allCategories.checked = true;
+                    text.textContent = 'All Categories';
+                } else {
+                    text.textContent = `${selectedCount} categor${selectedCount === 1 ? 'y' : 'ies'} selected`;
+                }
+            }
 
-    // Auto-apply filters when categories change
-    applyFilters();
-    }
+            // Auto-apply filters when categories change
+            applyFilters();
+        }
 
-    // Apply category filters
-    function applyFilters(page = 1) {
-    if (isLoading) return;
+        // Apply category filters
+        function applyFilters(page = 1) {
+            if (isLoading) return;
 
-    isLoading = true;
-    showLoading();
+            isLoading = true;
+            showLoading();
 
-    // Get selected categories
-    const selectedCategories = Array.from(document.querySelectorAll('.category-filter:checked:not([value=""])'))
-    .map(cb => cb.value);
+            // Get selected categories
+            const selectedCategories = Array.from(document.querySelectorAll('.category-filter:checked:not([value=""])'))
+                .map(cb => cb.value);
 
-    // Build query parameters
-    const params = new URLSearchParams();
-    if (selectedCategories.length > 0) {
-    selectedCategories.forEach(catId => params.append('categories[]', catId));
-    }
-    params.append('page', page);
+            // Build query parameters
+            const params = new URLSearchParams();
+            if (selectedCategories.length > 0) {
+                selectedCategories.forEach(catId => params.append('categories[]', catId));
+            }
+            params.append('page', page);
 
-    // Make AJAX request
-    fetch(`/api/events/filter?${params.toString()}`, {
-    method: 'GET',
-    headers: {
-    'Accept': 'application/json',
-    'X-Requested-With': 'XMLHttpRequest'
-    }
-    })
-    .then(response => response.json())
-    .then(data => {
-    updateEventsGrid(data.events);
-    updatePagination(data.pagination);
-    hideLoading();
-    isLoading = false;
-    currentPage = page;
-    })
-    .catch(error => {
-    console.error('Filter error:', error);
-    hideLoading();
-    isLoading = false;
-    });
-    }
+            // Make AJAX request
+            fetch(`/api/events/filter?${params.toString()}`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    updateEventsGrid(data.events);
+                    updatePagination(data.pagination);
+                    hideLoading();
+                    isLoading = false;
+                    currentPage = page;
+                })
+                .catch(error => {
+                    console.error('Filter error:', error);
+                    hideLoading();
+                    isLoading = false;
+                });
+        }
 
-    // Clear all filters
-    function clearFilters() {
-    // Reset category checkboxes
-    document.querySelectorAll('.category-filter').forEach(cb => {
-    cb.checked = cb.value === '';
-    });
+        // Clear all filters
+        function clearFilters() {
+            // Reset category checkboxes
+            document.querySelectorAll('.category-filter').forEach(cb => {
+                cb.checked = cb.value === '';
+            });
 
-    document.getElementById('categoryFilterText').textContent = 'All Categories';
-    applyFilters();
-    }
+            document.getElementById('categoryFilterText').textContent = 'All Categories';
+            applyFilters();
+        }
 
-    // Update events grid
-    function updateEventsGrid(events) {
-    const grid = document.getElementById('eventsGrid');
-    const noResults = document.getElementById('noResults');
+        // Update events grid
+        function updateEventsGrid(events) {
+            const grid = document.getElementById('eventsGrid');
+            const noResults = document.getElementById('noResults');
 
-    if (events.length === 0) {
-    grid.innerHTML = '';
-    noResults.classList.remove('hidden');
-    } else {
-    noResults.classList.add('hidden');
+            if (events.length === 0) {
+                grid.innerHTML = '';
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
 
-    let html = '';
-    events.forEach(event => {
-    html += createEventCard(event);
-    });
-    grid.innerHTML = html;
-    }
-    }
+                let html = '';
+                events.forEach(event => {
+                    html += createEventCard(event);
+                });
+                grid.innerHTML = html;
+            }
+        }
 
-    // Create event card HTML
-    function createEventCard(event) {
-    const eventDate = new Date(event.date);
-    const eventTime = new Date(`1970-01-01T${event.time}`);
+        // Create event card HTML
+        function createEventCard(event) {
+            const eventDate = new Date(event.date);
+            const eventTime = new Date(`1970-01-01T${event.time}`);
 
-    let categoriesHtml = '';
-    if (event.categories && event.categories.length > 0) {
-    categoriesHtml = '<div class="mb-3 flex flex-wrap justify-center gap-1">';
-    event.categories.forEach(category => {
-    categoriesHtml += `
+            let categoriesHtml = '';
+            if (event.categories && event.categories.length > 0) {
+                categoriesHtml = '<div class="mb-3 flex flex-wrap justify-center gap-1">';
+                event.categories.forEach(category => {
+                    categoriesHtml += `
     <span class="inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium"
         style="background-color: ${category.color}20; color: ${category.color}; border: 1px solid ${category.color}30;">
         <span>${category.icon}</span>
         <span>${category.name}</span>
     </span>
     `;
-    });
-    categoriesHtml += '</div>';
-    }
+                });
+                categoriesHtml += '</div>';
+            }
 
-    return `
+            return `
     <div class="flex flex-col justify-around rounded-lg border-2 border-black bg-white p-4 dark:bg-gray-900">
         <h3 class="mb-2 text-lg font-semibold">
             <a href="/events/${event.uuid}">
@@ -305,55 +306,63 @@
         </div>
     </div>
     `;
-    }
+        }
 
-    // Update pagination
-    function updatePagination(pagination) {
-    const container = document.getElementById('paginationContainer');
+        // Update pagination
+        function updatePagination(pagination) {
+            const container = document.getElementById('paginationContainer');
 
-    if (pagination.last_page <= 1) { container.innerHTML = ''; return; } let
-        html =
+            if (pagination.last_page <= 1) {
+                container.innerHTML = '';
+                return;
+            }
+            let
+                html =
                 '<div class="pagination flex justify-center bg-white text-red-400 dark:bg-gray-800"><nav class="flex space-x-1">';
-        // Previous button if (pagination.current_page> 1) {
-        html += `<button onclick="applyFilters(${pagination.current_page - 1})"
+            // Previous button if (pagination.current_page> 1) {
+            html += `<button onclick="applyFilters(${pagination.current_page - 1})"
             class="rounded border px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">Previous</button>`;
         }
 
         // Page numbers
-        for (let i = 1; i <= pagination.last_page; i++) { const active=i===pagination.current_page; html +=`<button
+        for (let i = 1; i <= pagination.last_page; i++) {
+            const active = i === pagination.current_page;
+            html += `<button
             onclick="applyFilters(${i})"
             class="${active ? 'bg-gray-600 text-white' : 'hover:bg-gray-100 dark:hover:bg-gray-700'} rounded border px-3 py-2">
             ${i}</button>`;
+        }
+
+        // Next button
+        if (pagination.current_page < pagination.last_page) {
+            html +=
+                `<button onclick="applyFilters(${pagination.current_page + 1})" class="rounded border px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">Next</button>`;
+        }
+
+        html += '</nav></div>';
+        container.innerHTML = html;
+
+        // Show/hide loading
+        function showLoading() {
+            document.getElementById('loadingSpinner').classList.remove('hidden');
+            document.getElementById('eventsGrid').classList.add('opacity-50');
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingSpinner').classList.add('hidden');
+            document.getElementById('eventsGrid').classList.remove('opacity-50');
+        }
+
+        // Close category dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('categoryDropdown');
+            const button = document.getElementById('categoryFilterBtn');
+
+            if (!dropdown.contains(event.target) && !button.contains(event.target)) {
+                dropdown.classList.add('hidden');
+                document.getElementById('categoryArrow').style.transform = 'rotate(0deg)';
             }
 
-            // Next button
-            if (pagination.current_page < pagination.last_page) {
-                html += `<button onclick="applyFilters(${pagination.current_page + 1})" class="rounded border px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">Next</button>`;
-            }
-            
-            html += '</nav></div>';
-            container.innerHTML = html;
-
-                    // Show/hide loading
-                    function showLoading() {
-                    document.getElementById('loadingSpinner').classList.remove('hidden');
-                    document.getElementById('eventsGrid').classList.add('opacity-50');
-                    }
-
-                    function hideLoading() {
-                    document.getElementById('loadingSpinner').classList.add('hidden');
-                    document.getElementById('eventsGrid').classList.remove('opacity-50');
-                    }
-
-                    // Close category dropdown when clicking outside
-                    document.addEventListener('click', function(event) {
-                    const dropdown = document.getElementById('categoryDropdown');
-                    const button = document.getElementById('categoryFilterBtn');
-
-                    if (!dropdown.contains(event.target) && !button.contains(event.target)) {
-                    dropdown.classList.add('hidden');
-                    document.getElementById('categoryArrow').style.transform = 'rotate(0deg)';
-                    }
-
-                    });
-                @endsection
+        });
+    </script>
+@endsection

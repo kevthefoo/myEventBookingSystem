@@ -172,7 +172,6 @@
             }
         }
 
-
         function toggleDarkMode() {
             const htmlTag = document.documentElement; // Gets the <html> tag
 
@@ -199,10 +198,9 @@
                 htmlTag.classList.remove('dark');
             }
         });
-
-
-        @yield('scripts')
     </script>
+    
+    @yield('scripts')
 </body>
 
 </html>

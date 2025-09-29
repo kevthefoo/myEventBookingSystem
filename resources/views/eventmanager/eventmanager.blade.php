@@ -154,38 +154,40 @@
 @endsection
 
 @section('scripts')
-    // Auto-hide messages after 5 seconds
-    document.addEventListener('DOMContentLoaded', function() {
-    const successMessage = document.getElementById('success-message');
-    const errorMessage = document.getElementById('error-message');
+    <script>
+        // Auto-hide messages after 5 seconds
+        document.addEventListener('DOMContentLoaded', function() {
+            const successMessage = document.getElementById('success-message');
+            const errorMessage = document.getElementById('error-message');
 
-    if (successMessage) {
-    setTimeout(() => {
-    fadeOut(successMessage);
-    }, 5000); // 5 seconds
-    }
+            if (successMessage) {
+                setTimeout(() => {
+                    fadeOut(successMessage);
+                }, 5000); // 5 seconds
+            }
 
-    if (errorMessage) {
-    setTimeout(() => {
-    fadeOut(errorMessage);
-    }, 5000); // 5 seconds
-    }
-    });
+            if (errorMessage) {
+                setTimeout(() => {
+                    fadeOut(errorMessage);
+                }, 5000); // 5 seconds
+            }
+        });
 
-    // Function to dismiss message manually
-    function dismissMessage(elementId) {
-    const element = document.getElementById(elementId);
-    if (element) {
-    fadeOut(element);
-    }
-    }
+        // Function to dismiss message manually
+        function dismissMessage(elementId) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                fadeOut(element);
+            }
+        }
 
-    // Fade out animation
-    function fadeOut(element) {
-    element.style.transition = 'opacity 0.5s ease-out';
-    element.style.opacity = '0';
-    setTimeout(() => {
-    element.remove();
-    }, 500);
-    }
+        // Fade out animation
+        function fadeOut(element) {
+            element.style.transition = 'opacity 0.5s ease-out';
+            element.style.opacity = '0';
+            setTimeout(() => {
+                element.remove();
+            }, 500);
+        }
+    </script>
 @endsection
