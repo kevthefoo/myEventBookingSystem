@@ -12,7 +12,7 @@ use App\Models\Event;
 // home route
 Route::get('/', function () {
     $organizers = User::where('role', 'organizer')->get();
-    $events = Event::with('organizer')->orderBy('date', 'asc')->paginate(6);
+    $events = Event::with(['organizer', 'categories'])->orderBy('date', 'asc')->paginate(6);
 
     return view('home', compact('organizers', 'events'));
 });

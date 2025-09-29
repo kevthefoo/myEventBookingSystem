@@ -27,10 +27,9 @@
                             <p><strong>Time:</strong> {{ date('g:i A', strtotime($event->time)) }}</p>
                             <p><strong>Location:</strong> {{ $event->location }}</p>
                             <p><strong>Capacity:</strong> {{ $event->capacity }}</p>
-                            <p><strong>Organizer:</strong>
-                                {{ $event->organizer->first_name }}{{ $event->organizer->last_name }}</p>
+                            <p><strong>Organizer:</strong>{{ $event->organizer->first_name }}{{ $event->organizer->last_name }}</p>
                             @if ($event->categories->count() > 0)
-                                <div class="mb-3 flex flex-wrap justify-center gap-1 mt-2">
+                                <div class="mb-3 flex flex-wrap justify-center gap-1 mt-4">
                                     @foreach ($event->categories as $category)
                                         <div
                                             class="inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium"
