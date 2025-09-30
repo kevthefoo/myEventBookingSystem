@@ -11,18 +11,12 @@ class EventController extends Controller
     {
         $event = Event::where('uuid', $uuid)->firstOrFail();
 
-        // Manual counts using the event_attendees table
-        $currentBookings = DB::table('event_attendees')
-            ->where('event_id', $event->id)
-            ->count();
+        $currentBookings = $event->bookings()->count();
 
         $remainingSpots = max(0, $event->capacity - $currentBookings);
 
         $isUserBooked = auth()->check()
-            ? DB::table('event_attendees')
-                ->where('event_id', $event->id)
-                ->where('user_id', auth()->id())
-                ->exists()
+            ? $event->bookings()->where('user_id', auth()->id())->exists()
             : false;
 
         return view('event-details', compact(
