@@ -45,7 +45,7 @@
                         </div>
                         <div class="text-center">
                             <p class="font-medium text-gray-900 dark:text-white">Past Events</p>
-                            <p class="text-2xl font-bold text-gray-600 dark:text-gray-300">
+                            <p class="text-2xl font-bold text-red-600 dark:text-red-600">
                                 {{ count($myBookings) - $upcomingCount }}</p>
                         </div>
                     </div>

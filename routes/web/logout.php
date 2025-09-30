@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
-// logout route
+// Handle logout form submission
 Route::post("/logout", function (Request $request) {
     Auth::logout();
 

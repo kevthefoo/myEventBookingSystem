@@ -5,8 +5,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Event;
 
-
-// event managemet route for only organizers
+// Event Manager Dashboard: Display events created by the organizer
 Route::get("/eventmanager", function () {
     if (!auth()->check()) {
         return redirect("/login");
@@ -22,6 +21,7 @@ Route::get("/eventmanager", function () {
     return view("eventmanager.eventmanager", compact("events"));
 });
 
+// Create Event - Show create form
 Route::get("/eventmanager/create", function () {
     if (!auth()->check()) {
         return redirect("/login");
@@ -34,6 +34,7 @@ Route::get("/eventmanager/create", function () {
     return view("eventmanager.create.create");
 });
 
+// Create a new event
 Route::post("/eventmanager/create", function (Request $request) {
     $validated = $request->validate(
         [
@@ -88,6 +89,7 @@ Route::post("/eventmanager/create", function (Request $request) {
     }
 });
 
+// Edit Event - Show edit form
 Route::get("/eventmanager/edit/{event}", function (Event $event) {
     if (!auth()->check()) {
         return redirect("/login");
@@ -105,7 +107,7 @@ Route::get("/eventmanager/edit/{event}", function (Event $event) {
     return view("eventmanager.edit.edit", compact("event"));
 });
 
-// Update event
+// Update an event
 Route::put("/eventmanager/edit/{event}", function (
     Request $request,
     Event $event
@@ -176,7 +178,7 @@ Route::put("/eventmanager/edit/{event}", function (
     }
 });
 
-// Delete event
+// Delete an event
 Route::delete("/eventmanager/delete/{event}", function (Event $event) {
     // Check if user is authenticated and is an organizer
     if (!auth()->check()) {

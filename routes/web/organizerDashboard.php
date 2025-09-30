@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+// Organizer Dashboard Page
 Route::get("/admin/dashboard", function () {
     // Check if user is authenticated and is an organizer
     if (!auth()->check()) {

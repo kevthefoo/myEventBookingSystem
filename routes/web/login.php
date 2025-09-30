@@ -4,11 +4,12 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
-// login route
+// login Page
 Route::get("/login", function () {
     return view("auth.login");
 });
 
+// Handle login form submission
 Route::post("/login", function (Request $request) {
     // Validate the form data
     $credentials = $request->validate([

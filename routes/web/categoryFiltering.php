@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Event;
 
-
+// API route to filter events by categories (used by AJAX)
 Route::get("/api/events/filter", function (Request $request) {
     $query = Event::with(["organizer", "categories"]);
 
@@ -34,7 +34,7 @@ Route::get("/api/events/filter", function (Request $request) {
     ]);
 });
 
-
+// Post route to add a new category by organizer
 Route::post("/addcategory", function (Request $request) {
     // Check if user is logged in and is organizer
     if (!auth()->check()) {

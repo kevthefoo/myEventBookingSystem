@@ -6,40 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Event;
 use App\Http\Controllers\BookingController;
 
-// Make a booking
-Route::post("/events/{event}/book", [BookingController::class, "store"])->name(
-    "bookings.store"
-);
-
-// Cancel booking
-Route::delete("/events/{event}/cancel", function (Event $event) {
-    if (!auth()->check()) {
-        return redirect("/login")->with(
-            "error",
-            "Please log in to cancel bookings."
-        );
-    }
-
-    $deleted = DB::table("event_attendees")
-        ->where("event_id", $event->id)
-        ->where("user_id", auth()->id())
-        ->delete();
-
-    if ($deleted) {
-        return redirect("/events/{$event->uuid}")->with(
-            "success",
-            "Booking cancelled successfully."
-        );
-    } else {
-        return redirect("/events/{$event->uuid}")->with(
-            "error",
-            "No booking found to cancel."
-        );
-    }
-});
-
-
-
+// My Bookings Page: Display user's bookings
 Route::get("/mybookings", function () {
     if (!auth()->check()) {
         return redirect("/login");
@@ -73,3 +40,36 @@ Route::get("/mybookings", function () {
     }
     return view("mybookings", compact("myBookings"));
 });
+
+// Make a booking
+Route::post("/events/{event}/book", [BookingController::class, "store"])->name(
+    "bookings.store"
+);
+
+// Cancel a booking
+Route::delete("/events/{event}/cancel", function (Event $event) {
+    if (!auth()->check()) {
+        return redirect("/login")->with(
+            "error",
+            "Please log in to cancel bookings."
+        );
+    }
+
+    $deleted = DB::table("event_attendees")
+        ->where("event_id", $event->id)
+        ->where("user_id", auth()->id())
+        ->delete();
+
+    if ($deleted) {
+        return redirect("/events/{$event->uuid}")->with(
+            "success",
+            "Booking cancelled successfully."
+        );
+    } else {
+        return redirect("/events/{$event->uuid}")->with(
+            "error",
+            "No booking found to cancel."
+        );
+    }
+});
+
