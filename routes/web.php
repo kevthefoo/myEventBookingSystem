@@ -1,5 +1,7 @@
 <?php
 
+require __DIR__.'/web/bookings.php';
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -406,24 +408,25 @@ Route::get('/admin/dashboard', function(){
 
 
 
-Route::post('/events/{event}/book', [BookingController::class, 'store'])->name('bookings.store');
+// Route::post('/events/{event}/book', [BookingController::class, 'store'])->name('bookings.store');
+
 // Cancel booking
-Route::delete('/events/{event}/cancel', function(Event $event) {
-    if (!auth()->check()) {
-        return redirect('/login')->with('error', 'Please log in to cancel bookings.');
-    }
+// Route::delete('/events/{event}/cancel', function(Event $event) {
+//     if (!auth()->check()) {
+//         return redirect('/login')->with('error', 'Please log in to cancel bookings.');
+//     }
 
-    $deleted = DB::table('event_attendees')
-                ->where('event_id', $event->id)
-                ->where('user_id', auth()->id())
-                ->delete();
+//     $deleted = DB::table('event_attendees')
+//                 ->where('event_id', $event->id)
+//                 ->where('user_id', auth()->id())
+//                 ->delete();
 
-    if ($deleted) {
-        return redirect("/events/{$event->uuid}")->with('success', 'Booking cancelled successfully.');
-    } else {
-        return redirect("/events/{$event->uuid}")->with('error', 'No booking found to cancel.');
-    }
-});
+//     if ($deleted) {
+//         return redirect("/events/{$event->uuid}")->with('success', 'Booking cancelled successfully.');
+//     } else {
+//         return redirect("/events/{$event->uuid}")->with('error', 'No booking found to cancel.');
+//     }
+// });
 
 
 Route::get('/mybookings', function() {
