@@ -14,10 +14,12 @@ Route::get("/eventmanager", function () {
     if (auth()->user()->role !== "organizer") {
         return redirect("/");
     }
+    
     $events = Event::with("organizer")
         ->where("organizer_id", auth()->id())
         ->orderBy("date", "asc")
         ->paginate(6);
+
     return view("eventmanager.eventmanager", compact("events"));
 });
 
