@@ -3,11 +3,13 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\DB;
+use \Illuminate\Support\Str;
+
 use Tests\TestCase;
 use App\Models\Event;
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
+use App\Models\Booking;
 
 class AttendeeActionsTest extends TestCase
 {
@@ -32,7 +34,7 @@ class AttendeeActionsTest extends TestCase
 
         // Create test events
         $this->event = Event::create([
-            'uuid' => \Illuminate\Support\Str::uuid(),
+            'uuid' => Str::uuid(),
             'title' => 'Test Event',
             'description' => 'Test event description',
             'date' => now()->addDays(7)->format('Y-m-d'),
@@ -42,8 +44,9 @@ class AttendeeActionsTest extends TestCase
             'organizer_id' => $this->organizer->id,
         ]);
 
+        // Create a full event for capacity testing
         $this->fullEvent = Event::create([
-            'uuid' => \Illuminate\Support\Str::uuid(),
+            'uuid' => Str::uuid(),
             'title' => 'Full Event',
             'description' => 'Full event description',
             'date' => now()->addDays(7)->format('Y-m-d'),
@@ -133,6 +136,29 @@ class AttendeeActionsTest extends TestCase
             'event_id' => $this->event->id,
             'user_id' => $user->id,
         ]);
+    }
+
+    public function test_a_logged_in_user_can_cancel_a_booking()
+    {
+        // Create a user and event
+        $user = User::create([
+            'first_name' => 'New User First Name',
+            'last_name' => 'New User Last Name',
+            'email' => 'testuser@test.com',
+            'password' => bcrypt('password'),
+            'role' => 'Attendee',
+        ]);
+
+        $event = $this->event;
+
+        $this->actingAs($user)
+            ->post("/events/{$this->event->uuid}/book");
+        
+        $response = $this->actingAs($user)
+            ->delete("/events/{$event->uuid}/cancel");
+
+        // Assert booking is deleted
+        $response->assertSessionHas('success', 'Booking cancelled successfully.');
     }
 
     public function test_a_logged_in_user_can_view_their_bookings()

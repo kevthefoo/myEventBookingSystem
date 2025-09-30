@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
-use App\Models\Event;
 use App\Http\Controllers\BookingController;
 
 // My Bookings Page: Display user's bookings
@@ -45,29 +44,6 @@ Route::get("/mybookings", function () {
 Route::post("/events/{event}/book", [BookingController::class, "store"]);
 
 // Cancel a booking
-Route::delete("/events/{event}/cancel", function (Event $event) {
-    if (!auth()->check()) {
-        return redirect("/login")->with(
-            "error",
-            "Please log in to cancel bookings."
-        );
-    }
+Route::delete("/events/{event}/cancel", [BookingController::class, "delete"]);
 
-    $deleted = DB::table("event_attendees")
-        ->where("event_id", $event->id)
-        ->where("user_id", auth()->id())
-        ->delete();
-
-    if ($deleted) {
-        return redirect("/events/{$event->uuid}")->with(
-            "success",
-            "Booking cancelled successfully."
-        );
-    } else {
-        return redirect("/events/{$event->uuid}")->with(
-            "error",
-            "No booking found to cancel."
-        );
-    }
-});
 

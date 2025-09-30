@@ -3,7 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
-use Illuminate\Support\Facades\DB;
+use App\Models\Booking;
 
 class BookingController extends Controller
 {
@@ -45,5 +45,33 @@ class BookingController extends Controller
         ]);
 
         return redirect("/events/{$event->uuid}")->with('success', 'You have successfully booked this event!');
+    }
+
+    public function delete(Request $request, Event $event)
+    {
+        if (!auth()->check()) {
+            return redirect("/login")->with(
+                "error",
+                "Please log in to cancel bookings."
+            );
+        }
+
+        // Find the booking using Eloquent
+        $booking = Booking::where('event_id', $event->id)
+            ->where('user_id', auth()->id())
+            ->first();
+
+        if ($booking) {
+            $booking->delete();
+            return redirect("/events/{$event->uuid}")->with(
+                "success",
+                "Booking cancelled successfully."
+            );
+        } else {
+            return redirect("/events/{$event->uuid}")->with(
+                "error",
+                "No booking found to cancel."
+            );
+        }
     }
 }
