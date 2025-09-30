@@ -10,13 +10,13 @@
     </div>
 
     <!-- Category Filter Section -->
-    <div class="mb-6 w-full rounded-lg bg-white py-4   dark:bg-gray-800">
+    <div class="mb-6 w-full rounded-lg bg-white py-4 dark:bg-gray-800">
         <div class="flex items-center justify-between">
             <div class="flex-1">
                 <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-white">Filter by Categories</label>
 
                 <!-- Category Filter Dropdown -->
-                <div class="relative max-w-xs z-0  ">
+                <div class="relative z-0 max-w-xs">
                     <button type="button" id="categoryFilterBtn"
                         class="w-full cursor-pointer rounded-md border border-gray-300 bg-white px-3 py-2 text-left focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                         onclick="toggleCategoryFilter()">
@@ -76,7 +76,7 @@
                 @foreach ($events as $event)
                     <div
                         class="flex flex-col justify-around rounded-lg border-2 border-black bg-white p-4 dark:bg-gray-900">
-                        <h3 class="mb-2 text-lg font-semibold">
+                        <h3 class="mb-2 text-lg font-semibold hover:text-blue-600">
                             <a href="/events/{{ $event->uuid }}">
                                 {{ $event->title }}
                             </a>
