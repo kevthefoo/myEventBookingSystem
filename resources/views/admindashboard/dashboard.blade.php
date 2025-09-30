@@ -128,6 +128,7 @@
                                 <td class="whitespace-nowrap px-6 py-4">
                                     <span class="text-sm font-medium text-gray-900 dark:text-white">
                                         {{ $event->current_bookings }}
+                                        
                                     </span>
                                 </td>
                                 <td class="whitespace-nowrap px-6 py-4">

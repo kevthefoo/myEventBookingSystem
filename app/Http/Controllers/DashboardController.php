@@ -24,6 +24,7 @@ class DashboardController extends Controller
         $eventsReport = DB::select(
             "
             SELECT 
+                e.id,
                 e.uuid,
                 e.title,
                 e.description,
@@ -31,12 +32,17 @@ class DashboardController extends Controller
                 e.time,
                 e.location,
                 e.capacity,
-                0 as current_bookings,
-                e.capacity as remaining_spots
+                COALESCE(a.bookings_count, 0) AS current_bookings,
+                (e.capacity - COALESCE(a.bookings_count, 0)) AS remaining_spots
             FROM events e
+            LEFT JOIN (
+                SELECT event_id, COUNT(*) AS bookings_count
+                FROM event_attendees
+                GROUP BY event_id
+            ) a ON a.event_id = e.id
             WHERE e.organizer_id = ?
             ORDER BY e.date ASC
-        ",
+            ",
             [$organizerId]
         );
 
