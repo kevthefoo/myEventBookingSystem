@@ -33,16 +33,6 @@
                 </div>
 
                 <div class="flex items-start justify-start">
-                    @php
-                        $currentBookings = DB::table('event_attendees')->where('event_id', $event->id)->count();
-                        $remainingSpots = $event->capacity - $currentBookings;
-                        $isUserBooked = auth()->check()
-                            ? DB::table('event_attendees')
-                                ->where('event_id', $event->id)
-                                ->where('user_id', auth()->id())
-                                ->exists()
-                            : false;
-                    @endphp
                     <x-heroicon-o-archive-box class="mr-2 mt-0.5 h-5 w-5 flex-shrink-0" />
                     <div>
                         <strong>Capacity:</strong> {{ $event->capacity }} people<br>

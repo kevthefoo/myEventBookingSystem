@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Models\Event;
 use App\Models\Category;
+use App\Http\Controllers\EventController;
 
 // Home Page: Display all upcoming events with 6 events maximum per page
 Route::get("/", function () {
@@ -17,7 +18,4 @@ Route::get("/", function () {
 });
 
 // Event Details Page: Display a single event with its information
-Route::get("/events/{event}", function (Event $event) {
-    // Laravel will automatically find the event by UUID
-    return view("event-details", compact("event"));
-});
+Route::get('/events/{uuid}', [EventController::class, 'show'])->name('events.show');
