@@ -176,7 +176,7 @@ class OrganiserActionsTest extends TestCase
         ]);
 
         $otherEvent = Event::create([
-            'uuid' => \Illuminate\Support\Str::uuid(),
+            'uuid' => Str::uuid(),
             'title' => 'Other Event',
             'description' => 'Other event description',
             'date' => now()->addDays(7)->format('Y-m-d'),
