@@ -101,4 +101,5 @@ class Event extends Model
     {
         return $this->hasMany(Booking::class);
     }
+
 }

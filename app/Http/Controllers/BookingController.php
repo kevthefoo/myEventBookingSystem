@@ -1,12 +1,52 @@
 <?php
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+
 use App\Models\Event;
 use App\Models\Booking;
 
 class BookingController extends Controller
 {
+    public function all(Request $request, Event $event){
+       
+            if (!auth()->check()) {
+                return redirect("/login");
+            }
+
+            try {
+                // Get user's bookings with event details using raw SQL
+                $myBookings = DB::select(
+                    "
+                        SELECT 
+                            e.uuid,
+                            e.title,
+                            e.description,
+                            e.date,
+                            e.time,
+                            e.location,
+                            e.capacity,
+                            ea.created_at as booked_at,
+                            (u.first_name || ' ' || u.last_name) as organizer_name
+                        FROM event_attendees ea
+                        INNER JOIN events e ON ea.event_id = e.id
+                        INNER JOIN users u ON e.organizer_id = u.id
+                        WHERE ea.user_id = ?
+                        ORDER BY e.date ASC
+                    ",
+                    [auth()->id()]
+                );
+            } catch (\Exception $e) {
+                // Handle case where event_attendees table doesn't exist yet
+                $myBookings = [];
+            }
+            return view("mybookings", compact("myBookings"));
+    }
+    
+
+
     public function store(Request $request, Event $event)
     {   
         // Check if the user is logged in
