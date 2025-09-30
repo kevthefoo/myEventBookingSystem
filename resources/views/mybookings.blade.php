@@ -57,7 +57,7 @@
                 <div class="space-y-4">
                     @foreach ($myBookings as $booking)
                         @php
-                            $isUpcoming = strtotime($booking->date) >= strtotime(date('Y-m-d'));
+                            $isUpcoming = strtotime($booking->event->date) >= strtotime(date('Y-m-d'));
                             $isPast = !$isUpcoming;
                         @endphp
 
@@ -66,7 +66,7 @@
 
                             <!-- Event Status Badge -->
                             <div class="mb-3 flex items-start justify-between">
-                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $booking->title }}</h3>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $booking->event->title }}</h3>
                                 <div class="flex items-center gap-2">
                                     @if ($isPast)
                                         <span class="rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-600">
@@ -82,9 +82,9 @@
                             </div>
 
                             <!-- Event Description -->
-                            @if ($booking->description)
+                            @if ($booking->event->description)
                                 <p class="mb-3 text-sm text-gray-600 dark:text-white">
-                                    {{ Str::limit($booking->description, 120) }}</p>
+                                    {{ Str::limit($booking->event->description, 120) }}</p>
                             @endif
 
                             <!-- Event Details Grid -->
@@ -97,7 +97,7 @@
                                         <span class="font-medium text-gray-700 dark:text-white">Date:</span>
                                         <span
                                             class="{{ $isPast ? 'text-gray-500' : 'text-gray-900' }} ml-1 dark:text-white">
-                                            {{ date('F j, Y', strtotime($booking->date)) }}
+                                            {{ date('F j, Y', strtotime($booking->event->date)) }}
                                         </span>
                                     </div>
 
@@ -106,7 +106,7 @@
                                         <span class="font-medium text-gray-700 dark:text-white">Time:</span>
                                         <span
                                             class="{{ $isPast ? 'text-gray-500' : 'text-gray-900' }} ml-1 dark:text-white">
-                                            {{ date('g:i A', strtotime($booking->time)) }}
+                                            {{ date('g:i A', strtotime($booking->event->time)) }}
                                         </span>
                                     </div>
                                 </div>
@@ -118,7 +118,7 @@
                                         <span class="font-medium text-gray-700 dark:text-white">Location:</span>
                                         <span
                                             class="{{ $isPast ? 'text-gray-500' : 'text-gray-900' }} ml-1 dark:text-white">
-                                            {{ $booking->location }}
+                                            {{ $booking->event->location }}
                                         </span>
                                     </div>
 
@@ -127,7 +127,7 @@
                                         <span class="font-medium text-gray-700 dark:text-white">Organizer:</span>
                                         <span
                                             class="{{ $isPast ? 'text-gray-500' : 'text-gray-900' }} ml-1 dark:text-white">
-                                            {{ $booking->organizer_name }}
+                                            {{ $booking->event->organizer_name }}
                                         </span>
                                     </div>
                                 </div>
@@ -137,21 +137,21 @@
                             <!-- Booking Info & Actions -->
                             <div class="mt-4 flex items-center justify-between border-t border-gray-200 pt-3">
                                 <div class="text-xs text-gray-500 dark:text-white">
-                                    Booked on {{ date('M j, Y \a\t g:i A', strtotime($booking->booked_at)) }}
+                                    Booked on {{ date('M j, Y \a\t g:i A', strtotime($booking->event->booked_at)) }}
                                 </div>
 
                                 <div class="flex items-center justify-center gap-2">
-                                    <a href="/events/{{ $booking->uuid }}"
+                                    <a href="/events/{{ $booking->event->uuid }}"
                                         class="text-sm font-medium text-blue-600 hover:text-blue-800">
                                         View Details
                                     </a>
 
                                     @if ($isUpcoming)
-                                        <form method="POST" action="/events/{{ $booking->uuid }}/cancel" class="inline">
+                                        <form method="POST" action="/events/{{ $booking->event->uuid }}/cancel" class="inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit"
-                                                onclick="return confirm('Are you sure you want to cancel your booking for {{ $booking->title }}?')"
+                                                onclick="return confirm('Are you sure you want to cancel your booking for {{ $booking->event->title }}?')"
                                                 class="cursor-pointer text-sm font-medium text-red-600 hover:text-red-800">
                                                 Cancel Booking
                                             </button>
