@@ -2,12 +2,15 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+
+use App\Models\Category;
 use App\Models\Event;
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
 
 class OrganiserActionsTest extends TestCase
 {
@@ -39,9 +42,11 @@ class OrganiserActionsTest extends TestCase
             'role' => 'Attendee',
         ]);
 
+
+
         // Create test event
         $this->event = Event::create([
-            'uuid' => \Illuminate\Support\Str::uuid(),
+            'uuid' => Str::uuid(),
             'title' => 'Test Event',
             'description' => 'Test event description',
             'date' => now()->addDays(7)->format('Y-m-d'),
@@ -67,13 +72,23 @@ class OrganiserActionsTest extends TestCase
 
     public function test_an_organiser_can_create_a_new_event()
     {
+        $category = Category::create([
+        'name' => 'Sports & Fitness',
+        'slug' => 'sports-fitness',
+        'color' => '#123456',
+        'icon' => '🏀',
+        'description' => 'Sports events',
+        'is_active' => true,
+        ]);
+
         $eventData = [
             'title' => 'New Test Event',
             'description' => 'New test event description',
-            'date' => now()->addDays(14)->format('Y-m-d'),
+            'date' => now()->addDays(1)->format('Y-m-d'),
             'time' => '16:00',
             'location' => 'New Test Location',
             'capacity' => 75,
+            'categories' => [$category->id]
         ];
 
         $response = $this->actingAs($this->organizer)
@@ -116,6 +131,15 @@ class OrganiserActionsTest extends TestCase
 
     public function test_an_organiser_can_update_their_own_event()
     {
+        $category = Category::create([
+        'name' => 'Sports & Fitness',
+        'slug' => 'sports-fitness',
+        'color' => '#123456',
+        'icon' => '🏀',
+        'description' => 'Sports events',
+        'is_active' => true,
+        ]);
+
         $updatedData = [
             'title' => 'Updated Event Title',
             'description' => 'Updated description',
@@ -123,13 +147,14 @@ class OrganiserActionsTest extends TestCase
             'time' => '15:30',
             'location' => 'Updated Location',
             'capacity' => 100,
+            'categories' => [$category->id]
         ];
 
         $response = $this->actingAs($this->organizer)
             ->put("/eventmanager/edit/{$this->event->uuid}", $updatedData);
 
         $response->assertRedirect('/eventmanager');
-        $response->assertSessionHas('success', 'Event updated successfully!');
+        $response->assertSessionHas('success', 'Event updated successfully with categories!');
         
         $this->assertDatabaseHas('events', [
             'id' => $this->event->id,
