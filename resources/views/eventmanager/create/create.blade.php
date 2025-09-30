@@ -94,12 +94,12 @@
                         </div>
                     </div>
 
-                    <!-- Selected Categories Display -->
-                    <div id="selectedCategories" class="mt-2 flex min-h-[2rem] flex-wrap gap-2"></div>
-
                     @error('categories')
                         <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                     @enderror
+                    <p class="mt-2 text-sm">Can't find your category? <span onclick="openCategoryModal()"
+                            class="cursor-pointer text-blue-500 hover:text-blue-700"> Create
+                            One!</span></p>
                 </div>
 
                 <!-- Date and Time -->
@@ -167,6 +167,90 @@
                     </button>
                 </div>
             </form>
+
+            <!-- Category Creation Modal -->
+            <div id="categoryModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-gray-300/50">
+                <div class="mx-4 w-full max-w-md rounded-lg bg-white p-6 shadow-xl dark:bg-gray-800">
+                    <div class="mb-4 flex items-center justify-between">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Create New Category</h3>
+                        <button onclick="closeCategoryModal()"
+                            class="cursor-pointer text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                            <x-heroicon-o-x-mark class="h-5 w-5" />
+                        </button>
+                    </div>
+
+                    <form id="categoryForm" class="space-y-4">
+                        @csrf
+                        <!-- Category Name -->
+                        <div>
+                            <label for="category_name"
+                                class="mb-1 block text-sm font-medium text-gray-700 dark:text-white">
+                                Category Name <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" id="category_name" name="name" required
+                                class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                                placeholder="e.g., Workshop, Sports">
+                        </div>
+
+                        <!-- Category Slug -->
+                        <div>
+                            <label for="category_slug"
+                                class="mb-1 block text-sm font-medium text-gray-700 dark:text-white">
+                                Slug <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" id="category_slug" name="slug" required maxlength="10"
+                                class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                                placeholder="e.g., workshop">
+                            <p class="mt-1 text-xs text-gray-500">Max 10 characters, no spaces</p>
+                        </div>
+
+                        <!-- Category Icon -->
+                        <div>
+                            <label for="category_icon"
+                                class="mb-1 block text-sm font-medium text-gray-700 dark:text-white">
+                                Icon (Emoji) <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" id="category_icon" name="icon" required maxlength="1"
+                                class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                                placeholder="🎨">
+                            <p class="mt-1 text-xs text-gray-500">Single emoji only</p>
+                        </div>
+
+                        <!-- Category Color -->
+                        <div>
+                            <label for="category_color"
+                                class="mb-1 block text-sm font-medium text-gray-700 dark:text-white">
+                                Color <span class="text-red-500">*</span>
+                            </label>
+                            <input type="color" id="category_color" name="color" required value="#3B82F6"
+                                class="h-10 w-10 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-600">
+                        </div>
+
+                        <!-- Category Description -->
+                        <div>
+                            <label for="category_description"
+                                class="mb-1 block text-sm font-medium text-gray-700 dark:text-white">
+                                Description<span class="text-red-500">*</span>
+                            </label>
+                            <textarea id="category_description" name="description" rows="3"
+                                class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                                placeholder="Brief description of the category..." required></textarea>
+                        </div>
+
+                        <!-- Modal Buttons -->
+                        <div class="flex justify-end space-x-3 pt-4">
+                            <button type="button" onclick="closeCategoryModal()"
+                                class="cursor-pointer rounded-md border border-gray-300 px-4 py-2 text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700">
+                                Cancel
+                            </button>
+                            <button type="submit"
+                                class="cursor-pointer rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                Create Category
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
@@ -249,13 +333,13 @@
             }
         }
 
-        function removeCategory(categoryId) {
-            const checkbox = document.querySelector(`input[value="${categoryId}"]`);
-            if (checkbox) {
-                checkbox.checked = false;
-                updateSelectedCategories();
-            }
-        }
+        // function removeCategory(categoryId) {
+        //     const checkbox = document.querySelector(`input[value="${categoryId}"]`);
+        //     if (checkbox) {
+        //         checkbox.checked = false;
+        //         updateSelectedCategories();
+        //     }
+        // }
 
         // Close dropdown when clicking outside
         document.addEventListener('click', function(event) {
@@ -273,5 +357,79 @@
         document.addEventListener('DOMContentLoaded', function() {
             updateSelectedCategories();
         });
+
+        // Category Modal Functions
+        function openCategoryModal() {
+            document.getElementById('categoryModal').classList.remove('hidden');
+            document.getElementById('categoryModal').classList.add('flex');
+        }
+
+        function closeCategoryModal() {
+            document.getElementById('categoryModal').classList.add('hidden');
+            document.getElementById('categoryModal').classList.remove('flex');
+            // Reset form
+            document.getElementById('categoryForm').reset();
+        }
+
+        // Handle category form submission with AJAX
+        document.getElementById('categoryForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent normal form submission
+
+            const formData = new FormData(this);
+            const submitButton = this.querySelector('button[type="submit"]');
+
+            // Disable submit button
+            submitButton.disabled = true;
+            submitButton.textContent = 'Creating...';
+
+            fetch('/addcategory', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                            'content')
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Category created successfully!');
+                        closeCategoryModal();
+
+                        // Add the new category to the dropdown without page refresh
+                        addNewCategoryToDropdown(data.category);
+                    } else {
+                        alert('Error creating category: ' + (data.message || 'Unknown error'));
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while creating the category.');
+                })
+                .finally(() => {
+                    // Re-enable submit button
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Create Category';
+                });
+        });
+
+        // Function to add new category to dropdown
+        function addNewCategoryToDropdown(category) {
+            const categoryMenu = document.getElementById('categoryMenu');
+
+            const newCategoryHTML = `
+            <label class="flex cursor-pointer items-center px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <input type="checkbox" name="categories[]" value="${category.id}"
+                    class="category-checkbox mr-3 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    onchange="updateSelectedCategories()">
+                <div class="flex items-center space-x-2">
+                    <span style="color: ${category.color}">${category.icon}</span>
+                    <span class="text-sm text-gray-700 dark:text-gray-300">${category.name}</span>
+                </div>
+            </label>
+        `;
+
+            categoryMenu.insertAdjacentHTML('beforeend', newCategoryHTML);
+        }
     </script>
 @endsection

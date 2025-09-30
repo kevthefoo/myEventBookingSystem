@@ -370,6 +370,7 @@ Route::post('/events/{event}/book', function(Request $request, Event $event) {
         return redirect("/events/{$event->uuid}")->with('error', 'You cannot book your own event.');
     }
 
+
     // Manual validation - Check if event is full (REQUIRED MANUAL VALIDATION)
     $currentBookings = DB::table('event_attendees')
                         ->where('event_id', $event->id)
@@ -456,3 +457,57 @@ Route::get('/mybookings', function() {
     }
     return view('mybookings', compact('myBookings'));
 });
+
+Route::post('/addcategory', function(Request $request) {
+    // Check if user is logged in and is organizer
+    if (!auth()->check()) {
+        return redirect('/login');
+    }
+
+    if(auth()->user()->role !== 'organizer'){
+        return redirect('/');
+    }
+
+    // Validate input
+    $validated = $request->validate([
+        'name' => 'required|string|max:255|unique:categories',
+        'slug' => 'required|string|max:10',
+        'color' => 'required|string|max:7',
+        'icon' => 'required|string|size:1',
+        'description' => 'nullable|string'
+    ]);
+    
+    // // Create category
+    $category = Category::create([
+        'name' => $validated['name'],
+        'slug' => $validated['slug'],
+        'color' => $validated['color'],
+        'icon' => $validated['icon'],
+        'description' =>$validated['description'],
+        'is_active' => true
+    ]);
+
+    // Category::create([
+    //     'name' => 'Test',
+    //     'slug' => 'test',
+    //     'color' => '#3B82F6',
+    //     'icon' => '🏀',
+    //     'description' =>'This is a test category',
+    //     'is_active' => true
+    // ]);
+    
+    return response()->json([
+        'success' => true,
+        'message' => 'Category created successfully!',
+        'category' => [
+            'id' => $category->id,
+            'name' => $category->name,
+            'slug' => $category->slug,
+            'color' => $category->color,
+            'icon' => $category->icon,
+            'description' => $category->description
+        ]
+    ]);});
+
+
+Route::get('/test', function() {return view('test');});

@@ -1,5 +1,3 @@
-<!-- filepath: c:\Users\kevth\Desktop\myEventBookingSystem\resources\views\home.blade.php -->
-
 @extends('layouts.main')
 
 @section('title')
