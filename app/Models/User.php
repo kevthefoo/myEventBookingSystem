@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -18,13 +17,13 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'first_name',                     // ← Changed from 'name'
+        'first_name',
         'last_name',
         'email',
         'password',
-        'role',                           // ← Add this
-        'privacy_policy_accepted',        // ← Add this
-        'privacy_policy_accepted_at',     // ← Add this
+        'role',
+        'privacy_policy_accepted',
+        'privacy_policy_accepted_at',
     ];
 
     /**
@@ -45,7 +44,6 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'privacy_policy_accepted' => 'boolean',
             'privacy_policy_accepted_at' => 'datetime',
