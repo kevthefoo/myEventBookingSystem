@@ -97,8 +97,8 @@ class Event extends Model
         });
     }
 
-        public function bookings()
-{
-    return $this->hasMany(Booking::class);
-}
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
 }
