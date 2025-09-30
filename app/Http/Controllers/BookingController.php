@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\DB;
 class BookingController extends Controller
 {
     public function store(Request $request, Event $event)
-    {
+    {   
+        // Check if the user is logged in
         if (!auth()->check()) {
             return redirect('/login')->with('error', 'Please log in to book events.');
         }
@@ -18,20 +19,16 @@ class BookingController extends Controller
             return redirect("/events/{$event->uuid}")->with('error', 'You cannot book your own event.');
         }
 
-        // Manual validation - Check if event is full
-        $currentBookings = DB::table('event_attendees')
-            ->where('event_id', $event->id)
-            ->count();
+        // Count bookings
+        $currentBookings = $event->bookings()->count();
 
         if ($currentBookings >= $event->capacity) {
             return redirect("/events/{$event->uuid}")->with('error', 'Sorry, this event is fully booked. No more spots available.');
         }
 
         // Check if user already booked this event
-        $existingBooking = DB::table('event_attendees')
-            ->where('event_id', $event->id)
-            ->where('user_id', auth()->id())
-            ->first();
+        $existingBooking = $event->bookings()->where('user_id', auth()->id())->first();
+
 
         if ($existingBooking) {
             return redirect("/events/{$event->uuid}")->with('error', 'You have already booked this event.');
@@ -42,12 +39,9 @@ class BookingController extends Controller
             return redirect("/events/{$event->uuid}")->with('error', 'Cannot book past events.');
         }
 
-        // All validations passed - Create the booking
-        DB::table('event_attendees')->insert([
-            'event_id' => $event->id,
+        // Create booking
+        $event->bookings()->create([
             'user_id' => auth()->id(),
-            'created_at' => now(),
-            'updated_at' => now(),
         ]);
 
         return redirect("/events/{$event->uuid}")->with('success', 'You have successfully booked this event!');

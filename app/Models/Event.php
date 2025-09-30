@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
+use App\Models\Booking;
+
 class Event extends Model
 {
     use HasFactory;
@@ -94,4 +96,9 @@ class Event extends Model
             $q->where('categories.id', $categoryId);
         });
     }
+
+        public function bookings()
+{
+    return $this->hasMany(Booking::class);
+}
 }
