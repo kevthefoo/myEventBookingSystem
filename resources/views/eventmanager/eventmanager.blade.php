@@ -77,7 +77,7 @@
                                         {{ $event->capacity }}
                                     </td>
                                     <td class="px-4 py-3 text-sm text-gray-700 dark:text-white">
-                                        0 {{-- {{ $event->attendees()->count() ?? 0 }} --}}
+                                        {{ $event->attendees()->count() ?? 0 }}
                                     </td>
                                     <td class="px-4 py-3">
                                         <div class="flex gap-2">
