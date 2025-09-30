@@ -42,9 +42,7 @@ Route::get("/mybookings", function () {
 });
 
 // Make a booking
-Route::post("/events/{event}/book", [BookingController::class, "store"])->name(
-    "bookings.store"
-);
+Route::post("/events/{event}/book", [BookingController::class, "store"]);
 
 // Cancel a booking
 Route::delete("/events/{event}/cancel", function (Event $event) {
