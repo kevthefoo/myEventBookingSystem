@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
+
     <title>@yield('title')</title>
 
     <!-- Fonts -->
@@ -64,7 +64,7 @@
 
 <body class="min-h-screen dark:bg-gray-800 dark:text-white">
     <header
-        class="z-10 fixed flex h-16 w-full select-none items-center justify-around border-b-2 border-b-black bg-white dark:border-b-white dark:bg-gray-800">
+        class="fixed z-10 flex h-16 w-full select-none items-center justify-around border-b-2 border-b-black bg-white dark:border-b-white dark:bg-gray-800">
         <div class="flex items-center">
             <a href="/" class="flex items-center space-x-2">
                 <img src="{{ asset('images/logo.png') }}" alt="Griffith University Logo" class="h-8 w-auto">
@@ -115,18 +115,16 @@
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800">
                                         📈 Dashboard
                                     </a>
-                                @else
-                                    <a href="/mybookings"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800">
-                                        🎫 My Bookings
-                                    </a>
                                 @endif
-
+                                <a href="/mybookings"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800">
+                                    🎫 My Bookings
+                                </a>
                                 <a href="/profile"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800">
-                                    👤 Profile Settings
+                                    👤 Profile
                                 </a>
-                                <a href="/help"
+                                <a href="/contact"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800">
                                     ❓ Help & Support
                                 </a>
@@ -134,7 +132,8 @@
 
                             <form method="POST" action="/logout" class="text-center">
                                 @csrf
-                                <button type="submit" class="w-full cursor-pointer text-red-600 hover:text-red-800 dark:hover:text-red-400">
+                                <button type="submit"
+                                    class="w-full cursor-pointer text-red-600 hover:text-red-800 dark:hover:text-red-400">
                                     Logout
                                 </button>
                             </form>
