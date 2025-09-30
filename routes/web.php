@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-
+use App\Http\Controllers\BookingController;
 use App\Models\User;
 use App\Models\Event;
 use App\Models\Category;
@@ -359,52 +359,54 @@ Route::get('/admin/dashboard', function(){
 });
 
 // Book an event
-Route::post('/events/{event}/book', function(Request $request, Event $event) {
-    // Manual authentication check
-    if (!auth()->check()) {
-        return redirect('/login')->with('error', 'Please log in to book events.');
-    }
+// Route::post('/events/{event}/book', function(Request $request, Event $event) {
+//     if (!auth()->check()) {
+//         return redirect('/login')->with('error', 'Please log in to book events.');
+//     }
 
-    // Check if user is the event organizer (they can't book their own event)
-    if (auth()->id() === $event->organizer_id) {
-        return redirect("/events/{$event->uuid}")->with('error', 'You cannot book your own event.');
-    }
+//     // Check if user is the event organizer (they can't book their own event)
+//     if (auth()->id() === $event->organizer_id) {
+//         return redirect("/events/{$event->uuid}")->with('error', 'You cannot book your own event.');
+//     }
 
 
-    // Manual validation - Check if event is full (REQUIRED MANUAL VALIDATION)
-    $currentBookings = DB::table('event_attendees')
-                        ->where('event_id', $event->id)
-                        ->count();
+//     // Manual validation - Check if event is full (REQUIRED MANUAL VALIDATION)
+//     $currentBookings = DB::table('event_attendees')
+//                         ->where('event_id', $event->id)
+//                         ->count();
 
-    if ($currentBookings >= $event->capacity) {
-        return redirect("/events/{$event->uuid}")->with('error', 'Sorry, this event is fully booked. No more spots available.');
-    }
+//     if ($currentBookings >= $event->capacity) {
+//         return redirect("/events/{$event->uuid}")->with('error', 'Sorry, this event is fully booked. No more spots available.');
+//     }
 
-    // Check if user already booked this event
-    $existingBooking = DB::table('event_attendees')
-                        ->where('event_id', $event->id)
-                        ->where('user_id', auth()->id())
-                        ->first();
+//     // Check if user already booked this event
+//     $existingBooking = DB::table('event_attendees')
+//                         ->where('event_id', $event->id)
+//                         ->where('user_id', auth()->id())
+//                         ->first();
 
-    if ($existingBooking) {
-        return redirect("/events/{$event->uuid}")->with('error', 'You have already booked this event.');
-    }
+//     if ($existingBooking) {
+//         return redirect("/events/{$event->uuid}")->with('error', 'You have already booked this event.');
+//     }
 
-    // Check if event is in the past
-    if ($event->date < now()->toDateString()) {
-        return redirect("/events/{$event->uuid}")->with('error', 'Cannot book past events.');
-    }
+//     // Check if event is in the past
+//     if ($event->date < now()->toDateString()) {
+//         return redirect("/events/{$event->uuid}")->with('error', 'Cannot book past events.');
+//     }
 
-    // All validations passed - Create the booking
-    DB::table('event_attendees')->insert([
-        'event_id' => $event->id,
-        'user_id' => auth()->id(),
-        'created_at' => now(),
-        'updated_at' => now(),
-    ]);
+//     // All validations passed - Create the booking
+//     DB::table('event_attendees')->insert([
+//         'event_id' => $event->id,
+//         'user_id' => auth()->id(),
+//         'created_at' => now(),
+//         'updated_at' => now(),
+//     ]);
 
-return redirect("/events/{$event->uuid}")->with('success', 'You have successfully booked this event!');});
+// return redirect("/events/{$event->uuid}")->with('success', 'You have successfully booked this event!');});
 
+
+
+Route::post('/events/{event}/book', [BookingController::class, 'store'])->name('bookings.store');
 // Cancel booking
 Route::delete('/events/{event}/cancel', function(Event $event) {
     if (!auth()->check()) {
