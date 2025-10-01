@@ -6,8 +6,9 @@
 
 @section('content')
     <div class="mx-auto max-w-7xl p-6 max-md:p-4">
-        <!-- Dashboard Summary Cards -->
+        {{-- Dashboard Summary Cards --}}
         <div class="mb-8 grid grid-cols-4 gap-6 max-lg:grid-cols-2 max-md:mb-6 max-md:flex-row">
+            {{-- Event Count (With outdated events) --}}
             <div class="rounded-lg bg-white p-6 shadow-md max-md:p-4 dark:bg-gray-900">
                 <div class="flex items-center">
                     <div class="rounded-full bg-blue-100 p-3 text-blue-600 max-md:p-2">
@@ -22,6 +23,7 @@
                 </div>
             </div>
 
+            {{-- Booking Count --}}
             <div class="rounded-lg bg-white p-6 shadow-md max-md:p-4 dark:bg-gray-900">
                 <div class="flex items-center">
                     <div class="rounded-full bg-green-100 p-3 text-green-600 max-md:p-2">
@@ -35,6 +37,7 @@
                 </div>
             </div>
 
+            {{-- Upcoming Event Count --}}
             <div class="rounded-lg bg-white p-6 shadow-md max-md:p-4 dark:bg-gray-900">
                 <div class="flex items-center">
                     <div class="rounded-full bg-yellow-100 p-3 text-yellow-600 max-md:p-2">
@@ -48,6 +51,7 @@
                 </div>
             </div>
 
+            {{-- Capacity Count --}}
             <div class="rounded-lg bg-white p-6 shadow-md max-md:p-4 dark:bg-gray-900">
                 <div class="flex items-center">
                     <div class="rounded-full bg-purple-100 p-3 text-purple-600 max-md:p-2">
@@ -63,12 +67,13 @@
 
         </div>
 
-        <!-- Events Report -->
+        {{-- Events Report --}}
         <div class="rounded-lg bg-white p-6 shadow-md max-md:p-4 dark:bg-gray-900">
             <div class="mb-6 flex items-center justify-between max-md:mb-4">
                 <h2 class="text-xl font-bold text-gray-900 max-md:text-lg dark:text-white">Events Report</h2>
             </div>
 
+            {{-- Event General Information --}}
             <div class="overflow-x-auto">
                 <table class="min-w-full table-auto dark:bg-gray-800">
                     <thead class="bg-gray-50 dark:bg-gray-700">
@@ -157,7 +162,7 @@
                 </table>
             </div>
 
-            <!-- Report Summary -->
+            {{-- Report Summary --}}
             <div class="mt-6 border-t border-gray-200 pt-6 max-md:mt-4 max-md:pt-4">
                 <div class="grid grid-cols-3 gap-4 text-sm max-md:grid-cols-1 max-md:gap-3 max-md:text-xs">
                     <div class="rounded-lg bg-gray-50 p-4 text-center max-md:p-3 dark:bg-gray-800">
