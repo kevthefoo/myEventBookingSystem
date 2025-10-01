@@ -6,22 +6,21 @@
 
 @section('content')
     <div class="mx-auto max-w-2xl rounded-lg bg-white p-6 shadow dark:bg-gray-800 dark:shadow-sm dark:shadow-white">
-        <!-- Back Button -->
+        {{-- Back to Home Page Button --}}
         <a href="/" class="mb-4 inline-block text-blue-600 hover:text-blue-800 dark:text-white">
             ← Back to Home
         </a>
 
-        <!-- Event Title -->
+        {{-- Event Title --}}
         <h1 class="mb-4 text-3xl font-bold">{{ $event->title }}</h1>
 
-        <!-- Event Description -->
-        @if ($event->description)
-            <p class="mb-6 text-gray-700 dark:text-white">{{ $event->description }}</p>
-        @endif
+        {{-- Event Description --}}
+        <p class="mb-6 text-gray-700 dark:text-white">{{ $event->description }}</p>
 
-        <!-- Event Details -->
+        {{-- Event Details --}}
         <div class="mb-6 rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
             <div class="mb-4 grid grid-cols-2 gap-4 md:grid-cols-2">
+                {{-- Date and Time --}}
                 <div class="flex items-start justify-start">
                     <x-heroicon-s-calendar class="mr-2 mt-0.5 h-5 w-5 flex-shrink-0" />
                     <div>
@@ -32,6 +31,7 @@
                     </div>
                 </div>
 
+                {{-- Capacity and Remaining Spots --}}
                 <div class="flex items-start justify-start">
                     <x-heroicon-o-archive-box class="mr-2 mt-0.5 h-5 w-5 flex-shrink-0" />
                     <div>
@@ -43,15 +43,15 @@
                     </div>
                 </div>
 
+                {{-- Location --}}
                 <div class="flex items-start justify-start">
-
                     <x-heroicon-o-map-pin class="mr-2 mt-0.5 h-5 w-5 flex-shrink-0" />
                     <div>
                         <strong>Location:</strong> {{ $event->location }}
                     </div>
-
                 </div>
 
+                {{-- Organizer --}}
                 <div class="flex items-start justify-start">
                     <x-heroicon-o-hand-raised class="mr-2 mt-0.5 h-5 w-5 flex-shrink-0" />
                     <div><strong>Organizer:</strong> {{ $event->organizer->first_name }} {{ $event->organizer->last_name }}
@@ -59,6 +59,7 @@
                 </div>
             </div>
 
+            {{-- Category Tags --}}
             @foreach ($event->categories as $category)
                 <div class="mb-4 inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium"
                     style="background-color: {{ $category->color }}20; color: {{ $category->color }}; border: 1px solid {{ $category->color }}30;">
@@ -67,7 +68,7 @@
                 </div>
             @endforeach
 
-            <!-- Booking Progress Bar -->
+            {{-- Booking Progress Bar --}}
             @php
                 $occupancyRate = $event->capacity > 0 ? ($currentBookings / $event->capacity) * 100 : 0;
             @endphp
@@ -83,7 +84,7 @@
                 </div>
             </div>
 
-            <!-- Action Buttons -->
+            {{-- Action Buttons (Book | Cancel | Edit | Delete ) --}}
             <div class="space-y-4">
                 @auth
                     @if (auth()->id() === $event->organizer_id)
@@ -93,14 +94,16 @@
                             </p>
                         </div>
 
-                        <!-- Organizer Action Buttons -->
+                        {{-- Organizer Action Buttons --}}
                         <div class="mt-4 flex gap-3">
+                            {{-- Edit Button --}}
                             <a href="/eventmanager/edit/{{ $event->uuid }}"
                                 class="inline-flex items-center rounded-lg bg-blue-500 px-6 py-3 font-medium text-white transition duration-200 hover:bg-blue-600">
                                 <x-heroicon-s-pencil class="mr-2 h-4 w-4" />
                                 Edit Event
                             </a>
 
+                            {{-- Delete Button --}}
                             <form method="POST" action="/eventmanager/delete/{{ $event->uuid }}" class="inline">
                                 @csrf
                                 @method('DELETE')
@@ -146,6 +149,5 @@
                     </div>
                 @endauth
             </div>
-
         </div>
     @endsection
