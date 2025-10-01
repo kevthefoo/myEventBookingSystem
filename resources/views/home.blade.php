@@ -54,7 +54,7 @@
             <!-- Clear Filter Button -->
             <div class="ml-4">
                 <button onclick="clearFilters()"
-                    class="rounded-md border border-gray-300 px-4 py-2 text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700">
+                    class="cursor-pointer rounded-md border border-gray-300 px-4 py-2 text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700">
                     Clear Filter
                 </button>
             </div>
