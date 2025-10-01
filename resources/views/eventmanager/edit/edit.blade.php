@@ -11,24 +11,26 @@
         <div class="rounded-lg bg-white p-8 shadow-lg dark:bg-gray-800">
             <h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-white">Edit Event</h2>
 
-            <!-- Success/Error Messages -->
+            {{-- Success Messages --}}
             @if (session('success'))
                 <div class="mb-6 rounded border border-green-400 bg-green-100 px-4 py-3 text-green-700">
                     {{ session('success') }}
                 </div>
             @endif
 
+            {{-- Error Messages --}}
             @if (session('error'))
                 <div class="mb-6 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700">
                     {{ session('error') }}
                 </div>
             @endif
 
+            {{-- Edit Form --}}
             <form action="/eventmanager/edit/{{ $event->uuid }}" method="POST" class="space-y-6">
                 @csrf
                 @method('PUT')
 
-                <!-- Event Title -->
+                {{-- Event Title Field --}}
                 <div>
                     <label for="title" class="mb-1 block text-sm font-medium text-gray-700 dark:text-white">
                         Event Title <span class="text-red-500">*</span>
@@ -40,7 +42,7 @@
                     @enderror
                 </div>
 
-                <!-- Event Description -->
+                {{-- Event Description Field --}}
                 <div>
                     <label for="description" class="mb-1 block text-sm font-medium text-gray-700 dark:text-white">
                         Description <span class="text-red-500">*</span>
@@ -52,7 +54,7 @@
                     @enderror
                 </div>
 
-                <!-- Categories Selection - Dropdown with Multi-Select -->
+                {{-- Categories Selection Field --}}
                 <div>
                     <label for="categories" class="mb-1 block text-sm font-medium text-gray-700 dark:text-white">
                         Event Categories <span class="text-red-500">*</span>
@@ -104,7 +106,7 @@
                     @enderror
                 </div>
 
-                <!-- Date and Time -->
+                {{-- Date and Time Field --}}
                 <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div>
                         <label for="date" class="mb-1 block text-sm font-medium text-gray-700 dark:text-white">
@@ -131,7 +133,7 @@
                     </div>
                 </div>
 
-                <!-- Location -->
+                {{-- Location Field --}}
                 <div>
                     <label for="location" class="mb-1 block text-sm font-medium text-gray-700 dark:text-white">
                         Location <span class="text-red-500">*</span>
@@ -144,7 +146,7 @@
                     @enderror
                 </div>
 
-                <!-- Capacity -->
+                {{-- Capacity Field --}}
                 <div>
                     <label for="capacity" class="mb-1 block text-sm font-medium text-gray-700 dark:text-white">
                         Capacity <span class="text-red-500">*</span>
@@ -157,12 +159,14 @@
                     @enderror
                 </div>
 
-                <!-- Action Buttons -->
+                {{-- Action Buttons --}}
                 <div class="flex justify-between pt-6">
+                    {{-- Cancel Button --}}
                     <a href="/eventmanager"
                         class="rounded-md border border-gray-300 px-4 py-2 text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700">
                         Cancel
                     </a>
+                    {{-- Submit Button --}}
                     <button type="submit"
                         class="cursor-pointer rounded-md bg-blue-600 px-6 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                         Update Event
@@ -195,6 +199,7 @@
             color: rgb(59, 130, 246);
         }
 
+        /* Dark mode category tag styling */
         .dark .category-tag {
             background: rgba(59, 130, 246, 0.2);
             color: rgb(147, 197, 253);
