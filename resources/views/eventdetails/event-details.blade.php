@@ -92,34 +92,51 @@
                                 <strong>Note:</strong> You cannot book this event as you are the event creator.
                             </p>
                         </div>
-                    @elseif($event->date < now()->toDateString())
-                        <div class="rounded border border-gray-400 bg-gray-100 px-4 py-3 text-gray-700">
-                            <p class="text-sm">This event has already passed and is no longer available for booking.</p>
-                        </div>
-                    @elseif($isUserBooked)
-                        <div class="mb-4 rounded border border-green-400 bg-green-100 px-4 py-3 text-green-700">
-                            <p class="text-sm font-medium">✓ You have successfully booked this event!</p>
-                        </div>
-                        <form method="POST" action="/events/{{ $event->uuid }}/cancel" class="inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" onclick="return confirm('Are you sure you want to cancel your booking?')"
-                                class="cursor-pointer rounded-lg bg-red-500 px-6 py-3 text-white transition duration-200 hover:bg-red-600">
-                                Cancel Booking
+
+                        <!-- Organizer Action Buttons -->
+                        <div class="mt-4 flex gap-3">
+                            <a href="/eventmanager/edit/{{ $event->uuid }}"
+                                class="inline-flex items-center rounded-lg bg-blue-500 px-6 py-3 font-medium text-white transition duration-200 hover:bg-blue-600">
+                                <x-heroicon-s-pencil class="mr-2 h-4 w-4" />
+                                Edit Event
+                            </a>
+
+                            <form method="POST" action="/eventmanager/delete/{{ $event->uuid }}" class="inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" onclick="return confirm('Are you sure you want to delete this event?')"
+                                    class="inline-flex cursor-pointer items-center rounded-lg bg-red-500 px-6 py-3 font-medium text-white transition duration-200 hover:bg-red-600">
+                                    Delete
+                                </button>
+                            </form>
+                        @elseif($event->date < now()->toDateString())
+                            <div class="rounded border border-gray-400 bg-gray-100 px-4 py-3 text-gray-700">
+                                <p class="text-sm">This event has already passed and is no longer available for booking.</p>
+                            </div>
+                        @elseif($isUserBooked)
+                            <div class="mb-4 rounded border border-green-400 bg-green-100 px-4 py-3 text-green-700">
+                                <p class="text-sm font-medium">✓ You have successfully booked this event!</p>
+                            </div>
+                            <form method="POST" action="/events/{{ $event->uuid }}/cancel" class="inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" onclick="return confirm('Are you sure you want to cancel your booking?')"
+                                    class="cursor-pointer rounded-lg bg-red-500 px-6 py-3 text-white transition duration-200 hover:bg-red-600">
+                                    Cancel Booking
+                                </button>
+                            </form>
+                        @elseif($remainingSpots <= 0)
+                            <button disabled class="cursor-not-allowed rounded-lg bg-gray-400 px-6 py-3 text-white">
+                                Event Full - No Spots Available
                             </button>
-                        </form>
-                    @elseif($remainingSpots <= 0)
-                        <button disabled class="cursor-not-allowed rounded-lg bg-gray-400 px-6 py-3 text-white">
-                            Event Full - No Spots Available
-                        </button>
-                    @else
-                        <form method="POST" action="/events/{{ $event->uuid }}/book">
-                            @csrf
-                            <button type="submit"
-                                class="cursor-pointer rounded-lg bg-blue-500 px-6 py-3 font-medium text-white transition duration-200 hover:bg-blue-600">
-                                Book This Event ({{ $remainingSpots }} spots left)
-                            </button>
-                        </form>
+                        @else
+                            <form method="POST" action="/events/{{ $event->uuid }}/book">
+                                @csrf
+                                <button type="submit"
+                                    class="cursor-pointer rounded-lg bg-blue-500 px-6 py-3 font-medium text-white transition duration-200 hover:bg-blue-600">
+                                    Book This Event ({{ $remainingSpots }} spots left)
+                                </button>
+                            </form>
                     @endif
                 @else
                     <div class="rounded border border-blue-400 bg-blue-100 px-4 py-3 text-blue-700">
