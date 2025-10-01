@@ -29,7 +29,8 @@
             @if (!empty($myBookings) && count($myBookings) > 0)
                 <!-- Bookings Summary -->
                 <div class="mb-4 rounded-lg bg-blue-50 p-3 sm:mb-6 sm:p-4 dark:bg-gray-700">
-                    <h2 class="mb-2 text-base font-semibold text-blue-600 sm:text-lg">Booking Summary</h2>
+                    <h2 class="mb-4 text-center text-base font-semibold text-blue-600 sm:text-start sm:text-lg">Booking
+                        Summary</h2>
                     <div class="grid grid-cols-1 gap-3 text-xs sm:grid-cols-3 sm:gap-4 sm:text-sm">
                         <div class="text-center">
                             <p class="font-medium text-gray-900 dark:text-white">Total Bookings</p>
@@ -119,7 +120,7 @@
                                         <x-heroicon-o-map-pin class="mr-1 h-4 w-4 sm:h-5 sm:w-5" />
                                         <span class="font-medium text-gray-700 dark:text-white">Location:</span>
                                         <span
-                                            class="{{ $isPast ? 'text-gray-500' : 'text-gray-900' }} ml-1 max-lg:truncate  dark:text-white">
+                                            class="{{ $isPast ? 'text-gray-500' : 'text-gray-900' }} ml-1 max-lg:truncate dark:text-white">
                                             {{ $booking->event->location }}
                                         </span>
                                     </div>
