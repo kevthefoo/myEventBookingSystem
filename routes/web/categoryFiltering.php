@@ -51,7 +51,19 @@ Route::post("/addcategory", function (Request $request) {
         "slug" => "required|string|max:10",
         "color" => "required|string|max:7",
         "icon" => "required|string|size:1",
-        "description" => "nullable|string",
+        "description" => "required|nullable|max:255",
+    ],
+    [
+        "name.required" => "Category name is required.",
+        "name.unique" => "Category name must be unique.",
+        "slug.required" => "Slug is required.",
+        "slug.max" => "Slug cannot exceed 10 characters.",
+        "color.required" => "Color is required.",
+        "color.max" => "Color cannot exceed 7 characters.",
+        "icon.required" => "Icon is required.",
+        "icon.size" => "Icon must be a single character.",
+        "description.required" => "Description is required.",
+        "description.max" => "Description cannot exceed 255 characters.",
     ]);
 
     // // Create category
