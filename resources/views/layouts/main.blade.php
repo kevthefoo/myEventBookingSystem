@@ -64,64 +64,65 @@
 
 <body class="min-h-screen dark:bg-gray-800 dark:text-white">
     <header
-        class="fixed z-10 flex h-16 w-full select-none items-center justify-around border-b-2 border-b-black bg-white dark:border-b-white dark:bg-gray-800">
+        class="fixed z-10 flex h-16 w-full select-none items-center justify-around border-b-2 border-b-black bg-white max-md:h-14 max-md:justify-between max-md:px-4 dark:border-b-white dark:bg-gray-800">
         <div class="flex items-center">
-            <a href="/" class="flex items-center space-x-2">
-                <img src="{{ asset('images/logo.png') }}" alt="Griffith University Logo" class="h-8 w-auto">
-                <span class="hidden text-lg font-bold text-gray-900 sm:block dark:text-white">GUEBS</span>
+            <a href="/" class="flex items-center space-x-2 max-md:space-x-1">
+                <img src="{{ asset('images/logo.png') }}" alt="Griffith University Logo" class="h-8 w-auto max-md:h-6">
+                <span class="text-lg font-bold text-gray-900 max-md:text-base sm:block dark:text-white">GUEBS</span>
             </a>
         </div>
 
-        <nav>
-            <ul class="flex gap-4">
-                <li><a href="/">Events</a></li>
-                <li><a href="/mybookings">Bookings</a></li>
+        <nav class="max-md:hidden">
+            <ul class="flex gap-4 max-lg:gap-3 max-md:gap-2">
+                <li><a href="/" class="text-base max-md:text-sm">Events</a></li>
+                <li><a href="/mybookings" class="text-base max-md:text-sm">Bookings</a></li>
                 @auth
                     @if (auth()->user()->role === 'organizer')
-                        <li><a href="/eventmanager">Management</a></li>
-                        <li><a href="/admin/dashboard">Dashboard</a></li>
+                        <li><a href="/eventmanager" class="text-base max-md:text-sm">Management</a></li>
+                        <li><a href="/admin/dashboard" class="text-base max-md:text-sm">Dashboard</a></li>
                     @endif
                 @endauth
             </ul>
         </nav>
 
-        <div class="flex items-center justify-center gap-2">
+        <div class="flex items-center justify-center gap-2 max-md:gap-1">
             @auth
                 <div class="relative flex flex-col">
-                    <div class="flex items-center justify-center gap-2">
-                        <div>{{ auth()->user()->first_name }}</div>
-                        <div class="transform cursor-pointer transition-transform duration-200" id="dropdownArrow"
-                            onclick="toggleDropdown()">▼
+                    <div class="flex items-center justify-center gap-2 max-md:gap-1">
+                        <div class="text-base max-md:text-sm">{{ auth()->user()->first_name }}</div>
+                        <div class="transform cursor-pointer transition-transform duration-200 max-md:text-sm"
+                            id="dropdownArrow" onclick="toggleDropdown()">▼
                         </div>
                     </div>
 
                     <div id="dropdownMenu"
-                        class="absolute right-0 top-4 z-50 mt-2 hidden w-40 border border-gray-200 bg-white shadow-lg dark:bg-gray-700">
-                        <div class="py-2">
+                        class="absolute right-0 top-4 z-50 mt-2 hidden w-40 border border-gray-200 bg-white shadow-lg max-md:w-36 dark:bg-gray-700">
+                        <div class="py-2 max-md:py-1">
                             <!-- User Info -->
-                            <div class="border-b border-gray-100 px-4 py-2">
-                                <div class="text-sm text-gray-500 dark:text-white">{{ ucfirst(auth()->user()->role) }}
+                            <div class="border-b border-gray-100 px-4 py-2 max-md:px-3 max-md:py-1.5">
+                                <div class="text-sm text-gray-500 max-md:text-xs dark:text-white">
+                                    {{ ucfirst(auth()->user()->role) }}
                                     Account</div>
                             </div>
 
                             <!-- Navigation Links -->
-                            <div class="py-1">
+                            <div class="py-1 max-md:py-0.5">
                                 @if (auth()->user()->role === 'organizer')
                                     <a href="/eventmanager"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800">
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 max-md:px-3 max-md:py-1.5 max-md:text-xs dark:text-white dark:hover:bg-gray-800">
                                         📊 Manage Events
                                     </a>
                                     <a href="/admin/dashboard"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800">
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 max-md:px-3 max-md:py-1.5 max-md:text-xs dark:text-white dark:hover:bg-gray-800">
                                         📈 Dashboard
                                     </a>
                                 @endif
                                 <a href="/mybookings"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800">
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 max-md:px-3 max-md:py-1.5 max-md:text-xs dark:text-white dark:hover:bg-gray-800">
                                     🎫 My Bookings
                                 </a>
                                 <a href="/profile"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800">
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 max-md:px-3 max-md:py-1.5 max-md:text-xs dark:text-white dark:hover:bg-gray-800">
                                     👤 Profile
                                 </a>
                             </div>
@@ -129,7 +130,7 @@
                             <form method="POST" action="/logout" class="text-center">
                                 @csrf
                                 <button type="submit"
-                                    class="w-full cursor-pointer text-red-600 hover:text-red-800 dark:hover:text-red-400">
+                                    class="w-full cursor-pointer py-2 text-red-600 hover:text-red-800 max-md:py-1.5 max-md:text-sm dark:hover:text-red-400">
                                     Logout
                                 </button>
                             </form>
@@ -138,23 +139,23 @@
                 </div>
             @else
                 <a href="/login"
-                    class="rounded-2xl border-2 border-blue-500 px-4 py-2 font-semibold text-blue-600 transition-colors duration-200 hover:bg-blue-500 hover:text-white dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-400 dark:hover:text-gray-900">Login
+                    class="rounded-2xl border-2 border-blue-500 px-4 py-2 font-semibold text-blue-600 transition-colors duration-200 hover:bg-blue-500 hover:text-white max-md:px-3 max-md:py-1.5 max-md:text-sm dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-400 dark:hover:text-gray-900">Login
                 </a>
                 <a href="/register"
-                    class="rounded-2xl border-2 border-green-500 bg-green-500 px-4 py-2 font-semibold text-white transition-colors duration-200 hover:border-green-600 hover:bg-green-600 dark:border-green-600 dark:bg-green-600 dark:hover:border-green-700 dark:hover:bg-green-700">
+                    class="rounded-2xl border-2 border-green-500 bg-green-500 px-4 py-2 font-semibold text-white transition-colors duration-200 hover:border-green-600 hover:bg-green-600 max-md:px-3 max-md:py-1.5 max-md:text-sm dark:border-green-600 dark:bg-green-600 dark:hover:border-green-700 dark:hover:bg-green-700">
                     Register
                 </a>
             @endauth
 
-            <label class="ml-2 inline-flex cursor-pointer items-center">
+            <label class="ml-2 inline-flex cursor-pointer items-center max-md:ml-1">
                 <input type="checkbox" value="" class="peer sr-only" onclick="toggleDarkMode()">
                 <div
-                    class="peer relative h-6 w-11 rounded-full bg-gray-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white rtl:peer-checked:after:-translate-x-full dark:border-gray-600 dark:bg-gray-700 dark:peer-checked:bg-blue-600">
+                    class="peer relative h-6 w-11 rounded-full bg-gray-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white max-md:h-5 max-md:w-9 max-md:after:start-[2px] max-md:after:top-[2px] max-md:after:h-4 max-md:after:w-4 rtl:peer-checked:after:-translate-x-full dark:border-gray-600 dark:bg-gray-700 dark:peer-checked:bg-blue-600">
                 </div>
             </label>
         </div>
-
     </header>
+
     <!-- Main Content -->
     <main class="flex min-h-screen w-full flex-col items-center px-12 pt-20 dark:bg-gray-800">
         @yield('content')
