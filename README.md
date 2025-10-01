@@ -1,13 +1,15 @@
 ### Important Date
+
     Code submission Due Date: October 3
     Demonstration Date: October 8
 
 ### To-do
-    Integrate All tests with factory() if it is available in the case              
+    If the user is logged in as the Organiser who created the event, "Edit" and "Delete" buttons should be visible on event details page
+    Integrate All tests with factory() if it is available in the case
     Task 2
     Raw SQL
-    Comment for every method in your Controllers, Models, and any other 
-    custom classes
+    Comments for every method in your Controllers, Models, and any other custom classes (factories)
+    Comments for your frontend code (Javascript)
 
     knowing the whole process of migration
     understand everything in your code
