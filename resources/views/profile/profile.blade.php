@@ -10,6 +10,7 @@
             class="flex w-full flex-col items-start rounded-lg bg-white p-4 shadow dark:bg-gray-800 dark:text-white dark:shadow-white sm:p-6">
             <h3 class="mb-4 text-base font-semibold text-gray-900 dark:text-white sm:text-lg">My Profile</h3>
 
+            {{-- Account type field --}}
             <div class="w-full space-y-3 text-xs text-gray-700 dark:text-gray-300 sm:space-y-4 sm:text-sm">
                 <div>
                     <label class="block text-xs font-medium text-gray-500 dark:text-white">Account Type</label>
@@ -18,13 +19,15 @@
                     </div>
                 </div>
 
+                {{-- First name field --}}
                 <div>
                     <label class="block text-xs font-medium text-gray-500 dark:text-white">First name</label>
                     <div class="mt-1 rounded-md border border-gray-300 cursor-not-allowed bg-gray-100 p-2 text-gray-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400">
                         {{ auth()->user()->first_name ?? '-' }}
                     </div>
                 </div>
-
+                
+                {{-- Last name field --}}
                 <div>
                     <label class="block text-xs font-medium text-gray-500 dark:text-white">Last name</label>
                     <div class="mt-1 rounded-md border border-gray-300 cursor-not-allowed bg-gray-100 p-2 text-gray-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400">
@@ -32,6 +35,7 @@
                     </div>
                 </div>
 
+                {{-- Email Field --}}
                 <div>
                     <label class="block text-xs font-medium text-gray-500 dark:text-white">Email</label>
                     <div class="mt-1 rounded-md border border-gray-300 cursor-not-allowed bg-gray-100 p-2 text-gray-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400">
