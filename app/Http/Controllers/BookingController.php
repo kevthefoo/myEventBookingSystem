@@ -8,11 +8,20 @@ use App\Models\Booking;
 
 class BookingController extends Controller
 {
+    /**
+     * Retrieve all bookings made by the attendee
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Event $event
+     * @return \Illuminate\Contracts\View\View | \Illuminate\Http\RedirectResponse
+     */
     public function all(Request $request, Event $event)
-    {
+    {   
+        // Check the user is logged in or not, if not, redirect to the login page
         if (!auth()->check()) {
             return redirect("/login");
         }
+
+        // Fetch all bookings for the attendee with event details
         $myBookings = Booking::with(["event.organizer"])
             ->where("user_id", auth()->id())
             ->orderByDesc("created_at")
@@ -21,9 +30,20 @@ class BookingController extends Controller
         return view("mybookings", compact("myBookings"));
     }
 
-    public function store(Request $request, Event $event)
+
+    /**
+     * Create a new booking for an event with comprehensive validation.
+     * Business rules including:
+     * 1. Capacity limits (Can't book a full event)
+     * 2. Organizer restrictions (The creator can't book their own event)
+     * 3. Duplicate booking prevention (Can't book the same event multiple times)
+     * 4. Past event booking prevention (Can't book past events)
+     * @param Event $event Target event for booking
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(Event $event)
     {
-        // Check if the user is logged in
+        // Check if the user is logged in, if not, redirect to login page
         if (!auth()->check()) {
             return redirect("/login")->with(
                 "error",
@@ -31,7 +51,7 @@ class BookingController extends Controller
             );
         }
 
-        // Check if user is the event organizer (they can't book their own event)
+        // Check if user is the event organizer (they can't book their own event), if so, redirect with error
         if (auth()->id() === $event->organizer_id) {
             return redirect("/events/{$event->uuid}")->with(
                 "error",
@@ -39,9 +59,10 @@ class BookingController extends Controller
             );
         }
 
-        // Count bookings
+        // Count current bookings of the event
         $currentBookings = $event->bookings()->count();
 
+        // Check if the capacity of the event is full or not, if full, redirect with error 
         if ($currentBookings >= $event->capacity) {
             return redirect("/events/{$event->uuid}")->with(
                 "error",
@@ -49,12 +70,12 @@ class BookingController extends Controller
             );
         }
 
-        // Check if user already booked this event
         $existingBooking = $event
             ->bookings()
             ->where("user_id", auth()->id())
             ->first();
 
+        // Check if user already booked this event, if so, redirect with error
         if ($existingBooking) {
             return redirect("/events/{$event->uuid}")->with(
                 "error",
@@ -62,7 +83,7 @@ class BookingController extends Controller
             );
         }
 
-        // Check if event is in the past
+        // Check if event is in the past, if so, redirect with error
         if ($event->date < now()->toDateString()) {
             return redirect("/events/{$event->uuid}")->with(
                 "error",
@@ -81,7 +102,12 @@ class BookingController extends Controller
         );
     }
 
-    public function delete(Request $request, Event $event)
+    /**
+     * Cancel an existing booking for the attendee.
+     * @param Event $event Target event for cancellation
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function delete(Event $event)
     {
         if (!auth()->check()) {
             return redirect("/login")->with(
@@ -90,11 +116,12 @@ class BookingController extends Controller
             );
         }
 
-        // Find the booking using Eloquent
+        // Find the target booking
         $booking = Booking::where("event_id", $event->id)
             ->where("user_id", auth()->id())
             ->first();
 
+        // If booking exists, delete it and redirect with success message
         if ($booking) {
             $booking->delete();
             return redirect("/events/{$event->uuid}")->with(
