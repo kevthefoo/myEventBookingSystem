@@ -1,6 +1,11 @@
+### Important Date
+    Code submission Due Date: October 3
+    Demonstration Date: October 8
+
 ### To-do
-                          
+    Integrate All tests with factory() if it is available in the case              
     Task 2
+    Raw SQL
     Comment for every method in your Controllers, Models, and any other 
     custom classes
 
@@ -8,7 +13,7 @@
     understand everything in your code
     responsive design
 
-### Getting Set Up for Your Demonstration
+### Get Ready for Your Demonstration
 
     - Terminals: 3 different terminals
         1. One for your routes/web directory with ls -l command run.

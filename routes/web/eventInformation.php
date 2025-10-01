@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Models\Event;
 use App\Models\Category;
-use App\Http\Controllers\EventController;
+use App\Http\Controllers\EventDetailsController;
 
 // Home Page: Display all upcoming events with 6 events maximum per page
 Route::get("/", function () {
@@ -18,4 +18,4 @@ Route::get("/", function () {
 });
 
 // Event Details Page: Display a single event with its information
-Route::get('/events/{uuid}', [EventController::class, 'show'])->name('events.show');
+Route::get('/events/{uuid}', [EventDetailsController::class, 'show'])->name('events.show');
