@@ -221,6 +221,7 @@
 
 @section('scripts')
     <script>
+        // Toggle the category selection dropdown menu
         function toggleDropdownMenu() {
             const menu = document.getElementById('categoryMenu');
             const arrow = document.getElementById('dropdownArrow');
@@ -234,6 +235,7 @@
             }
         }
 
+        // Display the selected categories in real-time
         function updateSelectedCategories() {
             const checkboxes = document.querySelectorAll('.category-checkbox:checked');
             const selectedText = document.getElementById('selectedText');
@@ -263,6 +265,7 @@
             }
         }
 
+        // Remove selected category
         function removeCategory(categoryId) {
             const checkbox = document.querySelector(`input[value="${categoryId}"]`);
             if (checkbox) {
@@ -271,7 +274,7 @@
             }
         }
 
-        // Close dropdown when clicking outside
+        // Close dropdown when clicking anywhere
         document.addEventListener('click', function(event) {
             const dropdown = document.getElementById('categoryDropdown');
             const menu = document.getElementById('categoryMenu');
