@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Event;
 use App\Models\User;
@@ -12,40 +11,27 @@ class GuestAccessTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $organizer;
+    protected $user;
+    protected $event_1;
+    protected $event_2;
+        
     protected function setUp(): void
     {
         parent::setUp();
         
         // Create test organizer
-        $organizer = User::create([
-            'first_name' => 'Test Organizer First Name',
-            'last_name' => 'Test Organizer Last Name',
-            'email' => 'organizer@test.com',
-            'password' => bcrypt('password'),
+        $this->organizer = User::factory()->create([
             'role' => 'organizer',
         ]);
 
         // Create test events
-        Event::create([
-            'uuid' => \Illuminate\Support\Str::uuid(),
-            'title' => 'Future Event 1',
-            'description' => 'Test event description',
-            'date' => now()->addDays(7)->format('Y-m-d'),
-            'time' => '14:00:00',
-            'location' => 'Test Location',
-            'capacity' => 50,
-            'organizer_id' => $organizer->id,
+        $this->event_1 = Event::factory()->create([
+            'organizer_id' => $this->organizer->id,
         ]);
 
-        Event::create([
-            'uuid' => \Illuminate\Support\Str::uuid(),
-            'title' => 'Future Event 2',
-            'description' => 'Test event description 2',
-            'date' => now()->addDays(14)->format('Y-m-d'),
-            'time' => '15:00:00',
-            'location' => 'Test Location 2',
-            'capacity' => 30,
-            'organizer_id' => $organizer->id,
+        $this->event_2 = Event::factory()->create([
+            'organizer_id' => $this->organizer->id,
         ]);
     }
 
@@ -54,9 +40,10 @@ class GuestAccessTest extends TestCase
         $response = $this->get('/');
 
         $response->assertStatus(200);
-        $response->assertSee('Future Event 1');
-        $response->assertSee('Future Event 2');
-        $response->assertSee('Test Location');
+        $response->assertSee($this->event_1->title);
+        $response->assertSee($this->event_2->title);
+        $response->assertSee($this->event_1->location);
+        $response->assertSee($this->event_2->location);
     }
 
     public function test_a_guest_can_view_a_specific_event_details_page()
@@ -94,15 +81,16 @@ class GuestAccessTest extends TestCase
 
     public function test_a_guest_cannot_see_action_buttons_on_event_details_page()
     {
-        $event = Event::first();
 
-        $response = $this->get("/events/{$event->uuid}");
+        $response = $this->get("/events/{$this->event_1->uuid}");
 
         $response->assertStatus(200);
+
         // Should not see booking buttons or edit buttons
         $response->assertDontSee('Book This Event');
         $response->assertDontSee('Edit Event');
         $response->assertDontSee('Delete Event');
+        
         // Should see login prompt instead
         $response->assertSee('Please log in to book');
     }
