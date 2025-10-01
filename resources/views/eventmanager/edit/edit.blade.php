@@ -99,7 +99,7 @@
                     </div>
 
                     <!-- Selected Categories Display -->
-                    <div id="selectedCategories" class="mt-2 flex min-h-[2rem] flex-wrap gap-2"></div>
+                    {{-- <div id="selectedCategories" class="mt-2 flex min-h-[2rem] flex-wrap gap-2 border-2 border-black"></div> --}}
 
                     @error('categories')
                         <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
