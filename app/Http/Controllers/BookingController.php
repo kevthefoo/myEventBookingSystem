@@ -27,7 +27,7 @@ class BookingController extends Controller
             ->orderByDesc("created_at")
             ->get();
 
-        return view("mybookings", compact("myBookings"));
+        return view("mybookings.mybookings", compact("myBookings"));
     }
 
 

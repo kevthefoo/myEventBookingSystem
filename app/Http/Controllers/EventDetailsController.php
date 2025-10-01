@@ -29,7 +29,7 @@ class EventDetailsController extends Controller
             ? $event->bookings()->where('user_id', auth()->id())->exists()
             : false;
 
-        return view('event-details', compact(
+        return view('eventdetails.event-details', compact(
             'event',
             'currentBookings',
             'remainingSpots',
