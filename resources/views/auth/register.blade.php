@@ -9,22 +9,25 @@
         class="w-full max-w-md rounded-lg bg-white p-8 shadow-md dark:bg-gray-800 dark:text-white dark:shadow-sm dark:shadow-white">
         <h2 class="mb-6 text-center text-2xl font-bold text-gray-900 dark:text-white">Create Account</h2>
 
-        <!-- Success/Error Messages -->
+        {{-- Success Messages --}}
         @if (session('success'))
             <div class="mb-4 rounded-md bg-green-50 p-4">
                 <p class="text-sm text-green-800">{{ session('success') }}</p>
             </div>
         @endif
 
+        {{-- Error Messages --}}
         @if (session('error'))
             <div class="mb-4 rounded-md bg-red-50 p-4">
                 <p class="text-sm text-red-800">{{ session('error') }}</p>
             </div>
         @endif
 
+        {{-- Register Form --}}
         <form method="POST" action="/register" class="space-y-6">
             @csrf
-            <!-- Name Field -->
+
+            {{-- First Nmae Field --}}
             <div>
                 <label for="first_name" class="block text-sm font-medium text-gray-700 dark:text-white">First
                     Name</label>
@@ -35,6 +38,7 @@
                 @enderror
             </div>
 
+            {{-- Last Name Field --}}
             <div>
                 <label for="last_name" class="block text-sm font-medium text-gray-700 dark:text-white">Last Name</label>
                 <input type="text" id="last_name" name="last_name" value="{{ old('last_name') }}" required
@@ -44,7 +48,7 @@
                 @enderror
             </div>
 
-            <!-- Email Field -->
+            {{-- Email Field --}}
             <div>
                 <label for="email" class="block text-sm font-medium text-gray-700 dark:text-white">Email
                     Address</label>
@@ -55,7 +59,7 @@
                 @enderror
             </div>
 
-            <!-- Password Field -->
+            {{-- Password Field --}}
             <div>
                 <label for="password" class="block text-sm font-medium text-gray-700 dark:text-white">Password</label>
                 <input type="password" id="password" name="password" required
@@ -65,7 +69,7 @@
                 @enderror
             </div>
 
-            <!-- Confirm Password Field -->
+            {{-- Confirm Password Field --}}
             <div>
                 <label for="password_confirmation" class="block text-sm font-medium text-gray-700 dark:text-white">Confirm
                     Password</label>
@@ -73,7 +77,7 @@
                     class="mt-1 block w-full rounded-md border border-gray-300 py-1 pl-2 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white">
             </div>
 
-            <!-- Privacy Policy Checkbox -->
+            {{-- Privacy Policy Checkbox --}}
             <div class="flex items-start">
                 <input type="checkbox" id="privacy_policy_accepted" name="privacy_policy_accepted" value="1" required
                     class="mt-1 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
@@ -98,18 +102,17 @@
                 </button>
             </div>
 
-            <!-- Login Link -->
+            {{-- Login Link --}}
             <div class="text-center">
                 <p class="text-sm text-gray-600 dark:text-white">
                     Already have an account?
                     <a href="/login" class="font-medium text-blue-600 hover:text-blue-500">Log in here</a>
                 </p>
             </div>
-
         </form>
     </div>
 
-    <!-- Terms of Service Modal -->
+    {{-- Terms of Service Modal (Hidden in default) --}}
     <div id="termsModal" class="fixed inset-0 z-50 hidden overflow-y-auto">
         <div class="flex min-h-screen items-center justify-center p-4">
             <!-- Backdrop -->
@@ -183,7 +186,7 @@
         </div>
     </div>
 
-    <!-- Privacy Policy Modal -->
+    {{-- Privacy Policy Modal (Hidden in default) --}}
     <div id="privacyModal" class="fixed inset-0 z-50 hidden overflow-y-auto">
         <div class="flex min-h-screen items-center justify-center p-4">
             <!-- Backdrop -->
@@ -299,48 +302,43 @@
 @endsection
 
 @section('scripts')
-    <!-- JavaScript for Modals -->
     <script>
+        // Remove the header for cleaner UI
         const header = document.querySelector('header');
         if (header) {
             header.remove();
         }
-        // Terms Modal Functions
+        
+        // Make Terms Modal Pop Up
         function openTermsModal() {
             document.getElementById('termsModal').classList.remove('hidden');
             document.body.style.overflow = 'hidden'; // Prevent background scrolling
         }
 
+        // Close Terms Modal
         function closeTermsModal() {
             document.getElementById('termsModal').classList.add('hidden');
             document.body.style.overflow = 'auto'; // Restore background scrolling
         }
 
-        // Privacy Modal Functions
+        // Make Privacy Modal Pop up
         function openPrivacyModal() {
             document.getElementById('privacyModal').classList.remove('hidden');
             document.body.style.overflow = 'hidden'; // Prevent background scrolling
         }
 
+        // Close Privacy Modal
         function closePrivacyModal() {
             document.getElementById('privacyModal').classList.add('hidden');
             document.body.style.overflow = 'auto'; // Restore background scrolling
         }
 
-        // Close modal when clicking outside
+        // Close Modal When Clicking Anywhere on the screen
         document.addEventListener('click', function(event) {
             if (event.target.matches('#termsModal')) {
                 closeTermsModal();
             }
             if (event.target.matches('#privacyModal')) {
-                closePrivacyModal();
-            }
-        });
-
-        // Close modal with Escape key
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                closeTermsModal();
                 closePrivacyModal();
             }
         });
