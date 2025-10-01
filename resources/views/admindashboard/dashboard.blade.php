@@ -72,7 +72,6 @@
 
             </div>
 
-            {{-- @if (count($eventsReport) > 0) --}}
             <div class="overflow-x-auto">
                 <table class="min-w-full table-auto dark:bg-gray-800">
                     <thead class="bg-gray-50 dark:bg-gray-700">
@@ -104,7 +103,7 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200 bg-white">
-                        @foreach ($eventsReport as $event)
+                        @foreach ($eventsDetails as $event)
                             <tr class="hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700">
                                 <td class="whitespace-nowrap px-6 py-4">
                                     <a href="/events/{{ $event->uuid }}" class="cursor-pointer no-underline">
@@ -164,17 +163,17 @@
                 <div class="grid grid-cols-1 gap-4 text-sm md:grid-cols-3">
                     <div class="rounded-lg bg-gray-50 p-4 text-center dark:bg-gray-800">
                         <p class="font-medium text-gray-900 dark:text-white">Total Events</p>
-                        <p class="text-2xl font-bold text-blue-600">{{ count($eventsReport) }}</p>
+                        <p class="text-2xl font-bold text-blue-600">{{ count($eventsDetails) }}</p>
                     </div>
                     <div class="rounded-lg bg-gray-50 p-4 text-center dark:bg-gray-800">
                         <p class="font-medium text-gray-900 dark:text-white">Total Capacity</p>
-                        <p class="text-2xl font-bold text-green-600">{{ collect($eventsReport)->sum('capacity') }}
+                        <p class="text-2xl font-bold text-green-600">{{ collect($eventsDetails)->sum('capacity') }}
                         </p>
                     </div>
                     <div class="rounded-lg bg-gray-50 p-4 text-center dark:bg-gray-800">
                         <p class="font-medium text-gray-900 dark:text-white">Total Bookings</p>
                         <p class="text-2xl font-bold text-purple-600">
-                            {{ collect($eventsReport)->sum('current_bookings') }}</p>
+                            {{ collect($eventsDetails)->sum('current_bookings') }}</p>
                     </div>
                 </div>
             </div>

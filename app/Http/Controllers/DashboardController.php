@@ -5,14 +5,20 @@ use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
+    /**
+     * Display the organizer's admin dashboard with event analytics such as total events and total bookings.
+     * Also provide event details such as title, date, capacity and remaining spots
+     * Only Organizers can access this dashboard.
+     * @return \Illuminate\View\View | \Illuminate\Http\RedirectResponse 
+     */
     public function dashboard()
     {
-        // Check if the user is logged in
+        // Check if the user is logged in, if not, redirect to login page
         if (!auth()->check()) {
             return redirect("/login");
         }
 
-        // Check if the user is an organizer
+        // Check if the user is an organizer, if not, redirect to home page
         if (auth()->user()->role !== "organizer") {
             return redirect("/");
         }
@@ -20,8 +26,8 @@ class DashboardController extends Controller
         // Get the organizer ID
         $organizerId = auth()->id();
 
-        // Raw SQL Query for Events Report (without bookings for now)
-        $eventsReport = DB::select(
+        // Get events details using Raw SQL
+        $eventsDetails = DB::select(
             "
             SELECT 
                 e.id,
@@ -46,7 +52,7 @@ class DashboardController extends Controller
             [$organizerId]
         );
 
-        // Summary Statistics using Raw SQL (SQLite compatible)
+        // Get summary statistics using Raw SQL
         $summaryStats = DB::select(
             "
             SELECT 
@@ -70,7 +76,7 @@ class DashboardController extends Controller
 
         return view(
             "admindashboard.dashboard",
-            compact("eventsReport", "summaryStats")
+            compact("eventsDetails", "summaryStats")
         );
     }
 }
