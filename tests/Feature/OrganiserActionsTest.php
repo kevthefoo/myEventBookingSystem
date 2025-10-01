@@ -6,7 +6,6 @@ use Tests\TestCase;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 use App\Models\Category;
 use App\Models\Event;
