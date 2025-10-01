@@ -65,6 +65,7 @@
 <body class="min-h-screen dark:bg-gray-800 dark:text-white">
     <header
         class="fixed z-10 flex h-16 w-full select-none items-center justify-around border-b-2 border-b-black bg-white max-md:h-14 max-md:justify-between max-md:px-4 dark:border-b-white dark:bg-gray-800">
+        {{-- Logo Section --}}
         <div class="flex items-center">
             <a href="/" class="flex items-center space-x-2 max-md:space-x-1">
                 <img src="{{ asset('images/logo.png') }}" alt="Griffith University Logo" class="h-8 w-auto max-md:h-6">
@@ -72,10 +73,12 @@
             </a>
         </div>
 
+        {{-- Navigation Bar --}}
         <nav class="max-md:hidden">
             <ul class="flex gap-4 max-lg:gap-3 max-md:gap-2">
                 <li><a href="/" class="text-base max-md:text-sm">Events</a></li>
                 <li><a href="/mybookings" class="text-base max-md:text-sm">Bookings</a></li>
+                {{-- Conditionally Display Management and Dashboard Link Button --}}
                 @auth
                     @if (auth()->user()->role === 'organizer')
                         <li><a href="/eventmanager" class="text-base max-md:text-sm">Management</a></li>
@@ -85,27 +88,32 @@
             </ul>
         </nav>
 
+        {{-- User Auth Section --}}
         <div class="flex items-center justify-center gap-2 max-md:gap-1">
             @auth
                 <div class="relative flex flex-col">
                     <div class="flex items-center justify-center gap-2 max-md:gap-1">
+                        {{-- Display User's First Name --}}
                         <div class="text-base max-md:text-sm">{{ auth()->user()->first_name }}</div>
+
+                        {{-- Dropdown Menu Toggle Button --}}
                         <div class="transform cursor-pointer transition-transform duration-200 max-md:text-sm"
                             id="dropdownArrow" onclick="toggleDropdown()">▼
                         </div>
                     </div>
 
+                    {{-- Dropdown Menu --}}
                     <div id="dropdownMenu"
                         class="absolute right-0 top-4 z-50 mt-2 hidden w-40 border border-gray-200 bg-white shadow-lg max-md:w-36 dark:bg-gray-700">
                         <div class="py-2 max-md:py-1">
-                            <!-- User Info -->
+                            {{-- User Account Info (Organizer/Attendee) --}}
                             <div class="border-b border-gray-100 px-4 py-2 max-md:px-3 max-md:py-1.5">
                                 <div class="text-sm text-gray-500 max-md:text-xs dark:text-white">
                                     {{ ucfirst(auth()->user()->role) }}
                                     Account</div>
                             </div>
 
-                            <!-- Navigation Links -->
+                            {{-- Navigation Links --}}
                             <div class="py-1 max-md:py-0.5">
                                 @if (auth()->user()->role === 'organizer')
                                     <a href="/eventmanager"
@@ -127,6 +135,7 @@
                                 </a>
                             </div>
 
+                            {{-- Logout Button --}}
                             <form method="POST" action="/logout" class="text-center">
                                 @csrf
                                 <button type="submit"
@@ -138,15 +147,18 @@
                     </div>
                 </div>
             @else
+                {{-- Log in Button --}}
                 <a href="/login"
                     class="rounded-2xl border-2 border-blue-500 px-4 py-2 font-semibold text-blue-600 transition-colors duration-200 hover:bg-blue-500 hover:text-white max-md:px-3 max-md:py-1.5 max-md:text-sm dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-400 dark:hover:text-gray-900">Login
                 </a>
+                {{-- Register Button --}}
                 <a href="/register"
                     class="rounded-2xl border-2 border-green-500 bg-green-500 px-4 py-2 font-semibold text-white transition-colors duration-200 hover:border-green-600 hover:bg-green-600 max-md:px-3 max-md:py-1.5 max-md:text-sm dark:border-green-600 dark:bg-green-600 dark:hover:border-green-700 dark:hover:bg-green-700">
                     Register
                 </a>
             @endauth
 
+            {{-- Light/Dark Mode Toggle Button --}}
             <label class="ml-2 inline-flex cursor-pointer items-center max-md:ml-1">
                 <input type="checkbox" value="" class="peer sr-only" onclick="toggleDarkMode()">
                 <div
@@ -163,6 +175,7 @@
 
     <!-- Scripts Section -->
     <script>
+        // Expand/Close the Dropdown Menu
         function toggleDropdown() {
             const menu = document.getElementById('dropdownMenu');
             const arrow = document.getElementById('dropdownArrow');
@@ -176,6 +189,7 @@
             }
         }
 
+        // Switch Between Light Mode and Dark Mode
         function toggleDarkMode() {
             const htmlTag = document.documentElement; // Gets the <html> tag
 
@@ -189,7 +203,7 @@
             }
         }
 
-        // Initialize dark mode on page load
+        // Initialize Dark Mode on Page Load
         document.addEventListener('DOMContentLoaded', function() {
             const htmlTag = document.documentElement;
             const savedDarkMode = localStorage.getItem('darkMode');
