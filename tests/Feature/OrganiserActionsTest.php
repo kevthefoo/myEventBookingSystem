@@ -48,19 +48,11 @@ class OrganiserActionsTest extends TestCase
         $response->assertSee('Total Bookings');
         $response->assertSee('Upcoming Events');
         $response->assertSee('Total Capacity');
-
     }
 
     public function test_an_organiser_can_create_a_new_event()
     {
-        $category = Category::create([
-        'name' => 'Sports & Fitness',
-        'slug' => 'sports-fitness',
-        'color' => '#123456',
-        'icon' => '🏀',
-        'description' => 'Sports events',
-        'is_active' => true,
-        ]);
+        $category = Category::factory()->create();
 
         $eventData = [
             'title' => 'New Test Event',
@@ -89,12 +81,12 @@ class OrganiserActionsTest extends TestCase
     public function test_event_creation_fails_with_validation_errors()
     {
         $invalidData = [
-            'title' => '', // Required field empty
+            'title' => '',
             'description' => '',
             'date' => 'invalid-date',
             'time' => 'invalid-time',
             'location' => '',
-            'capacity' => -5, // Invalid capacity
+            'capacity' => -5,
         ];
 
         $response = $this->actingAs($this->organizer)
@@ -112,14 +104,7 @@ class OrganiserActionsTest extends TestCase
 
     public function test_an_organiser_can_update_their_own_event()
     {
-        $category = Category::create([
-        'name' => 'Sports & Fitness',
-        'slug' => 'sports-fitness',
-        'color' => '#123456',
-        'icon' => '🏀',
-        'description' => 'Sports events',
-        'is_active' => true,
-        ]);
+        $category = Category::factory()->create();
 
         $updatedData = [
             'title' => 'Updated Event Title',
@@ -139,31 +124,20 @@ class OrganiserActionsTest extends TestCase
         
         $this->assertDatabaseHas('events', [
             'id' => $this->event->id,
-            'title' => 'Updated Event Title',
-            'location' => 'Updated Location',
-            'capacity' => 100,
+            'title' => $updatedData['title'],
+            'location' => $updatedData['location'],
+            'capacity' => $updatedData['capacity'],
         ]);
     }
 
     public function test_an_organiser_cannot_update_another_organisers_event()
     {
         // Create another organizer and their event
-        $otherOrganizer = User::create([
-            'first_name' => 'Other Organizer First Name',
-            'last_name' => 'Other Organizer Last Name',
-            'email' => 'other@test.com',
-            'password' => bcrypt('password'),
+        $otherOrganizer = User::factory()->create([
             'role' => 'organizer',
         ]);
 
-        $otherEvent = Event::create([
-            'uuid' => Str::uuid(),
-            'title' => 'Other Event',
-            'description' => 'Other event description',
-            'date' => now()->addDays(7)->format('Y-m-d'),
-            'time' => '14:00:00',
-            'location' => 'Other Location',
-            'capacity' => 30,
+        $otherEvent = Event::factory()->create([
             'organizer_id' => $otherOrganizer->id,
         ]);
 
@@ -188,8 +162,8 @@ class OrganiserActionsTest extends TestCase
         // Event should remain unchanged
         $this->assertDatabaseHas('events', [
             'id' => $otherEvent->id,
-            'title' => 'Other Event',
-            'location' => 'Other Location',
+            'title' => $otherEvent->title,
+            'location' => $otherEvent->location,
             'organizer_id' => $otherOrganizer->id,
         ]);
     }
