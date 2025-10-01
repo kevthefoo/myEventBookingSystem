@@ -24,7 +24,7 @@
 
         <div class="mb-6">
             <a href="/eventmanager/create"
-                class="rounded-lg bg-blue-600 px-6 py-2 text-white transition duration-200 hover:bg-blue-700">
+                class="rounded-lg bg-blue-600 px-6 py-2 text-white transition duration-200 hover:bg-blue-700 max-lg:px-3 max-lg:text-xs">
                 + Create New Event
             </a>
         </div>
@@ -38,16 +38,29 @@
                     <table class="min-w-full table-auto">
                         <thead class="bg-gray-50 dark:bg-gray-800">
                             <tr>
-                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700 dark:text-white">Title</th>
-                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700 dark:text-white">Date &
-                                    Time</th>
-                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700 dark:text-white">Location
+                                <th
+                                    class="px-4 py-2 text-left text-sm font-medium text-gray-700 max-lg:text-xs dark:text-white">
+                                    Title
                                 </th>
-                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700 dark:text-white">Capacity
+                                <th
+                                    class="px-4 py-2 text-left text-sm font-medium text-gray-700 max-lg:text-xs dark:text-white">
+                                    Date &Time
                                 </th>
-                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700 dark:text-white">Bookings
+                                <th
+                                    class="px-4 py-2 text-left text-sm font-medium text-gray-700 max-lg:text-xs dark:text-white">
+                                    Location
                                 </th>
-                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-700 dark:text-white">Actions
+                                <th
+                                    class="px-4 py-2 text-left text-sm font-medium text-gray-700 max-lg:text-xs dark:text-white">
+                                    Capacity
+                                </th>
+                                <th
+                                    class="px-4 py-2 text-left text-sm font-medium text-gray-700 max-lg:text-xs dark:text-white">
+                                    Bookings
+                                </th>
+                                <th
+                                    class="px-4 py-2 text-left text-sm font-medium text-gray-700 max-lg:text-xs dark:text-white">
+                                    Actions
                                 </th>
                             </tr>
                         </thead>
@@ -58,32 +71,32 @@
                                     <td class="px-4 py-3">
                                         <a href="/events/{{ $event->uuid }}"
                                             class="pointer-cursor border-white no-underline">
-                                            <div class="font-medium text-gray-900 dark:text-white">
+                                            <div class="font-medium text-gray-900 max-lg:text-xs dark:text-white">
                                                 {{ $event->title }}
                                             </div>
                                         </a>
-                                        <div class="text-sm text-gray-500 dark:text-white">
+                                        <div class="text-sm text-gray-500 max-lg:hidden dark:text-white">
                                             {{ Str::limit($event->description, 50) }}
                                         </div>
                                     </td>
-                                    <td class="px-4 py-3 text-sm text-gray-700 dark:text-white">
+                                    <td class="px-4 py-3 text-sm text-gray-700 max-lg:text-xs dark:text-white">
                                         {{ $event->date->format('Y-m-d') }}<br>
                                         {{ date('H:i', strtotime($event->time)) }}
                                     </td>
-                                    <td class="px-4 py-3 text-sm text-gray-700 dark:text-white">
+                                    <td class="px-4 py-3 text-sm text-gray-700 max-lg:text-xs dark:text-white">
                                         {{ Str::limit($event->location, 30) }}
                                     </td>
-                                    <td class="px-4 py-3 text-sm text-gray-700 dark:text-white">
+                                    <td class="px-4 py-3 text-sm text-gray-700 max-lg:text-xs dark:text-white">
                                         {{ $event->capacity }}
                                     </td>
-                                    <td class="px-4 py-3 text-sm text-gray-700 dark:text-white">
+                                    <td class="px-4 py-3 text-sm text-gray-700 max-lg:text-xs dark:text-white">
                                         {{ $event->attendees()->count() ?? 0 }}
                                     </td>
                                     <td class="px-4 py-3">
-                                        <div class="flex gap-2">
+                                        <div class="flex gap-2 max-lg:flex-col">
                                             <!-- Edit Button -->
                                             <a href="/eventmanager/edit/{{ $event->uuid }}"
-                                                class="rounded bg-blue-500 px-3 py-1 text-sm text-white transition duration-200 hover:bg-blue-600">
+                                                class="rounded bg-blue-500 px-3 py-1 text-sm text-white transition duration-200 hover:bg-blue-600 max-lg:flex max-lg:items-center max-lg:justify-center max-lg:px-1 max-lg:text-xs">
                                                 Edit
                                             </a>
 
@@ -94,7 +107,7 @@
                                                 @method('DELETE')
                                                 <button type="submit"
                                                     onclick="return confirm('Are you sure you want to delete this event?')"
-                                                    class="cursor-pointer rounded bg-red-500 px-3 py-1 text-sm text-white transition duration-200 hover:bg-red-600">
+                                                    class="cursor-pointer rounded bg-red-500 px-3 py-1 text-sm text-white transition duration-200 hover:bg-red-600 max-lg:flex max-lg:items-center max-lg:justify-center max-lg:px-1 max-lg:text-xs">
                                                     Delete
                                                 </button>
                                             </form>
