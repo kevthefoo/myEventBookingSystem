@@ -9,13 +9,14 @@ use \Illuminate\Support\Str;
 use Tests\TestCase;
 use App\Models\Event;
 use App\Models\User;
-use App\Models\Booking;
 
 class AttendeeActionsTest extends TestCase
 {
     use RefreshDatabase;
 
     protected $organizer;
+    protected $attendee_1;
+    protected $attendee_2;
     protected $event;
     protected $fullEvent;
 
@@ -24,50 +25,35 @@ class AttendeeActionsTest extends TestCase
         parent::setUp();
         
         // Create test organizer
-        $this->organizer = User::create([
-            'first_name' => 'Test Organizer',
-            'last_name' => 'last_name',
-            'email' => 'organizer@test.com',
-            'password' => bcrypt('password'),
+        $this->organizer = User::factory()->create([
             'role' => 'organizer',
         ]);
 
+        // Create test attendee
+        $this->attendee_1 = User::factory()->create([
+            'role' => 'Attendee',
+            'password' => 'password123',
+        ]);
+
+        $this->attendee_2 = User::factory()->create([
+            'role' => 'Attendee',
+        ]);
+
         // Create test events
-        $this->event = Event::create([
-            'uuid' => Str::uuid(),
-            'title' => 'Test Event',
-            'description' => 'Test event description',
-            'date' => now()->addDays(7)->format('Y-m-d'),
-            'time' => '14:00:00',
-            'location' => 'Test Location',
-            'capacity' => 2,
+        $this->event = Event::factory()->create([
             'organizer_id' => $this->organizer->id,
         ]);
 
         // Create a full event for capacity testing
-        $this->fullEvent = Event::create([
-            'uuid' => Str::uuid(),
-            'title' => 'Full Event',
-            'description' => 'Full event description',
-            'date' => now()->addDays(7)->format('Y-m-d'),
-            'time' => '15:00:00',
-            'location' => 'Test Location 2',
+        $this->fullEvent = Event::factory()->create([
             'capacity' => 1,
             'organizer_id' => $this->organizer->id,
         ]);
 
-        // Fill the full event
-        $attendee = User::create([
-            'first_name' => 'Other Attendee',
-            'last_name' => 'last_name',
-            'email' => 'other@test.com',
-            'password' => bcrypt('password'),
-            'role' => 'Attendee',
-        ]);
-
+        // Fill the full event with attendee_1
         DB::table('event_attendees')->insert([
             'event_id' => $this->fullEvent->id,
-            'user_id' => $attendee->id,
+            'user_id' => $this->attendee_1->id,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -93,22 +79,14 @@ class AttendeeActionsTest extends TestCase
 
     public function test_a_user_can_log_in_and_log_out()
     {
-        $user = User::create([
-            'first_name' => 'New User First Name',
-            'last_name' => 'New User Last Name',
-            'email' => 'testuser@test.com',
-            'password' => bcrypt('password'),
-            'role' => 'Attendee',
-        ]);
-
         // Test login
         $response = $this->post('/login', [
-            'email' => 'testuser@test.com',
-            'password' => 'password',
+            'email' => $this->attendee_1->email,
+            'password' => 'password123',
         ]);
 
         $response->assertRedirect('/');
-        $this->assertAuthenticatedAs($user);
+        $this->assertAuthenticatedAs($this->attendee_1);
 
         // Test logout
         $response = $this->post('/logout');
@@ -118,15 +96,7 @@ class AttendeeActionsTest extends TestCase
 
     public function test_a_logged_in_user_can_book_an_event()
     {
-        $user = User::create([
-            'first_name' => 'New User First Name',
-            'last_name' => 'New User Last Name',
-            'email' => 'testuser@test.com',
-            'password' => bcrypt('password'),
-            'role' => 'Attendee',
-        ]);
-
-        $response = $this->actingAs($user)
+        $response = $this->actingAs($this->attendee_1)
             ->post("/events/{$this->event->uuid}/book");
 
         $response->assertRedirect("/events/{$this->event->uuid}");
@@ -134,28 +104,17 @@ class AttendeeActionsTest extends TestCase
         
         $this->assertDatabaseHas('event_attendees', [
             'event_id' => $this->event->id,
-            'user_id' => $user->id,
+            'user_id' => $this->attendee_1->id,
         ]);
     }
 
     public function test_a_logged_in_user_can_cancel_a_booking()
     {
-        // Create a user and event
-        $user = User::create([
-            'first_name' => 'New User First Name',
-            'last_name' => 'New User Last Name',
-            'email' => 'testuser@test.com',
-            'password' => bcrypt('password'),
-            'role' => 'Attendee',
-        ]);
-
-        $event = $this->event;
-
-        $this->actingAs($user)
+        $this->actingAs($this->attendee_1)
             ->post("/events/{$this->event->uuid}/book");
         
-        $response = $this->actingAs($user)
-            ->delete("/events/{$event->uuid}/cancel");
+        $response = $this->actingAs($this->attendee_1)
+            ->delete("/events/{$this->event->uuid}/cancel");
 
         // Assert booking is deleted
         $response->assertSessionHas('success', 'Booking cancelled successfully.');
@@ -163,45 +122,21 @@ class AttendeeActionsTest extends TestCase
 
     public function test_a_logged_in_user_can_view_their_bookings()
     {
-        $user = User::create([
-            'first_name' => 'New User First Name',
-            'last_name' => 'New User Last Name',
-            'email' => 'testuser@test.com',
-            'password' => bcrypt('password'),
-            'role' => 'Attendee',
-        ]);
-
-        // Book an event
-        DB::table('event_attendees')->insert([
-            'event_id' => $this->event->id,
-            'user_id' => $user->id,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        $response = $this->actingAs($user)->get('/mybookings');
+        $response = $this->actingAs($this->attendee_1)->get('/mybookings');
 
         $response->assertStatus(200);
-        $response->assertSee($this->event->title);
-        $response->assertSee($this->event->location);
+        $response->assertSee($this->fullEvent->title);
+        $response->assertSee($this->fullEvent->location);
     }
 
     public function test_a_user_cannot_book_the_same_event_twice()
     {
-        $user = User::create([
-            'first_name' => 'New User First Name',
-            'last_name' => 'New User Last Name',
-            'email' => 'testuser@test.com',
-            'password' => bcrypt('password'),
-            'role' => 'Attendee',
-        ]);
-
         // First booking
-        $this->actingAs($user)
+        $this->actingAs($this->attendee_1)
             ->post("/events/{$this->event->uuid}/book");
 
         // Second booking attempt
-        $response = $this->actingAs($user)
+        $response = $this->actingAs($this->attendee_1)
             ->post("/events/{$this->event->uuid}/book");
 
         $response->assertRedirect("/events/{$this->event->uuid}");
@@ -210,21 +145,14 @@ class AttendeeActionsTest extends TestCase
         // Should only have one booking record
         $this->assertEquals(1, DB::table('event_attendees')
             ->where('event_id', $this->event->id)
-            ->where('user_id', $user->id)
+            ->where('user_id', $this->attendee_1->id)
             ->count());
     }
 
     public function test_a_user_cannot_book_an_event_at_full_capacity()
     {
-        $user = User::create([  
-            'first_name' => 'New User First Name',
-            'last_name' => 'New User Last Name',
-            'email' => 'testuser@test.com',
-            'password' => bcrypt('password'),
-            'role' => 'Attendee',
-        ]);
 
-        $response = $this->actingAs($user)
+        $response = $this->actingAs($this->attendee_2)
             ->post("/events/{$this->fullEvent->uuid}/book");
 
         $response->assertRedirect("/events/{$this->fullEvent->uuid}");
@@ -232,7 +160,7 @@ class AttendeeActionsTest extends TestCase
         
         $this->assertDatabaseMissing('event_attendees', [
             'event_id' => $this->fullEvent->id,
-            'user_id' => $user->id,
+            'user_id' => $this->attendee_2->id,
         ]);
     }
 }
