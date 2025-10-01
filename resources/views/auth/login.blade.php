@@ -15,18 +15,15 @@
 
 @section('content')
     <div class="w-full max-w-md rounded-lg bg-white p-8 shadow-md dark:bg-gray-800 dark:shadow-sm dark:shadow-white">
-
-        <!-- Header -->
         <div class="mb-8 text-center">
             <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Sign In</h1>
             <p class="mt-2 text-gray-600 dark:text-white">Welcome back to our Event Booking System</p>
         </div>
 
-        <!-- Login Form -->
+        {{-- Login In Form --}}
         <form method="POST" action="/login" class="space-y-6">
             @csrf
-
-            <!-- Email Field -->
+            {{-- Email Field --}}
             <div>
                 <label for="email" class="mb-2 block text-sm font-medium text-gray-700 dark:text-white">
                     Email Address
@@ -39,7 +36,7 @@
                 @enderror
             </div>
 
-            <!-- Password Field -->
+            {{-- Password Field --}}
             <div>
                 <label for="password" class="mb-2 block text-sm font-medium text-gray-700 dark:text-white">
                     Password
@@ -52,15 +49,14 @@
                 @enderror
             </div>
 
-            <!-- Submit Button -->
+            {{-- Submit Button --}}
             <button type="submit"
                 class="w-full cursor-pointer rounded-md bg-blue-600 px-4 py-2 text-white transition duration-200 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                 Sign In
             </button>
-
         </form>
 
-        <!-- Register Link -->
+        {{-- Register Link --}}
         <div class="mt-6 text-center">
             <p class="text-sm text-gray-600 dark:text-white">
                 Don't have an account?
@@ -70,11 +66,11 @@
             </p>
         </div>
 
+        {{-- Back to Home Page Link --}}
         <div class="mt-4 text-center">
             <a href="/" class="text-sm text-gray-500 hover:text-gray-700 dark:text-white">
                 ← Back to Home
             </a>
         </div>
-
     </div>
 @endsection
