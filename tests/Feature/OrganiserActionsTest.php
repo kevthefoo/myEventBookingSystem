@@ -25,34 +25,15 @@ class OrganiserActionsTest extends TestCase
         parent::setUp();
         
         // Create test organizer
-        $this->organizer = User::create([
-            'first_name' => 'Test Organizer First Name',
-            'last_name' => 'Test Organizer Last Name',
-            'email' => 'organizer@test.com',
-            'password' => bcrypt('password'),
+        $this->organizer = User::factory()->create([
             'role' => 'organizer',
         ]);
 
         // Create regular user
-        $this->user = User::create([
-            'first_name' => 'New User First Name',
-            'last_name' => 'New User Last Name',
-            'email' => 'user@test.com',
-            'password' => bcrypt('password'),
-            'role' => 'Attendee',
-        ]);
-
-
+        $this->user = User::factory()->create();
 
         // Create test event
-        $this->event = Event::create([
-            'uuid' => Str::uuid(),
-            'title' => 'Test Event',
-            'description' => 'Test event description',
-            'date' => now()->addDays(7)->format('Y-m-d'),
-            'time' => '14:00:00',
-            'location' => 'Test Location',
-            'capacity' => 50,
+        $this->event = Event::factory()->create([
             'organizer_id' => $this->organizer->id,
         ]);
     }
@@ -245,7 +226,7 @@ class OrganiserActionsTest extends TestCase
         // Event should still exist
         $this->assertDatabaseHas('events', [
             'id' => $this->event->id,
-            'title' => 'Test Event',
+            'title' => $this->event->title,
         ]);
     }
 }
