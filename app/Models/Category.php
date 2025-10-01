@@ -4,15 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
+/**
+ * Category model represents event classification system for better user experience.
+ * Manages event categorization with visual styling (colors, icons) to organize events by type or theme.
+ * Enables filtering functionality for better user experience.
+ */
 class Category extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'name',
-        'slug',
+        'slug', 
         'color',
         'icon',
         'description',
@@ -23,33 +27,33 @@ class Category extends Model
         'is_active' => 'boolean',
     ];
 
-    // Automatically generate slug when creating category
-    protected static function boot()
-    {
-        parent::boot();
-        
-        static::creating(function ($category) {
-            if (!$category->slug) {
-                $category->slug = Str::slug($category->name);
-            }
-        });
-    }
-
-    // Relationship: Many categories belong to many events
+    /**
+     * Define many-to-many relationship with events for flexible categorization.
+     * Allows events to have multiple categories
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function events()
     {
-        return $this->belongsToMany(Event::class)->withTimestamps();
+        return $this->belongsToMany(Event::class, 'event_categories');
     }
 
-    // Scope for active categories only
+    /**
+     * Scope query to retrieve only active categories.
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
     }
 
-    // Get events count for this category
-    public function getEventsCountAttribute()
+    /**
+     * Retrieve hexadecimal color value by selected color on color palette.
+     * @return string Valid hexadecimal color code (EX: #FF5733)
+     */
+    public function getColorAttribute($value)
     {
-        return $this->events()->count();
+        // Ensure color starts with # for CSS compatibility
+        return $value && !str_starts_with($value, '#') ? '#' . $value : ($value ?? '#6B7280');
     }
 }
