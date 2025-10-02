@@ -9,23 +9,24 @@
         <div class="rounded-lg bg-white p-8 shadow-lg dark:bg-gray-800">
             <h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-white">Create New Event</h2>
 
-            <!-- Success/Error Messages -->
+            {{-- System Success Messages --}}
             @if (session('success'))
                 <div class="mb-6 rounded border border-green-400 bg-green-100 px-4 py-3 text-green-700">
                     {{ session('success') }}
                 </div>
             @endif
 
+            {{-- System Error Messages --}}
             @if (session('error'))
                 <div class="mb-6 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700">
                     {{ session('error') }}
                 </div>
             @endif
-
+            
+            {{-- Create New Event Form --}}
             <form action="/eventmanager/create" method="POST" class="space-y-6">
                 @csrf
-
-                <!-- Event Title -->
+                {{-- Event Title --}}
                 <div>
                     <label for="title" class="mb-1 block text-sm font-medium text-gray-700 dark:text-white">
                         Event Title <span class="text-red-500">*</span>
@@ -38,7 +39,7 @@
                     @enderror
                 </div>
 
-                <!-- Event Description -->
+                {{-- Event Description --}}
                 <div>
                     <label for="description" class="mb-1 block text-sm font-medium text-gray-700 dark:text-white">
                         Description <span class="text-red-500">*</span>
@@ -51,13 +52,13 @@
                     @enderror
                 </div>
 
-                <!-- Categories Selection - Dropdown with Multi-Select -->
+                {{-- Categories Selection --}}
                 <div>
                     <label for="categories" class="mb-1 block text-sm font-medium text-gray-700 dark:text-white">
                         Event Categories <span class="text-red-500">*</span>
                     </label>
 
-                    <!-- Custom Dropdown -->
+                    {{-- Dropdown Field --}}
                     <div class="relative">
                         <div id="categoryDropdown"
                             class="w-full cursor-pointer rounded-md border border-gray-300 bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700"
@@ -72,7 +73,7 @@
                             </div>
                         </div>
 
-                        <!-- Dropdown Menu -->
+                        {{-- Category Dropdown Menu --}}
                         <div id="categoryMenu"
                             class="absolute z-10 mt-1 hidden max-h-60 w-full overflow-y-auto rounded-md border border-gray-300 bg-white shadow-lg dark:border-gray-600 dark:bg-gray-700">
                             @php
@@ -102,7 +103,7 @@
                             One!</span></p>
                 </div>
 
-                <!-- Date and Time -->
+                {{-- Date and Time --}}
                 <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div>
                         <label for="date" class="mb-1 block text-sm font-medium text-gray-700 dark:text-white">
@@ -128,7 +129,7 @@
                     </div>
                 </div>
 
-                <!-- Location -->
+                {{-- Location --}}
                 <div>
                     <label for="location" class="mb-1 block text-sm font-medium text-gray-700 dark:text-white">
                         Location <span class="text-red-500">*</span>
@@ -141,7 +142,7 @@
                     @enderror
                 </div>
 
-                <!-- Capacity -->
+                {{-- Capacity --}}
                 <div>
                     <label for="capacity" class="mb-1 block text-sm font-medium text-gray-700 dark:text-white">
                         Capacity <span class="text-red-500">*</span>
@@ -155,7 +156,7 @@
                     @enderror
                 </div>
 
-                <!-- Action Buttons -->
+                {{-- Action Buttons --}}
                 <div class="flex justify-between pt-6">
                     <a href="/eventmanager"
                         class="rounded-md border border-gray-300 px-4 py-2 text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700">
@@ -168,7 +169,7 @@
                 </div>
             </form>
 
-            <!-- Category Creation Modal -->
+            {{-- Category Creation Modal --}}
             <div id="categoryModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-gray-300/50">
                 <div class="mx-4 w-full max-w-md rounded-lg bg-white p-6 shadow-xl dark:bg-gray-800">
                     <div class="mb-4 flex items-center justify-between">
@@ -179,9 +180,10 @@
                         </button>
                     </div>
 
+                    {{-- Create New Category Form --}}
                     <form id="categoryForm" class="space-y-4">
                         @csrf
-                        <!-- Category Name -->
+                        {{-- Category Name Field --}}
                         <div>
                             <label for="category_name"
                                 class="mb-1 block text-sm font-medium text-gray-700 dark:text-white">
@@ -192,7 +194,7 @@
                                 placeholder="e.g., Workshop, Sports">
                         </div>
 
-                        <!-- Category Slug -->
+                        {{-- Category Slug Field  --}}
                         <div>
                             <label for="category_slug"
                                 class="mb-1 block text-sm font-medium text-gray-700 dark:text-white">
@@ -204,7 +206,7 @@
                             <p class="mt-1 text-xs text-gray-500">Max 10 characters, no spaces</p>
                         </div>
 
-                        <!-- Category Icon -->
+                        {{-- Category Icon Field --}}
                         <div>
                             <label for="category_icon"
                                 class="mb-1 block text-sm font-medium text-gray-700 dark:text-white">
@@ -216,7 +218,7 @@
                             <p class="mt-1 text-xs text-gray-500">Single emoji only</p>
                         </div>
 
-                        <!-- Category Color -->
+                        {{-- Category Color Field --}}
                         <div>
                             <label for="category_color"
                                 class="mb-1 block text-sm font-medium text-gray-700 dark:text-white">
@@ -226,7 +228,7 @@
                                 class="h-10 w-10 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-600">
                         </div>
 
-                        <!-- Category Description -->
+                        {{-- Category Description Field --}}
                         <div>
                             <label for="category_description"
                                 class="mb-1 block text-sm font-medium text-gray-700 dark:text-white">
@@ -237,7 +239,7 @@
                                 placeholder="Brief description of the category..." required></textarea>
                         </div>
 
-                        <!-- Modal Buttons -->
+                        {{-- New Category Modal Buttons --}}
                         <div class="flex justify-end space-x-3 pt-4">
                             <button type="button" onclick="closeCategoryModal()"
                                 class="cursor-pointer rounded-md border border-gray-300 px-4 py-2 text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700">
@@ -291,6 +293,7 @@
 
 @section('scripts')
     <script>
+        // Toggle category selection drop down menu
         function toggleDropdownMenu() {
             const menu = document.getElementById('categoryMenu');
             const arrow = document.getElementById('dropdownArrow');
@@ -304,6 +307,7 @@
             }
         }
 
+        // Update the new selected category
         function updateSelectedCategories() {
             const checkboxes = document.querySelectorAll('.category-checkbox:checked');
             const selectedText = document.getElementById('selectedText');
@@ -333,15 +337,7 @@
             }
         }
 
-        // function removeCategory(categoryId) {
-        //     const checkbox = document.querySelector(`input[value="${categoryId}"]`);
-        //     if (checkbox) {
-        //         checkbox.checked = false;
-        //         updateSelectedCategories();
-        //     }
-        // }
-
-        // Close dropdown when clicking outside
+        // Close dropdown when clicking anywhere on the page
         document.addEventListener('click', function(event) {
             const dropdown = document.getElementById('categoryDropdown');
             const menu = document.getElementById('categoryMenu');
@@ -358,16 +354,16 @@
             updateSelectedCategories();
         });
 
-        // Category Modal Functions
+        // Open Category Modal
         function openCategoryModal() {
             document.getElementById('categoryModal').classList.remove('hidden');
             document.getElementById('categoryModal').classList.add('flex');
         }
 
+        // Close Category Modal
         function closeCategoryModal() {
             document.getElementById('categoryModal').classList.add('hidden');
             document.getElementById('categoryModal').classList.remove('flex');
-            // Reset form
             document.getElementById('categoryForm').reset();
         }
 
@@ -413,7 +409,7 @@
                 });
         });
 
-        // Function to add new category to dropdown
+        // Add new category to dropdown
         function addNewCategoryToDropdown(category) {
             const categoryMenu = document.getElementById('categoryMenu');
 
