@@ -43,7 +43,6 @@
                         <div class="text-center">
                             <p class="font-medium text-gray-900 dark:text-white">Upcoming Events</p>
                             @php
-                                date_default_timezone_set('Australia/Brisbane');
                                 $upcomingCount = collect($myBookings)
                                     ->where('event.date', '>=', date('Y-m-d'))
                                     ->count();
