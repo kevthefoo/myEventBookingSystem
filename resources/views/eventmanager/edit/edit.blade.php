@@ -79,15 +79,15 @@
                         <div id="categoryMenu"
                             class="absolute z-10 mt-1 hidden max-h-60 w-full overflow-y-auto rounded-md border border-gray-300 bg-white shadow-lg dark:border-gray-600 dark:bg-gray-700">
                             @php
-                                $categories = \App\Models\Category::active()->get();
-                                $eventCategoryIds = old('categories', $event->categories->pluck('id')->toArray());
+                                // Use data passed from controller, with old() fallback for validation errors
+                                $categoryIds = old('categories', $eventCategoryIds);
                             @endphp
                             @foreach ($categories as $category)
                                 <label
                                     class="flex cursor-pointer items-center px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-600">
                                     <input type="checkbox" name="categories[]" value="{{ $category->id }}"
                                         class="category-checkbox mr-3 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                                        {{ in_array($category->id, $eventCategoryIds) ? 'checked' : '' }}
+                                        {{ in_array($category->id, $categoryIds) ? 'checked' : '' }}
                                         onchange="updateSelectedCategories()">
                                     <div class="flex items-center space-x-2">
                                         <span style="color: {{ $category->color }}">{{ $category->icon }}</span>

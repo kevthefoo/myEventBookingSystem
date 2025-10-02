@@ -33,7 +33,9 @@ Route::get("/eventmanager/create", function () {
         return redirect("/");
     }
 
-    return view("eventmanager.create.create");
+    $categories = \App\Models\Category::active()->get();
+    
+    return view("eventmanager.create.create", compact("categories"));
 });
 
 // Create a new event
@@ -106,7 +108,10 @@ Route::get("/eventmanager/edit/{event}", function (Event $event) {
     //     abort(403, 'You can only edit your own events.');
     // }
 
-    return view("eventmanager.edit.edit", compact("event"));
+    $categories = \App\Models\Category::active()->get();
+    $eventCategoryIds = $event->categories->pluck('id')->toArray();
+
+    return view("eventmanager.edit.edit", compact("event", "categories", "eventCategoryIds"));
 });
 
 // Update an event

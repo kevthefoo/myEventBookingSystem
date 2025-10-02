@@ -9,7 +9,7 @@ use App\Models\Booking;
 class BookingController extends Controller
 {
     /**
-     * Retrieve all bookings made by the attendee
+     * Retrieve all bookings made by the attendee with statistics
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Event $event
      * @return \Illuminate\Contracts\View\View | \Illuminate\Http\RedirectResponse
@@ -22,12 +22,33 @@ class BookingController extends Controller
         }
 
         // Fetch all bookings for the attendee with event details
-        $myBookings = Booking::with(["event.organizer"])
+        $myBookings = Booking::with(["event.organizer", "event.categories"])
             ->where("user_id", auth()->id())
-            ->orderByDesc("created_at")
+            ->orderBy("created_at", "desc")
             ->get();
 
-        return view("mybookings.mybookings", compact("myBookings"));
+        // Calculate booking statistics
+        $today = now()->toDateString();
+        $upcomingCount = $myBookings->filter(function ($booking) use ($today) {
+            return $booking->event->date >= $today;
+        })->count();
+        
+        $pastCount = $myBookings->count() - $upcomingCount;
+        $totalBookings = $myBookings->count();
+
+        // Add booking status to each booking
+        $myBookings = $myBookings->map(function ($booking) use ($today) {
+            $booking->isUpcoming = $booking->event->date >= $today;
+            $booking->isPast = !$booking->isUpcoming;
+            return $booking;
+        });
+
+        return view("mybookings.mybookings", compact(
+            "myBookings", 
+            "upcomingCount", 
+            "pastCount", 
+            "totalBookings",
+        ));
     }
 
 

@@ -141,19 +141,14 @@
                                     </span>
                                 </td>
                                 <td class="whitespace-nowrap px-6 py-4 max-md:px-3 max-md:py-3">
-                                    @php
-                                        $occupancyRate =
-                                            $event->capacity > 0
-                                                ? round(($event->current_bookings / $event->capacity) * 100, 1)
-                                                : 0;
-                                    @endphp
                                     <div class="flex items-center">
                                         <div class="mr-2 h-2 flex-1 rounded-full bg-gray-200 max-md:mr-1">
-                                            <div class="h-2 rounded-full bg-blue-600" style="width: {{ $occupancyRate }}%">
+                                            <div class="h-2 rounded-full bg-blue-600"
+                                                style="width: {{ $event->occupancy_rate }}%">
                                             </div>
                                         </div>
                                         <span
-                                            class="text-sm font-medium text-gray-900 max-md:text-xs dark:text-white">{{ $occupancyRate }}%</span>
+                                            class="text-sm font-medium text-gray-900 max-md:text-xs dark:text-white">{{ $event->occupancy_rate }}%</span>
                                     </div>
                                 </td>
                             </tr>

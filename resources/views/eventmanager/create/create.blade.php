@@ -22,7 +22,7 @@
                     {{ session('error') }}
                 </div>
             @endif
-            
+
             {{-- Create New Event Form --}}
             <form action="/eventmanager/create" method="POST" class="space-y-6">
                 @csrf
@@ -76,9 +76,6 @@
                         {{-- Category Dropdown Menu --}}
                         <div id="categoryMenu"
                             class="absolute z-10 mt-1 hidden max-h-60 w-full overflow-y-auto rounded-md border border-gray-300 bg-white shadow-lg dark:border-gray-600 dark:bg-gray-700">
-                            @php
-                                $categories = \App\Models\Category::active()->get();
-                            @endphp
                             @foreach ($categories as $category)
                                 <label
                                     class="flex cursor-pointer items-center px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-600">

@@ -24,6 +24,9 @@ class EventDetailsController extends Controller
         // Calculate remaining spots
         $remainingSpots = max(0, $event->capacity - $currentBookings);
 
+        // Calculate occupancy rate
+        $occupancyRate = $event->capacity > 0 ? ($currentBookings / $event->capacity) * 100 : 0;
+
         // Check if the attendee has already booked this event
         $isUserBooked = auth()->check()
             ? $event->bookings()->where('user_id', auth()->id())->exists()
@@ -33,6 +36,7 @@ class EventDetailsController extends Controller
             'event',
             'currentBookings',
             'remainingSpots',
+            'occupancyRate',
             'isUserBooked'
         ));
     }

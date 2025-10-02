@@ -69,9 +69,6 @@
             @endforeach
 
             {{-- Booking Progress Bar --}}
-            @php
-                $occupancyRate = $event->capacity > 0 ? ($currentBookings / $event->capacity) * 100 : 0;
-            @endphp
             <div class="mb-6">
                 <div class="mb-1 flex justify-between text-sm text-gray-600 dark:text-white">
                     <span>Bookings: {{ $currentBookings }}/{{ $event->capacity }}</span>

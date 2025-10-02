@@ -52,6 +52,14 @@ class DashboardController extends Controller
             [$organizerId]
         );
 
+        // Calculate occupancy rates for each event
+        $eventsDetails = collect($eventsDetails)->map(function ($event) {
+            $event->occupancy_rate = $event->capacity > 0 
+                ? round(($event->current_bookings / $event->capacity) * 100, 1) 
+                : 0;
+            return $event;
+        })->toArray();
+
         // Get summary statistics using Raw SQL
         $summaryStats = DB::select(
             "

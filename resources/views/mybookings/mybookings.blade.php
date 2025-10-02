@@ -15,7 +15,7 @@
                 <span>{{ session('success') }}</span>
             </div>
         @endif
-        
+
         {{-- System Error Messages --}}
         @if (session('error'))
             <div id="error-message"
@@ -43,19 +43,13 @@
                         {{-- Upcoming Events Count --}}
                         <div class="text-center">
                             <p class="font-medium text-gray-900 dark:text-white">Upcoming Events</p>
-                            @php
-                                $upcomingCount = collect($myBookings)
-                                    ->where('event.date', '>=', date('Y-m-d'))
-                                    ->count();
-                            @endphp
                             <p class="text-xl font-bold text-green-600 sm:text-2xl">{{ $upcomingCount }}</p>
                         </div>
 
                         {{-- Completed Events Count --}}
                         <div class="text-center">
                             <p class="font-medium text-gray-900 dark:text-white">Past Events</p>
-                            <p class="text-xl font-bold text-red-600 sm:text-2xl dark:text-red-600">
-                                {{ count($myBookings) - $upcomingCount }}</p>
+                            <p class="text-xl font-bold text-red-600 sm:text-2xl dark:text-red-600">{{ $pastCount }}</p>
                         </div>
                     </div>
                 </div>
@@ -66,20 +60,15 @@
 
                 <div class="space-y-3 sm:space-y-4">
                     @foreach ($myBookings as $booking)
-                        @php
-                            $isUpcoming = strtotime($booking->event->date) >= strtotime(date('Y-m-d'));
-                            $isPast = !$isUpcoming;
-                        @endphp
-
                         <div
-                            class="{{ $isPast ? 'bg-gray-50 border-gray-200' : 'bg-white border-gray-300' }} rounded-lg border p-3 transition-shadow hover:shadow-md sm:p-4 dark:bg-gray-700">
+                            class="{{ $booking->isPast ? 'bg-gray-50 border-gray-200' : 'bg-white border-gray-300' }} rounded-lg border p-3 transition-shadow hover:shadow-md sm:p-4 dark:bg-gray-700">
 
                             {{-- Event Status Badge --}}
                             <div class="mb-2 flex items-start justify-between sm:mb-3">
                                 <h3 class="text-base font-semibold text-gray-900 sm:text-lg dark:text-white">
                                     {{ $booking->event->title }}</h3>
                                 <div class="flex items-center gap-2">
-                                    @if ($isPast)
+                                    @if ($booking->isPast)
                                         <span class="rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-600">
                                             Completed
                                         </span>
@@ -108,7 +97,7 @@
                                         <x-heroicon-s-calendar class="mr-1 h-4 w-4 sm:h-5 sm:w-5" />
                                         <span class="font-medium text-gray-700 dark:text-white">Date:</span>
                                         <span
-                                            class="{{ $isPast ? 'text-gray-500' : 'text-gray-900' }} ml-1 dark:text-white">
+                                            class="{{ $booking->isPast ? 'text-gray-500' : 'text-gray-900' }} ml-1 dark:text-white">
                                             {{ date('F j, Y', strtotime($booking->event->date)) }}
                                         </span>
                                     </div>
@@ -118,7 +107,7 @@
                                         <x-heroicon-o-clock class="mr-1 h-4 w-4 sm:h-5 sm:w-5" />
                                         <span class="font-medium text-gray-700 dark:text-white">Time:</span>
                                         <span
-                                            class="{{ $isPast ? 'text-gray-500' : 'text-gray-900' }} ml-1 dark:text-white">
+                                            class="{{ $booking->isPast ? 'text-gray-500' : 'text-gray-900' }} ml-1 dark:text-white">
                                             {{ date('g:i A', strtotime($booking->event->time)) }}
                                         </span>
                                     </div>
@@ -131,7 +120,7 @@
                                         <x-heroicon-o-map-pin class="mr-1 h-4 w-4 sm:h-5 sm:w-5" />
                                         <span class="font-medium text-gray-700 dark:text-white">Location:</span>
                                         <span
-                                            class="{{ $isPast ? 'text-gray-500' : 'text-gray-900' }} ml-1 max-lg:truncate dark:text-white">
+                                            class="{{ $booking->isPast ? 'text-gray-500' : 'text-gray-900' }} ml-1 max-lg:truncate dark:text-white">
                                             {{ $booking->event->location }}
                                         </span>
                                     </div>
@@ -141,7 +130,7 @@
                                         <x-heroicon-o-hand-raised class="mr-1 h-4 w-4 sm:h-5 sm:w-5" />
                                         <span class="font-medium text-gray-700 dark:text-white">Organizer:</span>
                                         <span
-                                            class="{{ $isPast ? 'text-gray-500' : 'text-gray-900' }} ml-1 dark:text-white">
+                                            class="{{ $booking->isPast ? 'text-gray-500' : 'text-gray-900' }} ml-1 dark:text-white">
                                             {{ $booking->event->organizer->first_name }}
                                             {{ $booking->event->organizer->last_name }}
                                         </span>
@@ -168,7 +157,7 @@
                                     </a>
 
                                     {{-- Cancel Button --}}
-                                    @if ($isUpcoming)
+                                    @if ($booking->isUpcoming)
                                         <form method="POST" action="/events/{{ $booking->event->uuid }}/cancel"
                                             class="inline">
                                             @csrf
