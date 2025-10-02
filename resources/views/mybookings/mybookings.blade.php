@@ -8,14 +8,15 @@
 
     <div class="mx-auto max-w-6xl p-4 sm:p-6 dark:bg-gray-800">
 
-        <!-- Success/Error Messages -->
+        {{-- System Success Messages --}}
         @if (session('success'))
             <div id="success-message"
                 class="relative mb-4 rounded border border-green-400 bg-green-100 px-3 py-2 text-green-700 sm:mb-6 sm:px-4 sm:py-3">
                 <span>{{ session('success') }}</span>
             </div>
         @endif
-
+        
+        {{-- System Error Messages --}}
         @if (session('error'))
             <div id="error-message"
                 class="relative mb-4 rounded border border-red-400 bg-red-100 px-3 py-2 text-red-700 sm:mb-6 sm:px-4 sm:py-3">
