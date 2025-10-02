@@ -149,11 +149,11 @@
             @else
                 {{-- Log in Button --}}
                 <a href="/login"
-                    class="rounded-2xl border-2 border-blue-500 px-4 py-2 font-semibold text-blue-600 transition-colors duration-200 hover:bg-blue-500 hover:text-white max-md:px-3 max-md:py-1.5 max-md:text-sm dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-400 dark:hover:text-gray-900">Login
+                    class="rounded-2xl border-2 border-blue-500 px-4 py-2 font-semibold text-blue-600 transition-colors duration-200 hover:bg-blue-500 hover:text-white max-md:px-3 max-md:py-1.5 max-md:text-sm max-sm:px-[4px] max-sm:py-[1px] max-sm:text-xs dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-400 dark:hover:text-gray-900">Login
                 </a>
                 {{-- Register Button --}}
                 <a href="/register"
-                    class="rounded-2xl border-2 border-green-500 bg-green-500 px-4 py-2 font-semibold text-white transition-colors duration-200 hover:border-green-600 hover:bg-green-600 max-md:px-3 max-md:py-1.5 max-md:text-sm dark:border-green-600 dark:bg-green-600 dark:hover:border-green-700 dark:hover:bg-green-700">
+                    class="rounded-2xl border-2 border-green-500 bg-green-500 px-4 py-2 font-semibold text-white transition-colors duration-200 hover:border-green-600 hover:bg-green-600 max-md:px-3 max-md:py-1.5 max-md:text-sm max-sm:px-[4px] max-sm:py-[1px] max-sm:text-xs dark:border-green-600 dark:bg-green-600 dark:hover:border-green-700 dark:hover:bg-green-700">
                     Register
                 </a>
             @endauth
