@@ -5,23 +5,23 @@
 @endsection
 
 @section('content')
-
     <div class="mx-auto max-w-7xl p-6">
-
-        <!-- Success/Error Messages with Auto-hide -->
+        {{-- System Success Messages --}}
         @if (session('success'))
             <div id="success-message"
                 class="relative mb-6 rounded border border-green-400 bg-green-100 px-4 py-3 text-green-700">
                 <span>{{ session('success') }}</span>
             </div>
         @endif
-
+        
+        {{-- System Error Messages --}}
         @if (session('error'))
             <div id="error-message" class="relative mb-6 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700">
                 <span>{{ session('error') }}</span>
             </div>
         @endif
-
+        
+        {{-- Create Event Button --}}
         <div class="mb-6">
             <a href="/eventmanager/create"
                 class="rounded-lg bg-blue-600 px-6 py-2 text-white transition duration-200 hover:bg-blue-700 max-lg:px-3 max-lg:text-xs">
@@ -33,6 +33,7 @@
         <div class="rounded-lg bg-white p-6 shadow-md dark:bg-gray-900 dark:text-white">
             <h2 class="mb-4 text-xl font-bold">My Events</h2>
 
+            {{-- Event Information --}}
             @if ($events->count() > 0)
                 <div class="overflow-x-auto">
                     <table class="min-w-full table-auto">
@@ -44,7 +45,7 @@
                                 </th>
                                 <th
                                     class="px-4 py-2 text-left text-sm font-medium text-gray-700 max-lg:text-xs dark:text-white">
-                                    Date &Time
+                                    Date & Time
                                 </th>
                                 <th
                                     class="px-4 py-2 text-left text-sm font-medium text-gray-700 max-lg:text-xs dark:text-white">
@@ -67,40 +68,46 @@
                         <tbody class="divide-y divide-gray-200">
                             @foreach ($events as $event)
                                 <tr class="hover:bg-gray-50 dark:hover:bg-gray-800">
-
                                     <td class="px-4 py-3">
+                                        {{-- Title --}}
                                         <a href="/events/{{ $event->uuid }}"
                                             class="pointer-cursor border-white no-underline">
                                             <div class="font-medium text-gray-900 max-lg:text-xs dark:text-white">
                                                 {{ $event->title }}
                                             </div>
                                         </a>
-                                        <div class="text-sm text-gray-500 max-lg:hidden dark:text-white">
+                                        {{-- Description --}}
+                                        <p class="text-sm text-gray-500 max-lg:hidden dark:text-white">
                                             {{ Str::limit($event->description, 50) }}
-                                        </div>
+                                        </p>
                                     </td>
+                                    {{-- Date and Time --}}
                                     <td class="px-4 py-3 text-sm text-gray-700 max-lg:text-xs dark:text-white">
                                         {{ $event->date->format('Y-m-d') }}<br>
                                         {{ date('H:i', strtotime($event->time)) }}
                                     </td>
+                                    {{-- Location --}}
                                     <td class="px-4 py-3 text-sm text-gray-700 max-lg:text-xs dark:text-white">
                                         {{ Str::limit($event->location, 30) }}
                                     </td>
+                                    {{-- Capacity --}}
                                     <td class="px-4 py-3 text-sm text-gray-700 max-lg:text-xs dark:text-white">
                                         {{ $event->capacity }}
                                     </td>
+                                    {{-- Booking Count --}}
                                     <td class="px-4 py-3 text-sm text-gray-700 max-lg:text-xs dark:text-white">
                                         {{ $event->attendees()->count() ?? 0 }}
                                     </td>
+                                    {{-- Action Buttons --}}
                                     <td class="px-4 py-3">
                                         <div class="flex gap-2 max-lg:flex-col">
-                                            <!-- Edit Button -->
+                                            {{-- Edit Button --}}
                                             <a href="/eventmanager/edit/{{ $event->uuid }}"
                                                 class="rounded bg-blue-500 px-3 py-1 text-sm text-white transition duration-200 hover:bg-blue-600 max-lg:flex max-lg:items-center max-lg:justify-center max-lg:px-1 max-lg:text-xs">
                                                 Edit
                                             </a>
 
-                                            <!-- Delete Button -->
+                                            {{-- Delete Button --}}
                                             <form method="POST" action="/eventmanager/delete/{{ $event->uuid }}"
                                                 class="inline">
                                                 @csrf
@@ -132,7 +139,6 @@
                 </div>
             @endif
         </div>
-
     </div>
 @endsection
 
@@ -176,13 +182,13 @@
             if (successMessage) {
                 setTimeout(() => {
                     fadeOut(successMessage);
-                }, 5000); // 5 seconds
+                }, 5000);
             }
 
             if (errorMessage) {
                 setTimeout(() => {
                     fadeOut(errorMessage);
-                }, 5000); // 5 seconds
+                }, 5000);
             }
         });
 
@@ -194,7 +200,7 @@
             }
         }
 
-        // Fade out animation
+        // Make System Message Disappear
         function fadeOut(element) {
             element.style.transition = 'opacity 0.5s ease-out';
             element.style.opacity = '0';
